@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="vertical"
+    tools:context="com.example.admin.pagination.Activities.SecondActivities.HotLineSecondActivity">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
+    </android.support.design.widget.AppBarLayout>
+    <LinearLayout
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_second_hot_line_description"
+        android:padding="7dp"
+        android:text="jggdsjfuvbudch  ds
+        f
+        sd df f gfdg
+        f fdhdsf fb
+        sdfsdf sadhrhsdgsrvcesd fsgfdhsfdh
+        werwerqwerqwe
+        werqwerwerqwe"/>
+    <TextView
+        android:id="@+id/tv_phone_hot"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="00836355562"
+        android:textColor="#00d0ff"
+        android:layout_marginBottom="15dp"
+        android:textSize="22sp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:onClick="onClickHot"
+       >
+
+        <ImageButton
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/phone_call"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:onClick="onClickHot"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:padding="10dp"
+            android:text="Позвонить \nпрямо сейчас"
+            android:onClick="onClickHot"
+            android:textSize="22sp"/>
+    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
