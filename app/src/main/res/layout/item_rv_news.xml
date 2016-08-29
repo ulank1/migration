@@ -6,7 +6,7 @@
     android:id="@+id/cv_forum"
 
     android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:padding="1dp">
     <LinearLayout
 
         android:layout_width="match_parent"
@@ -15,11 +15,12 @@
         >
 
         <TextView
+            android:background="#c5d5c8"
             android:id="@+id/tv_zagolovok_news"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="1dp"
+            android:layout_margin="2dp"
+            android:layout_marginBottom="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ASDFGHJKLTRDsud yfytFJUY uhiu\n gjdsgkfsdgcjhgkh fksfdkjghjvg jkhjjbkg hjvjsdbyu bsdjb hjvsjdkb hj"/>

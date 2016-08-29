@@ -81,7 +81,7 @@ public class RVEmbassyAdapter extends RecyclerView.Adapter {
         RecyclerView.ViewHolder vh;
         if (viewType == VIEW_ITEM) {
             View v = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.item_rv_news, parent, false);
+                    R.layout.item_rv_embassy, parent, false);
 
             vh = new StudentViewHolder(v);
         } else {
@@ -134,7 +134,7 @@ public class RVEmbassyAdapter extends RecyclerView.Adapter {
 
         public StudentViewHolder(View v) {
             super(v);
-            tvName = (TextView) v.findViewById(R.id.tv_zagolovok_news);
+            tvName = (TextView) v.findViewById(R.id.tv_embassy_adapter);
 
 
 
