@@ -3,6 +3,7 @@ import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -36,10 +37,8 @@ public class RulesOfIncomingSecondActivity extends AppCompatActivity {
         // устанавливаем linLayout как корневой элемент экрана
         setContentView(scrollView, linLayoutParam);
         s='"'+getIntent().getStringExtra("text")+'"';
-        ActionBar actionBar=getSupportActionBar();
 
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
         for(Element element : Jsoup.parse(s).select("*")) {
             if (element.tagName().equals("p")) {
                 Log.e("TAG", element.text());
@@ -55,7 +54,7 @@ public class RulesOfIncomingSecondActivity extends AppCompatActivity {
                 Log.e("TAG_ROI",element.attr("src"));
                 ImageView btn = new ImageView(this);
 
-                Picasso.with(this).load("http://213.159.215.186/"+element.attr("src")).placeholder(R.drawable.send_icon).into(btn);
+                Picasso.with(this).load("http://176.126.167.231:8000/"+element.attr("src")).placeholder(R.drawable.send_icon).into(btn);
                 linLayout.addView(btn, lpView);
             }
         }

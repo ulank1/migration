@@ -65,14 +65,12 @@ public class EmbassySecondActivity extends AppCompatActivity {
         setContentView(R.layout.activity_embassy_second);
         TextView tvPhone=(TextView) findViewById(R.id.tv_phone_number_second);
         TextView tvFax=(TextView) findViewById(R.id.tv_fax_second);
-        TextView tvEmail=(TextView) findViewById(R.id.tv_email_second);
         TextView tvSite=(TextView) findViewById(R.id.tv_site_second);
         TextView tvAddress=(TextView) findViewById(R.id.tv_address_second);
         String s=getIntent().getStringExtra("phone_number");
         tvPhone.setText(s);
         Log.e("TAG_S",s);
-        s=getIntent().getStringExtra("email");
-        tvEmail.setText(s);
+
         s=getIntent().getStringExtra("fax");
         tvFax.setText(s);
         s=getIntent().getStringExtra("site");
@@ -201,7 +199,7 @@ public class EmbassySecondActivity extends AppCompatActivity {
 
             try {
 
-                URL url = new URL("http://213.159.215.186/api/v1/consulate/?embassy__id="+id1+"&offset="+a+"&limit=15&format=json");
+                URL url = new URL("http://176.126.167.231:8000/api/v1/consulate/?embassy__id="+id1+"&offset="+a+"&limit=15&format=json");
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");

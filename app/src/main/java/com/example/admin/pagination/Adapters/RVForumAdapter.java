@@ -13,18 +13,21 @@ import android.widget.Toast;
 
 
 import com.example.admin.pagination.Activities.SecondActivities.StorySecondActivity;
+import com.example.admin.pagination.Activities.SecondActivities.StoryfromLifeSecondActivity;
 import com.example.admin.pagination.Helpers.OnLoadMoreListener;
 import com.example.admin.pagination.R;
 import com.example.admin.pagination.Serializables.Istories;
 import com.example.admin.pagination.Serializables.VseAndUzery;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RVForumAdapter extends RecyclerView.Adapter {
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
 
-    private List<VseAndUzery> studentList;
+    private ArrayList<String> studentList;
 
     // The minimum amount of items to have below your current scroll position
     // before loading more.
@@ -35,7 +38,7 @@ public class RVForumAdapter extends RecyclerView.Adapter {
 
 
 
-    public RVForumAdapter(List<VseAndUzery> students, RecyclerView recyclerView) {
+    public RVForumAdapter(ArrayList<String> students, RecyclerView recyclerView) {
         studentList = students;
 
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
@@ -95,12 +98,13 @@ public class RVForumAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof StudentViewHolder) {
 
-            VseAndUzery singleStudent= (VseAndUzery) studentList.get(position);
+            String singleStudent= (String) studentList.get(position);
 
 
-            ((StudentViewHolder) holder).tvText.setText(singleStudent.getTitle());
+            ((StudentViewHolder) holder).tvText.setText(singleStudent);
 
             ((StudentViewHolder) holder).student= singleStudent;
+            ((StudentViewHolder) holder).studentL= studentList;
 
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
@@ -127,7 +131,8 @@ public class RVForumAdapter extends RecyclerView.Adapter {
 
         public TextView tvText;
 
-        public VseAndUzery student;
+        public String  student;
+        ArrayList<String> studentL;
 
         public StudentViewHolder(View v) {
             super(v);
@@ -139,11 +144,13 @@ public class RVForumAdapter extends RecyclerView.Adapter {
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),
-                            "OnClick :" + student.getTitle() + " \n "+student.getText(),
-                            Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(v.getContext(), StorySecondActivity.class);
-                    intent.putExtra("text",student.getText());
+
+
+                    Intent intent=new Intent(v.getContext(), StoryfromLifeSecondActivity.class);
+                    intent.putExtra("position",getAdapterPosition());
+                    intent.putExtra("text",student);
+
+
                     v.getContext().startActivity(intent);
 
                 }

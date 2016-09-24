@@ -29,6 +29,7 @@ import com.example.admin.pagination.Adapters.RVForumAdapter;
 import com.example.admin.pagination.Adapters.RVForumQuestionsAndAnswersAdapter;
 import com.example.admin.pagination.Adapters.RVNewsAdapter;
 import com.example.admin.pagination.Helpers.DataHelper;
+import com.example.admin.pagination.Helpers.DividerItemDecoration;
 import com.example.admin.pagination.Helpers.OnLoadMoreListener;
 import com.example.admin.pagination.R;
 import com.example.admin.pagination.Serializables.Istories;
@@ -44,6 +45,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.admin.pagination.R.drawable.divider_news;
 
 public class NewsActivity extends AppCompatActivity {
 
@@ -94,7 +97,9 @@ public class NewsActivity extends AppCompatActivity {
 
         // use a linear layout manager
         mRecyclerView.setLayoutManager(mLayoutManager);
-       pizdec(1);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL,this.getResources().getDrawable(R.drawable.divider_news)));
+
+        pizdec(1);
 
     }
 
@@ -186,9 +191,33 @@ public class NewsActivity extends AppCompatActivity {
     public void onClickSearch(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editSearch.getWindowToken(), 0);
-        title=editSearch.getText().toString();
-        studentList.clear();
-       pizdec(3);
+        title = editSearch.getText().toString();
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+
+            studentList.clear();
+            pizdec(3);
+        }else
+        {
+            Cursor cursor=dataHelper.getData();
+            studentList.clear();
+            String titleDataHelper;
+            if(cursor.getCount()>0){
+                while (cursor.moveToNext()){
+                    titleDataHelper=cursor.getString(cursor.getColumnIndex(DataHelper.NEWS_ZAGOLOVOK_COLUMN)).toLowerCase();
+                    if(titleDataHelper.contains(title.toLowerCase())){
+                        Istories istories=new Istories();
+                        istories.setNickName(cursor.getString(cursor.getColumnIndex(DataHelper.NEWS_ZAGOLOVOK_COLUMN)));
+                        istories.setText(cursor.getString(cursor.getColumnIndex(DataHelper.NEWS_TEXT_COLUMN)));
+                        studentList.add(istories);
+                    }
+
+                }
+
+            }
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     public class ParseTask extends AsyncTask<Void, Void, String> {
@@ -206,7 +235,7 @@ public class NewsActivity extends AppCompatActivity {
 
             try {
 
-                URL url = new URL("http://213.159.215.186/api/v1/news/?title_ru__contains="+title+"&offset="+a+"&limit=15&format=json");
+                URL url = new URL("http://176.126.167.231:8000/api/v1/news/?title_ru__contains="+title+"&offset="+a+"&limit=15&format=json");
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
@@ -252,9 +281,7 @@ public class NewsActivity extends AppCompatActivity {
                 JSONObject meta=dataJsonObject.getJSONObject("meta");
                 total_count=meta.getInt("total_count");
                 Log.e(TAG+"Total",total_count+""+a);
-                JSONObject secondObject = menus.getJSONObject(1);
-                secondName = secondObject.getString("id");
-                Log.d(TAG, "Второе имя: " + secondName);
+
 
                 for (int i = 0; i < menus.length(); i++) {
                     JSONObject menu = menus.getJSONObject(i);

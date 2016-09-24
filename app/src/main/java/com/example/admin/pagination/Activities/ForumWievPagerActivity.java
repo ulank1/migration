@@ -40,11 +40,7 @@ public class ForumWievPagerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Форум");
         dataHelper=new DataHelper(this);
-        Cursor cursor=dataHelper.getDataUser();
 
-        if (cursor.getCount()==0||cursor==null){
-            startActivity(new Intent(this,RegisterActivity.class));
-        }
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
@@ -54,8 +50,8 @@ public class ForumWievPagerActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new StoryFragment(), "ONE");
-        adapter.addFragment(new QuestionFragment(), "TWO");
+        adapter.addFragment(new StoryFragment(), "Истории из жизни");
+        adapter.addFragment(new QuestionFragment(), "Вопросы");
 
         viewPager.setAdapter(adapter);
     }

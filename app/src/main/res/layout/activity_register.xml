@@ -25,6 +25,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
+        android:background="#0197e1"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,12 +34,22 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/registr_emblem"
+            android:layout_weight="1"
+            android:scaleType="fitStart" />
         <EditText
+            android:textColorHint="#ccc"
+            android:textColor="#fff"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_register_username"
             android:hint="Логин"/>
         <EditText
+            android:textColorHint="#ccc"
+            android:textColor="#fff"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_register_password"
@@ -53,6 +64,7 @@
             />
 
             <TextView
+                android:textColor="#fff"
                 android:layout_margin="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

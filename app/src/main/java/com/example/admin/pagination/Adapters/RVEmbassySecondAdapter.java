@@ -141,6 +141,7 @@ public class RVEmbassySecondAdapter extends RecyclerView.Adapter {
         public StudentViewHolder(View v) {
             super(v);
             tvRegion = (TextView) v.findViewById(R.id.tv_region_consulate);
+
             tvAddress = (TextView) v.findViewById(R.id.tv_address_consulate);
             tvPhoneNumber = (TextView) v.findViewById(R.id.tv_phone_number_consulate);
 

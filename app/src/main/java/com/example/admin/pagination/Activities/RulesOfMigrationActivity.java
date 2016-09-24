@@ -210,7 +210,7 @@ public class RulesOfMigrationActivity extends AppCompatActivity {
 
             try {
 
-                URL url = new URL("http://213.159.215.186/api/v1/rules_of_migration/?offset="+a+"&limit=15&format=json");
+                URL url = new URL("http://176.126.167.231:8000/api/v1/rules_of_migration/?offset="+a+"&limit=15&format=json");
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
@@ -266,7 +266,7 @@ public class RulesOfMigrationActivity extends AppCompatActivity {
                     RulesOfIncoming student = new RulesOfIncoming();
                     Log.d(TAG, "2: ");
 
-                    student.setImage("http://213.159.215.186/"+menu.getString("image"));
+                    student.setImage("http://176.126.167.231:8000/"+menu.getString("image"));
                     student.setText(menu.getString("text_ru"));
                     student.setTitle(menu.getString("title_ru"));
                     if (i==0&&b==1){dataHelper.deleteROM();

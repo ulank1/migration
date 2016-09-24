@@ -217,7 +217,7 @@ public class QuestionsAndAnswersActivity extends AppCompatActivity {
 
             try {
 
-                URL url = new URL("http://213.159.215.186/api/v1/comment/?question__id="+id+"&offset="+a+"&limit=15&format=json");
+                URL url = new URL("http://176.126.167.231:8000/api/v1/comment/?question__id="+id+"&offset="+a+"&limit=15&format=json");
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
@@ -313,7 +313,7 @@ public class QuestionsAndAnswersActivity extends AppCompatActivity {
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
             try {
-                URL url = new URL("http://213.159.215.186/api/v1/comment/");
+                URL url = new URL("http://176.126.167.231:8000/api/v1/comment/");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoOutput(true);

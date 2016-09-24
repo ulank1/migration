@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="5dp"
+
+    android:background="#e3e3e3"
     android:orientation="vertical"
     tools:context="com.example.admin.pagination.Activities.SecondActivities.EmbassySecondActivity">
     <android.support.design.widget.AppBarLayout
@@ -33,110 +34,151 @@
 
 
 
+
+
     <TextView
+        android:paddingLeft="22dp"
+        android:paddingRight="22dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_tv"
+        android:id="@+id/tv_embassy_second"
         android:text="Посольство Кыргызской Республики"
         android:textSize="22sp"
-        android:textColor="#ffffff"
+        android:textColor="#4e4e4e"
         />
+            <LinearLayout
+                android:layout_margin="7dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@drawable/rv_embassy"
+                android:layout_height="wrap_content">
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Тел:"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            />
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+       <ImageView
+           android:layout_width="20dp"
+           android:layout_height="20dp"
+           android:background="@drawable/phone"
+           />
 
         <TextView
+            android:paddingLeft="15dp"
+            android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tv_phone_number_second"
             />
     </LinearLayout>
+                <TextView
+                    android:background="#FFE3E3E3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Факс:"
-            android:textSize="15sp"
-            android:textStyle="bold"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/fax"
             />
 
         <TextView
+            android:paddingLeft="15dp"
+            android:text="sdsf"
+            android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tv_fax_second"
             />
     </LinearLayout>
-    <TextView
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_email_second"
-        />
-    <TextView
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_site_second"
-        />
+
+                <TextView
+                    android:background="#FFE3E3E3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Адресс:"
-            android:textSize="15sp"
-            android:textStyle="bold"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/location"
             />
 
         <TextView
+            android:paddingLeft="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tv_address_second"
             />
     </LinearLayout>
+                <TextView
+                    android:background="#FFE3E3E3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp">
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/website"
+                        />
+
+                    <TextView
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_site_second"
+                        />
+                </LinearLayout>
+                <TextView
+                    android:background="#FFE3E3E3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+    </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_consulate_second"
+                android:paddingLeft="22dp"
+                android:paddingRight="22dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_tv"
+
                 android:text="Общественные представители в регионах"
                 android:textSize="22sp"
-                android:textColor="#ffffff"
+                android:textColor="#4e4e4e"
                 />
-        </LinearLayout>
-    </ScrollView>
+
     <android.support.v7.widget.RecyclerView
+        android:background="@drawable/rv_embassy"
+        android:layout_margin="7dp"
         android:layout_width="match_parent"
         android:id="@+id/rv_consulate"
         android:layout_height="match_parent">
@@ -154,4 +196,6 @@
         android:gravity="center"
         android:text="No Records"
         android:visibility="gone" />
+        </LinearLayout>
+    </ScrollView>
     </LinearLayout>

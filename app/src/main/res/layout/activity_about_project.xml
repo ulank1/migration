@@ -22,11 +22,27 @@
 
 
     </android.support.design.widget.AppBarLayout>
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/emblem_for_about"/>
 
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:background="@drawable/flag_usa"/>
+</LinearLayout>
     <TextView
         android:layout_margin="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="About Project"/>
+        android:text="Приложение разработано для содействия Правительству Кыргызской Республики"/>
 
 </LinearLayout>

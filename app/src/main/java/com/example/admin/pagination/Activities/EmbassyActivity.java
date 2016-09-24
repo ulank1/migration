@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -46,7 +47,7 @@ public class EmbassyActivity extends AppCompatActivity {
 EditText editSearch;
     String country="";
     DataHelper dataHelper;
-
+    boolean bool=false;
     String TAG="TAG_EMBASSY";
     private Toolbar toolbar;
 
@@ -56,7 +57,7 @@ EditText editSearch;
     private LinearLayoutManager mLayoutManager;
     int total_count=100000;
     private List<Embassy> studentList;
-
+    TextView title;
     ProgressBar progressBar;
     protected Handler handler;
     @Override
@@ -66,9 +67,10 @@ EditText editSearch;
         Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        title= (TextView) findViewById(R.id.toolbar_title);
+        title.setText("Посольства");
         ActionBar actionBar=getSupportActionBar();
-        actionBar.setTitle("Посольства");
+
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         dataHelper=new DataHelper(this);
@@ -89,7 +91,7 @@ EditText editSearch;
 
         // use a linear layout manager
         mRecyclerView.setLayoutManager(mLayoutManager);
-
+        mRecyclerView.addItemDecoration(new com.example.admin.pagination.Helpers.DividerItemDecoration(this, LinearLayoutManager.VERTICAL,this.getResources().getDrawable(R.drawable.divider_embassy)));
         pizdec(1);
     }
 
@@ -177,9 +179,50 @@ EditText editSearch;
     }
 
     public void onClickSearch(View view) {
+        if (!bool){
+            title.setVisibility(View.GONE);
+            editSearch.setVisibility(View.VISIBLE);
+            bool=true;
+
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(editSearch, 0);
+        }
+        else {
+            title.setVisibility(View.VISIBLE);
+            editSearch.setVisibility(View.GONE);
+            bool=false;
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editSearch.getWindowToken(), 0);
         country=editSearch.getText().toString();
         studentList.clear();
-        pizdec(3);
+        String countryDataHelper;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            pizdec(3);
+        }
+        else {
+            Cursor cursor=dataHelper.getDataEmbassy();
+            if (cursor.getCount()>0){
+                while (cursor.moveToNext()){
+                    countryDataHelper=cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_COUNTRY_COLUMN)).toLowerCase();
+                    if(countryDataHelper.contains(country.toLowerCase())){
+                        Embassy istories=new Embassy();
+                        istories.setEmail(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_EMAIL_COLUMN)));
+                        istories.setSite(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_SITE_COLUMN)));
+                        istories.setRegion(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_ADDRESS_COLUMN)));
+                        istories.setId(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_JSON_ID_COLUMN)));
+                        istories.setFax(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_FAX_COLUMN)));
+                        istories.setCountry(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_COUNTRY_COLUMN)));
+                        istories.setPhoneNumber(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_PHONE_COLUMN)));
+                        studentList.add(istories);
+                    }
+                }
+            }
+            mAdapter.notifyDataSetChanged();
+        }
+        }
     }
 
     public class ParseTask extends AsyncTask<Void, Void, String> {
@@ -197,7 +240,7 @@ EditText editSearch;
 
             try {
 
-                URL url = new URL("http://213.159.215.186/api/v1/embassy/?country__contains="+country+"&offset="+a+"&limit=15&format=json");
+                URL url = new URL("http://176.126.167.231:8000/api/v1/embassy/?country__contains="+country+"&offset="+a+"&limit=15&format=json");
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");

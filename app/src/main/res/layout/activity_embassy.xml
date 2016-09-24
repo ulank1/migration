@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#e3e3e3"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
@@ -18,15 +19,53 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+         <LinearLayout
+             android:orientation="horizontal"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+             <TextView
+                 android:layout_gravity="center_vertical"
+                 android:layout_weight="1"
+                 android:textSize="23sp"
+                 android:text="dsfsd"
+                 android:textColor="#fff"
+                 android:textStyle="bold"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/toolbar_title"/>
+            <EditText
+                android:visibility="gone"
+                android:layout_weight="1"
+                android:id="@+id/tv_embassy_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                >
+
+            </EditText>
+             <LinearLayout
+                 android:padding="9dp"
+                 android:layout_width="?attr/actionBarSize"
+                 android:layout_height="?attr/actionBarSize">
+            <ImageButton
+                android:onClick="onClickSearch"
+                android:background="@drawable/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+             </LinearLayout>
+         </LinearLayout>
+        </android.support.v7.widget.Toolbar>
 
 
     </android.support.design.widget.AppBarLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"
+        android:layout_margin="7dp"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rv_embassy"
         android:layout_weight="1"
         android:scrollbars="vertical"
         />
@@ -43,21 +82,6 @@
         android:gravity="center"
         android:text="No Records"
         android:visibility="gone" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <EditText
-            android:id="@+id/tv_embassy_search"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="50dp" />
-        <ImageButton
-            android:onClick="onClickSearch"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/send_icon"/>
-    </LinearLayout>
 
 
 

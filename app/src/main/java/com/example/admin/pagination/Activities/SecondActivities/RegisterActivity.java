@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             try {
 
-                URL url = new URL("http://213.159.215.186/api/v1/user/?username="+username+"&offset=0&limit=15&format=json");
+                URL url = new URL("http://176.126.167.231:8000/api/v1/user/?username="+username+"&offset=0&limit=15&format=json");
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");

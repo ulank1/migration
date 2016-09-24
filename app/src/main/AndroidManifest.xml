@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".Activities.MainActivity" />
         <activity android:name=".Activities.AboutProjectActivity" />
-        <activity android:name=".Activities.ForumActivity" />
+
         <activity android:name=".Activities.QuestionsAndAnswersActivity" />
         <activity android:name=".Activities.IstoriesFromLifeActivity" />
         <activity android:name=".Activities.NewsActivity" />
@@ -35,8 +35,12 @@
         <activity android:name=".Activities.RulesOfMigrationActivity" />
         <activity android:name=".Activities.FAQActivity" />
         <activity android:name=".Activities.ForumWievPagerActivity" />
-        <activity android:name=".Activities.SecondActivities.RegisterActivity"></activity>
-        <activity android:name=".Activities.SecondActivities.StorySecondActivity"></activity>
+        <activity android:name=".Activities.SecondActivities.RegisterActivity" />
+        <activity android:name=".Activities.SecondActivities.StorySecondActivity" />
+        <activity android:name=".Activities.SecondActivities.StoryfromLifeSecondActivity" />
+        <activity android:name=".Activities.SecondActivities.NewStoryActivity" />
+        <activity android:name=".Activities.SecondActivities.NewQuestionActivity" />
+        <activity android:name=".Activities.SecondActivities.QuestionSecondActivity"></activity>
     </application>
 
 </manifest>

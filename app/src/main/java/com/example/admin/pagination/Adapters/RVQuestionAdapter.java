@@ -14,18 +14,20 @@ import android.widget.Toast;
 
 
 import com.example.admin.pagination.Activities.QuestionsAndAnswersActivity;
+import com.example.admin.pagination.Activities.SecondActivities.QuestionSecondActivity;
 import com.example.admin.pagination.Helpers.OnLoadMoreListener;
 import com.example.admin.pagination.R;
 import com.example.admin.pagination.Serializables.Istories;
 import com.example.admin.pagination.Serializables.VseAndUzery;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RVQuestionAdapter extends RecyclerView.Adapter {
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
 
-    private List<VseAndUzery> studentList;
+    private ArrayList<String> studentList;
     public Context context;
     // The minimum amount of items to have below your current scroll position
     // before loading more.
@@ -36,7 +38,7 @@ public class RVQuestionAdapter extends RecyclerView.Adapter {
 
 
 
-    public RVQuestionAdapter(List<VseAndUzery> students, RecyclerView recyclerView,Context context) {
+    public RVQuestionAdapter(ArrayList<String> students, RecyclerView recyclerView,Context context) {
         studentList = students;
         this.context=context;
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
@@ -80,7 +82,7 @@ public class RVQuestionAdapter extends RecyclerView.Adapter {
         RecyclerView.ViewHolder vh;
         if (viewType == VIEW_ITEM) {
             View v = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.item_rv_question, parent, false);
+                    R.layout.item_rv_forum, parent, false);
 
             vh = new StudentViewHolder(v);
         } else {
@@ -96,10 +98,10 @@ public class RVQuestionAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof StudentViewHolder) {
 
-            VseAndUzery singleStudent= (VseAndUzery) studentList.get(position);
+            String singleStudent= (String) studentList.get(position);
 
-            ((StudentViewHolder) holder).tvName.setText("("+singleStudent.getUsername()+")");
-            ((StudentViewHolder) holder).tvText.setText(singleStudent.getText());
+            ((StudentViewHolder) holder).tvName.setText(singleStudent);
+
 
             ((StudentViewHolder) holder).student= singleStudent;
 
@@ -128,23 +130,22 @@ public class RVQuestionAdapter extends RecyclerView.Adapter {
 
         public TextView tvText;
 
-        public VseAndUzery student;
+        public String student;
 
         public StudentViewHolder(View v) {
             super(v);
-            tvName = (TextView) v.findViewById(R.id.tv_nick_name_question);
-            tvText=(TextView) v.findViewById(R.id.tv_text_question);
+            tvName = (TextView) v.findViewById(R.id.tv_text_forum);
+
 
 
             v.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),
-                            "OnClick :" + student.getTitle() + " \n "+student.getText(),
-                            Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(v.getContext(), QuestionsAndAnswersActivity.class);
-                    intent.putExtra("id",student.getTitle());
+
+                    Intent intent=new Intent(v.getContext(), QuestionSecondActivity.class);
+                    intent.putExtra("position",getAdapterPosition());
+                    intent.putExtra("text",student);
                    v.getContext().startActivity(intent);
 
 
