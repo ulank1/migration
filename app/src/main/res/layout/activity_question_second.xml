@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#afb2b1"
+    android:background="#e3e3e3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
@@ -51,7 +51,10 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Создать Историю"
+            android:layout_margin="15dp"
+            android:background="@drawable/button_fragment"
+            android:textColor="#fff"
+            android:text="Задать свой Вопрос"
             android:id="@+id/new_story_button"/>
     </LinearLayout>
 </LinearLayout>

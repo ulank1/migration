@@ -13,23 +13,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration;
 import com.example.admin.pagination.Adapters.RVEmbassyAdapter;
-import com.example.admin.pagination.Adapters.RVNewsAdapter;
 import com.example.admin.pagination.Helpers.DataHelper;
 import com.example.admin.pagination.Helpers.OnLoadMoreListener;
 import com.example.admin.pagination.R;
 import com.example.admin.pagination.Serializables.Embassy;
-import com.example.admin.pagination.Serializables.Istories;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,13 +41,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmbassyActivity extends AppCompatActivity {
-EditText editSearch;
+    EditText editSearch;
     String country="";
     DataHelper dataHelper;
     boolean bool=false;
     String TAG="TAG_EMBASSY";
     private Toolbar toolbar;
-
+    private MaterialSearchView searchView;
     private TextView tvEmptyView;
     private RecyclerView mRecyclerView;
     private RVEmbassyAdapter mAdapter;
@@ -67,18 +64,20 @@ EditText editSearch;
         Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        title= (TextView) findViewById(R.id.toolbar_title);
-        title.setText("Посольства");
-        ActionBar actionBar=getSupportActionBar();
+//        title= (TextView) findViewById(R.id.toolbar_title);
+//        title.setText("Посольства");
 
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.setTitle("Консульства");
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         dataHelper=new DataHelper(this);
-        editSearch=(EditText) findViewById(R.id.tv_embassy_search);
+        // editSearch=(EditText) findViewById(R.id.tv_embassy_search);
         tvEmptyView = (TextView) findViewById(R.id.empty_view);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         studentList = new ArrayList<>();
         handler = new Handler();
+        mAdapter = new RVEmbassyAdapter(studentList, mRecyclerView, this);
         progressBar=(ProgressBar) findViewById(R.id.progress);
         progressBar.setVisibility(View.GONE);
         if (toolbar != null) {
@@ -91,8 +90,74 @@ EditText editSearch;
 
         // use a linear layout manager
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.addItemDecoration(new com.example.admin.pagination.Helpers.DividerItemDecoration(this, LinearLayoutManager.VERTICAL,this.getResources().getDrawable(R.drawable.divider_embassy)));
+
         pizdec(1);
+
+
+
+        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        searchView.setVoiceSearch(false);
+        searchView.setCursorDrawable(R.drawable.custom_cursor);
+        //  searchView.setSuggestions(getResources().getStringArray(R.array.query_suggestions));
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+//                Snackbar.make(findViewById(R.id.container), "Query: " + query, Snackbar.LENGTH_LONG)
+//                        .show();
+                country=query;
+                studentList.clear();
+                String countryDataHelper;
+                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                        connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+                    pizdec(3);
+                }
+                else {
+                    Cursor cursor=dataHelper.getDataEmbassy();
+                    if (cursor.getCount()>0){
+                        while (cursor.moveToNext()){
+                            countryDataHelper=cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_COUNTRY_COLUMN)).toLowerCase();
+                            if(countryDataHelper.contains(country.toLowerCase())){
+                                Embassy istories=new Embassy();
+                                istories.setEmail(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_EMAIL_COLUMN)));
+                                istories.setSite(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_SITE_COLUMN)));
+                                istories.setRegion(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_ADDRESS_COLUMN)));
+                                istories.setId(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_JSON_ID_COLUMN)));
+                                istories.setFax(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_FAX_COLUMN)));
+                                istories.setCountry(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_COUNTRY_COLUMN)));
+                                istories.setPhoneNumber(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_PHONE_COLUMN)));
+                                studentList.add(istories);
+                            }
+                        }
+                    }
+                    mAdapter.notifyDataSetChanged();
+                }
+
+
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                return false;
+            }
+        });
+
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+            }
+        });
+
+
     }
 
     public void pizdec(int b){
@@ -178,8 +243,8 @@ EditText editSearch;
 
     }
 
-    public void onClickSearch(View view) {
-        if (!bool){
+//    public void onClickSearch(View view) {
+     /*   if (!bool){
             title.setVisibility(View.GONE);
             editSearch.setVisibility(View.VISIBLE);
             bool=true;
@@ -190,40 +255,40 @@ EditText editSearch;
         else {
             title.setVisibility(View.VISIBLE);
             editSearch.setVisibility(View.GONE);
-            bool=false;
+            bool=false;*/
 
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(editSearch.getWindowToken(), 0);
-        country=editSearch.getText().toString();
-        studentList.clear();
-        String countryDataHelper;
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            pizdec(3);
-        }
-        else {
-            Cursor cursor=dataHelper.getDataEmbassy();
-            if (cursor.getCount()>0){
-                while (cursor.moveToNext()){
-                    countryDataHelper=cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_COUNTRY_COLUMN)).toLowerCase();
-                    if(countryDataHelper.contains(country.toLowerCase())){
-                        Embassy istories=new Embassy();
-                        istories.setEmail(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_EMAIL_COLUMN)));
-                        istories.setSite(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_SITE_COLUMN)));
-                        istories.setRegion(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_ADDRESS_COLUMN)));
-                        istories.setId(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_JSON_ID_COLUMN)));
-                        istories.setFax(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_FAX_COLUMN)));
-                        istories.setCountry(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_COUNTRY_COLUMN)));
-                        istories.setPhoneNumber(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_PHONE_COLUMN)));
-                        studentList.add(istories);
-                    }
-                }
-            }
-            mAdapter.notifyDataSetChanged();
-        }
-        }
-    }
+     /*   InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editSearch.getWindowToken(), 0);*/
+    //country=editSearch.getText().toString();
+//        studentList.clear();
+//        String countryDataHelper;
+//        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+//                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+//            pizdec(3);
+//        }
+//        else {
+//            Cursor cursor=dataHelper.getDataEmbassy();
+//            if (cursor.getCount()>0){
+//                while (cursor.moveToNext()){
+//                    countryDataHelper=cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_COUNTRY_COLUMN)).toLowerCase();
+//                    if(countryDataHelper.contains(country.toLowerCase())){
+//                        Embassy istories=new Embassy();
+//                        istories.setEmail(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_EMAIL_COLUMN)));
+//                        istories.setSite(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_SITE_COLUMN)));
+//                        istories.setRegion(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_ADDRESS_COLUMN)));
+//                        istories.setId(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_JSON_ID_COLUMN)));
+//                        istories.setFax(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_FAX_COLUMN)));
+//                        istories.setCountry(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_COUNTRY_COLUMN)));
+//                        istories.setPhoneNumber(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_PHONE_COLUMN)));
+//                        studentList.add(istories);
+//                    }
+//                }
+//            }
+//            mAdapter.notifyDataSetChanged();
+//        }
+//        }
+//    }}
 
     public class ParseTask extends AsyncTask<Void, Void, String> {
 
@@ -336,4 +401,15 @@ EditText editSearch;
         return super.onOptionsItemSelected(item);
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
+
+        return true;
+    }
+
 }

@@ -40,17 +40,18 @@ public class NewStoryActivity extends AppCompatActivity {
     int position;
     String  idUser="d";
     ArrayList<String > studentList;
-
+    Spinner spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_story);
         studentList=new ArrayList<>();
         position=getIntent().getIntExtra("text",-1);
-        studentList.add("Rossiya");
-        studentList.add("Passport");
-        studentList.add("POhiwenie");
-        studentList.add("RAznoe");
+        studentList.add("Выберите категорию");
+        studentList.add("Пасспорт и документы");
+        studentList.add("Рабочие моменты");
+        studentList.add("Семейные дела");
+        studentList.add("Похищение");
         editText=(EditText) findViewById(R.id.edit_story_text);
         editTitle=(EditText) findViewById(R.id.edit_story_title);
         dataHelper=new DataHelper(this);
@@ -58,10 +59,11 @@ public class NewStoryActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, studentList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_new_story);
+         spinner = (Spinner) findViewById(R.id.spinner_new_story);
         spinner.setAdapter(adapter);
         // заголовок
         spinner.setPrompt("Title");
+        spinner.setSelection(position+1);
         // выделяем элемент
         if (position>-1)
         spinner.setSelection(position);
@@ -94,9 +96,11 @@ public class NewStoryActivity extends AppCompatActivity {
         }
         JSONObject obj = new JSONObject();
         try {
+            int pos = spinner.getSelectedItemPosition();
+
             Log.e("TAG_IDDDDDDD",idUser+"");
             obj.put("user", "/api/v1/user/"+idUser+"/");
-            obj.put("publish",false);
+            obj.put("category", studentList.get(pos));
             obj.put("text",editText.getText().toString());
             obj.put("title",editTitle.getText().toString());
 

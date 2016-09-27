@@ -30,4 +30,5 @@ dependencies {
     compile 'com.bignerdranch.android:simple-item-decoration:1.0.0'
     compile 'com.android.support:design:23.3.0'
     compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.miguelcatalan:materialsearchview:1.4.0'
 }

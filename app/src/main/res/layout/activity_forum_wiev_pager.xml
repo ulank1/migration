@@ -22,6 +22,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabMode="fixed"
+            app:tabTextColor="#828282"
+            app:tabSelectedTextColor="#0ec1d4"
+            app:tabIndicatorColor="#0ec1d4"
+            android:background="#e3e3e3"
             app:tabGravity="fill"/>
     </android.support.design.widget.AppBarLayout>
 

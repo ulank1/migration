@@ -146,10 +146,10 @@ public class StoryFragment extends Fragment{
 
         // use a linear layout manager
         mRecyclerView.setLayoutManager(mLayoutManager);
-        studentList.add("Rossiya");
-        studentList.add("Passport");
-        studentList.add("POhiwenie");
-        studentList.add("RAznoe");
+        studentList.add("Пасспорт и документы");
+        studentList.add("Рабочие моменты");
+        studentList.add("Семейные дела");
+        studentList.add("Похищение");
 
 
 

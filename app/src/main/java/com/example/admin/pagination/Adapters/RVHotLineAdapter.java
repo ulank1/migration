@@ -13,10 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.admin.pagination.Activities.HotLineActivity;
-import com.example.admin.pagination.Activities.SecondActivities.HotLineSecondActivity;
+import com.example.admin.pagination.Activities.SecondActivities.EmbassySecondActivity;
+import com.example.admin.pagination.Activities.SecondActivities.NewsSecondActivity;
 import com.example.admin.pagination.Helpers.OnLoadMoreListener;
 import com.example.admin.pagination.R;
+
+import com.example.admin.pagination.Serializables.Embassy;
 import com.example.admin.pagination.Serializables.Hotline;
 import com.example.admin.pagination.Serializables.Istories;
 
@@ -25,7 +27,7 @@ import java.util.List;
 public class RVHotLineAdapter extends RecyclerView.Adapter {
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
-   public Context context;
+
     private List<Hotline> studentList;
 
     // The minimum amount of items to have below your current scroll position
@@ -34,12 +36,12 @@ public class RVHotLineAdapter extends RecyclerView.Adapter {
     private int lastVisibleItem, totalItemCount;
     private boolean loading;
     private OnLoadMoreListener onLoadMoreListener;
+    public Context context;
 
 
-
-    public RVHotLineAdapter(List<Hotline> students, RecyclerView recyclerView, Context context) {
+    public RVHotLineAdapter(List<Hotline> students, RecyclerView recyclerView,Context context) {
         studentList = students;
-        this.context = context;
+        this.context=context;
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
 
             final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView
@@ -81,7 +83,7 @@ public class RVHotLineAdapter extends RecyclerView.Adapter {
         RecyclerView.ViewHolder vh;
         if (viewType == VIEW_ITEM) {
             View v = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.item_rv_hot_line, parent, false);
+                    R.layout.item_rv_embassy, parent, false);
 
             vh = new StudentViewHolder(v);
         } else {
@@ -126,14 +128,15 @@ public class RVHotLineAdapter extends RecyclerView.Adapter {
     //
     public class StudentViewHolder extends RecyclerView.ViewHolder {
         public TextView tvName;
+        Context mContext;
 
-
+        public TextView tvEmailId;
 
         public Hotline student;
 
         public StudentViewHolder(View v) {
             super(v);
-            tvName = (TextView) v.findViewById(R.id.tv_zagolovok_news);
+            tvName = (TextView) v.findViewById(R.id.tv_embassy_adapter);
 
 
 
@@ -141,14 +144,17 @@ public class RVHotLineAdapter extends RecyclerView.Adapter {
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),
-                            "OnClick :" + student.getTitle() + " \n "+student.getDescription(),
-                            Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(RVHotLineAdapter.this.context, HotLineSecondActivity.class);
-                    intent.putExtra("phone_number",student.getPhoneNumber());
-                    intent.putExtra("description",student.getDescription());
-                    context.startActivity(intent);
 
+                    Intent intent = new Intent(context, EmbassySecondActivity.class);
+
+                    intent.putExtra("phoner",student.getPhoneNumber());
+                    intent.putExtra("description",student.getDescription());
+
+
+
+
+
+                    context.startActivity(intent);
 
                 }
             });
@@ -161,6 +167,7 @@ public class RVHotLineAdapter extends RecyclerView.Adapter {
         public ProgressViewHolder(View v) {
             super(v);
             progressBar = (ProgressBar) v.findViewById(R.id.progressBar1);
+
         }
     }
 }

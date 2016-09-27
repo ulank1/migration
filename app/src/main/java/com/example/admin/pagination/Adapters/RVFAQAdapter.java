@@ -98,7 +98,7 @@ public class RVFAQAdapter extends RecyclerView.Adapter {
             Istories singleStudent= (Istories) studentList.get(position);
 
             ((StudentViewHolder) holder).tvQuestion.setText(singleStudent.getNickName());
-            ((StudentViewHolder) holder).tvAnswer.setText(singleStudent.getText());
+
 
             ((StudentViewHolder) holder).student= singleStudent;
 
@@ -126,14 +126,14 @@ public class RVFAQAdapter extends RecyclerView.Adapter {
         public TextView tvQuestion;
         Context mContext;
 
-        public TextView tvAnswer;
+
 
         public Istories student;
 
         public StudentViewHolder(View v) {
             super(v);
             tvQuestion = (TextView) v.findViewById(R.id.tv_question);
-            tvAnswer = (TextView) v.findViewById(R.id.tv_answer);
+
 
 
 

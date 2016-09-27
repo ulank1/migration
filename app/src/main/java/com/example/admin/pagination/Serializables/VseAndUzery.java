@@ -7,10 +7,18 @@ public class VseAndUzery {
     public VseAndUzery(){
 
     }
-    String username,title,text,id;
+    String username,title,text,id,category;
 
     public String getId() {
         return id;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     public void setId(String id) {

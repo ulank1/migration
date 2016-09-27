@@ -80,7 +80,7 @@ public class RVStorySecondAdapter extends RecyclerView.Adapter {
         RecyclerView.ViewHolder vh;
         if (viewType == VIEW_ITEM) {
             View v = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.item_rv_forum, parent, false);
+                    R.layout.item_rv_forum_story_second, parent, false);
 
             vh = new StudentViewHolder(v);
         } else {
@@ -145,6 +145,7 @@ public class RVStorySecondAdapter extends RecyclerView.Adapter {
                             Toast.LENGTH_SHORT).show();
                     Intent intent=new Intent(v.getContext(), StorySecondActivity.class);
                     intent.putExtra("text",student.getText());
+                    intent.putExtra("id",student.getId());
                     v.getContext().startActivity(intent);
 
                 }

@@ -238,9 +238,7 @@ public class HotLineActivity extends AppCompatActivity {
                 JSONObject meta=dataJsonObject.getJSONObject("meta");
                 total_count=meta.getInt("total_count");
                 Log.e(TAG+"Total",total_count+""+a);
-                JSONObject secondObject = menus.getJSONObject(1);
-                secondName = secondObject.getString("id");
-                Log.d(TAG, "Второе имя: " + secondName);
+
 
                 for (int i = 0; i < menus.length(); i++) {
                     JSONObject menu = menus.getJSONObject(i);
@@ -268,13 +266,13 @@ public class HotLineActivity extends AppCompatActivity {
                 mAdapter.notifyDataSetChanged();
                 mAdapter.setLoaded();
                 progressBar.setVisibility(View.GONE);
-                Log.d(TAG, "NET NET dsfsadadsgf: ");
+                Log.d(TAG+"ssssssss", studentList.size()+"");
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.d(TAG, "JSON_PIZDEC");
             }
             Log.e("TAG_1","NORM");
-
+            mAdapter.notifyDataSetChanged();
 
 
 

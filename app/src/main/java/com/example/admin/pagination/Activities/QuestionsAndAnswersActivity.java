@@ -105,7 +105,7 @@ public class QuestionsAndAnswersActivity extends AppCompatActivity {
             //we are connected to a network
             Toast.makeText(this,"RAbotaet",Toast.LENGTH_SHORT).show();
             studentList.add(null);
-            mAdapter = new RVForumQuestionsAndAnswersAdapter(studentList, mRecyclerView);
+            mAdapter = new RVForumQuestionsAndAnswersAdapter(studentList, mRecyclerView,this);
 
             // set the adapter object to the Recyclerview
             mRecyclerView.setAdapter(mAdapter);
@@ -117,7 +117,7 @@ public class QuestionsAndAnswersActivity extends AppCompatActivity {
 
 
             // create an Object for Adapter
-            mAdapter = new RVForumQuestionsAndAnswersAdapter(studentList, mRecyclerView);
+            mAdapter = new RVForumQuestionsAndAnswersAdapter(studentList, mRecyclerView,this);
 
             // set the adapter object to the Recyclerview
             mRecyclerView.setAdapter(mAdapter);
@@ -161,7 +161,7 @@ public class QuestionsAndAnswersActivity extends AppCompatActivity {
                     istories.setUsername(cursor.getString(cursor.getColumnIndex(DataHelper.A_USERNAME_COLUMN)));
                     studentList.add(istories);
                 }
-                mAdapter=new RVForumQuestionsAndAnswersAdapter(studentList,mRecyclerView);
+                mAdapter=new RVForumQuestionsAndAnswersAdapter(studentList,mRecyclerView,this);
                 mRecyclerView.setAdapter(mAdapter);
 
 
@@ -275,6 +275,7 @@ public class QuestionsAndAnswersActivity extends AppCompatActivity {
 
                         user=menu.getJSONObject("user");
                         student.setUsername(user.getString("username"));
+                        student.setId(user.getString("id"));
                         student.setText(menu.getString("answer"));
                     if (i==0&&b==1){dataHelper.deleteAById(id);
                         Log.e("TAG_NEWS","DELETE");

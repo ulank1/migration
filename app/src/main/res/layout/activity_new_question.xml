@@ -34,15 +34,18 @@
         <EditText
             android:id="@+id/edit_story_text"
             android:gravity="start"
-            android:hint="История"
+            android:hint="Вопрос"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
         <Button
+            android:background="@drawable/button_fragment"
+            android:textColor="#fff"
+
             android:text="Отправить"
             android:onClick="onClickNewStory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"/>
+            android:layout_margin="15dp"/>
     </LinearLayout>
 </LinearLayout>

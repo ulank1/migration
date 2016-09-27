@@ -38,12 +38,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StoryfromLifeSecondActivity extends AppCompatActivity {
     DataHelper dataHelper;
-    int notPublishCounter=0;
+
     String TAG="TAG";
     private Toolbar toolbar;
     String idUser="d";
@@ -177,7 +178,7 @@ public class StoryfromLifeSecondActivity extends AppCompatActivity {
                     //add null , so the adapter will check view_type and show progress bar at bottom
 
                     Log.e("TAG_SUKA", "SUKA_RABOTAET");
-                    int start = studentList.size()+notPublishCounter;
+                    int start = studentList.size();
                     if (start < total_count - 1)
                         progressBar.setVisibility(View.VISIBLE);
                     else progressBar.setVisibility(View.GONE);
@@ -190,21 +191,31 @@ public class StoryfromLifeSecondActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this,"NeRAbotaet",Toast.LENGTH_SHORT).show();
             cursor = dataHelper.getDataForum();
+            studentList.clear();
+            VseAndUzery istories=new VseAndUzery();
+            istories.setTitle("Asdasdasd");
+            istories.setText("sdfsdfsdfsdfsdf");
+            istories.setUsername("ulan");
+            studentList.add(istories);
+            studentList.add(istories);
+            studentList.add(istories);
+            studentList.add(istories);
+
             Log.e("TAG_FORUM",cursor.getCount()+" kol");
             if (cursor != null && cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    VseAndUzery istories=new VseAndUzery();
+                     istories=new VseAndUzery();
                     istories.setTitle(cursor.getString(cursor.getColumnIndex(DataHelper.FORUM_TITLE_COLUMN)));
                     istories.setUsername(cursor.getString(cursor.getColumnIndex(DataHelper.FORUM_USERNAME_COLUMN)));
                     istories.setText(cursor.getString(cursor.getColumnIndex(DataHelper.FORUM_TEXT_COLUMN)));
                     studentList.add(istories);
                 }
-                mAdapter=new RVStorySecondAdapter(studentList,mRecyclerView);
-                mRecyclerView.setAdapter(mAdapter);
+
 
 
             }
-
+            mAdapter=new RVStorySecondAdapter(studentList,mRecyclerView);
+            mRecyclerView.setAdapter(mAdapter);
 
         }
     }
@@ -239,7 +250,7 @@ public class StoryfromLifeSecondActivity extends AppCompatActivity {
 
             try {
 
-                URL url = new URL("http://176.126.167.231:8000/api/v1/story/?offset="+a+"&limit=15&format=json");
+                URL url = new URL("http://176.126.167.231:8000/api/v1/story/?offset="+a+"&limit=15&format=json&category__contains="+ URLEncoder.encode(category.trim(), "UTF-8"));
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
@@ -291,21 +302,22 @@ public class StoryfromLifeSecondActivity extends AppCompatActivity {
                     Log.d(TAG, "1: " );
                     VseAndUzery student = new VseAndUzery();
                     Log.d(TAG, "2: ");
-                    boolean publish=menu.getBoolean("publish");
+
                     if (i==0&&b==1){dataHelper.deleteForum();
                         Log.e("TAG_NEWS","DELETE");
                     }
-                    if (publish) {
+
 
                         student.setUsername(menu.getString("user"));
                         student.setText(menu.getString("text"));
                         student.setTitle(menu.getString("title"));
+                    student.setId(menu.getString("id"));
                         Log.e("TAGGGGGYCJBJKGFCJBK",student.getText());
 
                         dataHelper.insertForum(student);
 
                         studentList.add(student);
-                    }else notPublishCounter++;
+
 
                     Log.e("TAG_IS",student.getTitle()+"   "+student.getText());
 

@@ -13,26 +13,22 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.example.admin.pagination.Adapters.RVFAQAdapter;
-import com.example.admin.pagination.Adapters.RVForumAdapter;
-import com.example.admin.pagination.Adapters.RVForumQuestionsAndAnswersAdapter;
 import com.example.admin.pagination.Adapters.RVNewsAdapter;
 import com.example.admin.pagination.Helpers.DataHelper;
-import com.example.admin.pagination.Helpers.DividerItemDecoration;
 import com.example.admin.pagination.Helpers.OnLoadMoreListener;
 import com.example.admin.pagination.R;
 import com.example.admin.pagination.Serializables.Istories;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,8 +41,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.admin.pagination.R.drawable.divider_news;
 
 public class NewsActivity extends AppCompatActivity {
 
@@ -65,6 +59,7 @@ public class NewsActivity extends AppCompatActivity {
     ImageButton searchBt;
     ProgressBar progressBar;
     protected Handler handler;
+    private MaterialSearchView searchView;
     TextView tvSearch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +69,14 @@ public class NewsActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.setTitle("Новости");
         getSupportActionBar().setHomeButtonEnabled(true);
 
         dataHelper = new DataHelper(this);
 
 
-        editSearch=(EditText) findViewById(R.id.tv_news_search);
+        //  editSearch=(EditText) findViewById(R.id.tv_news_search);
         tvEmptyView = (TextView) findViewById(R.id.empty_view);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         studentList = new ArrayList<>();
@@ -91,15 +87,85 @@ public class NewsActivity extends AppCompatActivity {
 
 
         }
+
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(llm);
         mRecyclerView.setHasFixedSize(true);
-
-        mLayoutManager = new LinearLayoutManager(this);
-
-        // use a linear layout manager
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL,this.getResources().getDrawable(R.drawable.divider_news)));
+//        mRecyclerView.setHasFixedSize(true);
+//
+//        mLayoutManager = new LinearLayoutManager(this);
+//
+//        // use a linear layout manager
+//        mRecyclerView.setLayoutManager(mLayoutManager);
+//        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL,this.getResources().getDrawable(R.drawable.divider_news)));
 
         pizdec(1);
+
+
+
+
+        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        searchView.setVoiceSearch(false);
+        searchView.setCursorDrawable(R.drawable.custom_cursor);
+        //  searchView.setSuggestions(getResources().getStringArray(R.array.query_suggestions));
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+//                Snackbar.make(findViewById(R.id.container), "Query: " + query, Snackbar.LENGTH_LONG)
+//                        .show();
+                title = query;
+                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                        connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+
+                    studentList.clear();
+                    pizdec(3);
+                }else
+                {
+                    Cursor cursor=dataHelper.getData();
+                    studentList.clear();
+                    String titleDataHelper;
+                    if(cursor.getCount()>0){
+                        while (cursor.moveToNext()){
+                            titleDataHelper=cursor.getString(cursor.getColumnIndex(DataHelper.NEWS_ZAGOLOVOK_COLUMN)).toLowerCase();
+                            if(titleDataHelper.contains(title.toLowerCase())){
+                                Istories istories=new Istories();
+                                istories.setNickName(cursor.getString(cursor.getColumnIndex(DataHelper.NEWS_ZAGOLOVOK_COLUMN)));
+                                istories.setText(cursor.getString(cursor.getColumnIndex(DataHelper.NEWS_TEXT_COLUMN)));
+                                studentList.add(istories);
+                            }
+
+                        }
+
+                    }
+                    mAdapter.notifyDataSetChanged();
+                }
+
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                return false;
+            }
+        });
+
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+            }
+        });
+
+
 
     }
 
@@ -182,6 +248,16 @@ public class NewsActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
+
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         return super.onOptionsItemSelected(item);
@@ -191,33 +267,33 @@ public class NewsActivity extends AppCompatActivity {
     public void onClickSearch(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editSearch.getWindowToken(), 0);
-        title = editSearch.getText().toString();
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-
-            studentList.clear();
-            pizdec(3);
-        }else
-        {
-            Cursor cursor=dataHelper.getData();
-            studentList.clear();
-            String titleDataHelper;
-            if(cursor.getCount()>0){
-                while (cursor.moveToNext()){
-                    titleDataHelper=cursor.getString(cursor.getColumnIndex(DataHelper.NEWS_ZAGOLOVOK_COLUMN)).toLowerCase();
-                    if(titleDataHelper.contains(title.toLowerCase())){
-                        Istories istories=new Istories();
-                        istories.setNickName(cursor.getString(cursor.getColumnIndex(DataHelper.NEWS_ZAGOLOVOK_COLUMN)));
-                        istories.setText(cursor.getString(cursor.getColumnIndex(DataHelper.NEWS_TEXT_COLUMN)));
-                        studentList.add(istories);
-                    }
-
-                }
-
-            }
-            mAdapter.notifyDataSetChanged();
-        }
+//        title = editSearch.getText().toString();
+//        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+//                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+//
+//            studentList.clear();
+//            pizdec(3);
+//        }else
+//        {
+//            Cursor cursor=dataHelper.getData();
+//            studentList.clear();
+//            String titleDataHelper;
+//            if(cursor.getCount()>0){
+//                while (cursor.moveToNext()){
+//                    titleDataHelper=cursor.getString(cursor.getColumnIndex(DataHelper.NEWS_ZAGOLOVOK_COLUMN)).toLowerCase();
+//                    if(titleDataHelper.contains(title.toLowerCase())){
+//                        Istories istories=new Istories();
+//                        istories.setNickName(cursor.getString(cursor.getColumnIndex(DataHelper.NEWS_ZAGOLOVOK_COLUMN)));
+//                        istories.setText(cursor.getString(cursor.getColumnIndex(DataHelper.NEWS_TEXT_COLUMN)));
+//                        studentList.add(istories);
+//                    }
+//
+//                }
+//
+//            }
+//            mAdapter.notifyDataSetChanged();
+//        }
     }
 
     public class ParseTask extends AsyncTask<Void, Void, String> {

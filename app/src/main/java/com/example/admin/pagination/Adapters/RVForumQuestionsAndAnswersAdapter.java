@@ -1,16 +1,20 @@
 package com.example.admin.pagination.Adapters;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.admin.pagination.Helpers.DataHelper;
 import com.example.admin.pagination.Helpers.OnLoadMoreListener;
 import com.example.admin.pagination.R;
 import com.example.admin.pagination.Serializables.Istories;
@@ -30,12 +34,18 @@ public class RVForumQuestionsAndAnswersAdapter extends RecyclerView.Adapter {
     private int lastVisibleItem, totalItemCount;
     private boolean loading;
     private OnLoadMoreListener onLoadMoreListener;
-
-
-
-    public RVForumQuestionsAndAnswersAdapter(List<VseAndUzery> students, RecyclerView recyclerView) {
+DataHelper dataHelper;
+    String idUser;
+    Cursor cursor;
+Context context;
+    public RVForumQuestionsAndAnswersAdapter(List<VseAndUzery> students, RecyclerView recyclerView, Context context) {
         studentList = students;
-
+        dataHelper=new DataHelper(context);
+         cursor=dataHelper.getDataUser();
+        if(cursor.getCount()>0){
+            cursor.moveToFirst();
+            idUser=cursor.getString(cursor.getColumnIndex(DataHelper.USER_ID_COLUMN));
+        }else idUser="";
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
 
             final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView
@@ -94,12 +104,31 @@ public class RVForumQuestionsAndAnswersAdapter extends RecyclerView.Adapter {
         if (holder instanceof StudentViewHolder) {
 
             VseAndUzery singleStudent= (VseAndUzery) studentList.get(position);
+            if (!singleStudent.getId().equals(idUser)) {
+                ((StudentViewHolder) holder).tvName.setVisibility(View.VISIBLE);
+                ((StudentViewHolder) holder).tvText.setVisibility(View.VISIBLE);
+                ((StudentViewHolder) holder).image.setVisibility(View.VISIBLE);
+                ((StudentViewHolder) holder).tvName1.setVisibility(View.GONE);
+                ((StudentViewHolder) holder).tvText1.setVisibility(View.GONE);
+                ((StudentViewHolder) holder).image1.setVisibility(View.GONE);
 
-            ((StudentViewHolder) holder).tvName.setText("("+singleStudent.getUsername()+")");
-            ((StudentViewHolder) holder).tvText.setText(singleStudent.getText());
+                ((StudentViewHolder) holder).tvName.setText("(" + singleStudent.getUsername() + ")");
+                ((StudentViewHolder) holder).tvText.setText(singleStudent.getText());
 
-            ((StudentViewHolder) holder).student= singleStudent;
 
+            }else {
+                ((StudentViewHolder) holder).tvName1.setVisibility(View.VISIBLE);
+                ((StudentViewHolder) holder).tvText1.setVisibility(View.VISIBLE);
+                ((StudentViewHolder) holder).image1.setVisibility(View.VISIBLE);
+                ((StudentViewHolder) holder).tvName.setVisibility(View.GONE);
+                ((StudentViewHolder) holder).tvText.setVisibility(View.GONE);
+                ((StudentViewHolder) holder).image.setVisibility(View.GONE);
+
+                ((StudentViewHolder) holder).tvName1.setText("(" + singleStudent.getUsername() + ")");
+                ((StudentViewHolder) holder).tvText1.setText(singleStudent.getText());
+
+            }
+            ((StudentViewHolder) holder).student = singleStudent;
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
         }
@@ -124,14 +153,21 @@ public class RVForumQuestionsAndAnswersAdapter extends RecyclerView.Adapter {
         public TextView tvName;
 
         public TextView tvText;
-
+        public TextView tvName1;
+        ImageView image,image1;
+        public TextView tvText1;
         public VseAndUzery student;
 
         public StudentViewHolder(View v) {
             super(v);
+            image = (ImageView) v.findViewById(R.id.image1);
+            image1 = (ImageView) v.findViewById(R.id.image2);
+
+
             tvName = (TextView) v.findViewById(R.id.tv_nick_name_forum_q_a);
             tvText=(TextView) v.findViewById(R.id.tv_text_forum_q_a) ;
-
+            tvName1 = (TextView) v.findViewById(R.id.tv_nick_name_forum_q_a2);
+            tvText1=(TextView) v.findViewById(R.id.tv_text_forum_q_a2) ;
 
             v.setOnClickListener(new OnClickListener() {
 

@@ -240,7 +240,7 @@ public class QuestionSecondActivity extends AppCompatActivity {
 
             try {
 
-                URL url = new URL("http://176.126.167.231:8000/api/v1/question/?offset="+a+"&limit=15&format=json");
+                URL url = new URL("http://176.126.167.231:8000/api/v1/question/?offset="+a+"&limit=15&format=json&format=json&category__contains="+category);
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");

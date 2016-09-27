@@ -40,17 +40,19 @@ public class NewQuestionActivity extends AppCompatActivity {
     int position;
     String  idUser="d";
     ArrayList<String > studentList;
-
+    Spinner spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_question);
         studentList=new ArrayList<>();
         position=getIntent().getIntExtra("text",-1);
-        studentList.add("Rossiya");
-        studentList.add("Passport");
-        studentList.add("POhiwenie");
-        studentList.add("RAznoe");
+        studentList.add("Выберите категорию");
+        studentList.add("Пасспорт и документы");
+        studentList.add("Рабочие моменты");
+        studentList.add("Семейные дела");
+        studentList.add("Похищение");
+
 
         editTitle=(EditText) findViewById(R.id.edit_story_text);
         dataHelper=new DataHelper(this);
@@ -58,7 +60,7 @@ public class NewQuestionActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, studentList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_new_story);
+        spinner = (Spinner) findViewById(R.id.spinner_new_story);
         spinner.setAdapter(adapter);
         // заголовок
         spinner.setPrompt("Title");
@@ -94,9 +96,10 @@ public class NewQuestionActivity extends AppCompatActivity {
         }
         JSONObject obj = new JSONObject();
         try {
+            int pos= spinner.getSelectedItemPosition();
             Log.e("TAG_IDDDDDDD",idUser+"");
             obj.put("user", "/api/v1/user/"+idUser+"/");
-
+            obj.put("category", studentList.get(pos));
             obj.put("question",editTitle.getText().toString());
 
 
