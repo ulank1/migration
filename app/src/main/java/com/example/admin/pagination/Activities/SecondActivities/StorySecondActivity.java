@@ -102,51 +102,8 @@ public class StorySecondActivity extends AppCompatActivity {
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
             //we are connected to a network
             Toast.makeText(this,"RAbotaet",Toast.LENGTH_SHORT).show();
-            studentList.add(null);
-            mAdapter = new RVForumQuestionsAndAnswersAdapter(studentList, mRecyclerView,this);
 
-            // set the adapter object to the Recyclerview
-            mRecyclerView.setAdapter(mAdapter);
-            //  mAdapter.notifyDataSetChanged();
-            loadData();
-
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-
-
-            // create an Object for Adapter
-            mAdapter = new RVForumQuestionsAndAnswersAdapter(studentList, mRecyclerView,this);
-
-            // set the adapter object to the Recyclerview
-            mRecyclerView.setAdapter(mAdapter);
-            //  mAdapter.notifyDataSetChanged();
-
-
-            if (studentList.isEmpty()) {
-                mRecyclerView.setVisibility(View.GONE);
-                tvEmptyView.setVisibility(View.VISIBLE);
-
-            } else {
-                mRecyclerView.setVisibility(View.VISIBLE);
-                tvEmptyView.setVisibility(View.GONE);
-            }
-
-            mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-                @Override
-                public void onLoadMore() {
-                    //add null , so the adapter will check view_type and show progress bar at bottom
-
-                    Log.e("TAG_SUKA", "SUKA_RABOTAET");
-                    int start = studentList.size();
-                    if (start < total_count - 1)
-                        progressBar.setVisibility(View.VISIBLE);
-                    else progressBar.setVisibility(View.GONE);
-                    new ParseTask(start, 0).execute();
-
-
-                }
-            });
-
+            rabotaet();
         } else {
             Toast.makeText(this,"NeRAbotaet",Toast.LENGTH_SHORT).show();
 
@@ -170,6 +127,54 @@ public class StorySecondActivity extends AppCompatActivity {
 
     }
 
+
+    public void rabotaet(){
+        studentList.add(null);
+        mAdapter = new RVForumQuestionsAndAnswersAdapter(studentList, mRecyclerView,this);
+
+        // set the adapter object to the Recyclerview
+        mRecyclerView.setAdapter(mAdapter);
+        //  mAdapter.notifyDataSetChanged();
+        loadData();
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+
+
+        // create an Object for Adapter
+        mAdapter = new RVForumQuestionsAndAnswersAdapter(studentList, mRecyclerView,this);
+
+        // set the adapter object to the Recyclerview
+        mRecyclerView.setAdapter(mAdapter);
+        //  mAdapter.notifyDataSetChanged();
+
+
+        if (studentList.isEmpty()) {
+            mRecyclerView.setVisibility(View.GONE);
+            tvEmptyView.setVisibility(View.VISIBLE);
+
+        } else {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            tvEmptyView.setVisibility(View.GONE);
+        }
+
+        mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                //add null , so the adapter will check view_type and show progress bar at bottom
+
+                Log.e("TAG_SUKA", "SUKA_RABOTAET");
+                int start = studentList.size();
+                if (start < total_count - 1)
+                    progressBar.setVisibility(View.VISIBLE);
+                else progressBar.setVisibility(View.GONE);
+                new ParseTask(start, 0).execute();
+
+
+            }
+        });
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
@@ -189,6 +194,7 @@ public class StorySecondActivity extends AppCompatActivity {
         }
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(edit.getWindowToken(), 0);
+        edit.setText("");
         new SendJsonDataToServer().execute(String.valueOf(obj));
     }
     private void loadData() {
@@ -358,7 +364,7 @@ public class StorySecondActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
+            new ParseTask(total_count-1,0).execute();
         }
     }
 

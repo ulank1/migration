@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 
 import com.example.admin.pagination.Activities.SecondActivities.EmbassySecondActivity;
+import com.example.admin.pagination.Activities.SecondActivities.HotLineSecondActivity;
 import com.example.admin.pagination.Activities.SecondActivities.NewsSecondActivity;
 import com.example.admin.pagination.Helpers.OnLoadMoreListener;
 import com.example.admin.pagination.R;
@@ -145,9 +146,9 @@ public class RVHotLineAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(context, EmbassySecondActivity.class);
+                    Intent intent = new Intent(context, HotLineSecondActivity.class);
 
-                    intent.putExtra("phoner",student.getPhoneNumber());
+                    intent.putExtra("phone_number",student.getPhoneNumber());
                     intent.putExtra("description",student.getDescription());
 
 

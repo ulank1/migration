@@ -49,15 +49,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-
-
-            android:layout_margin="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_fragment"
-            android:textColor="#fff"
-            android:text="Рассказать свою Историю"
-            android:id="@+id/new_story_button"/>
     </LinearLayout>
 </LinearLayout>

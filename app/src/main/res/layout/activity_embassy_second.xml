@@ -37,6 +37,7 @@
 
 
     <TextView
+
         android:paddingLeft="22dp"
         android:paddingRight="22dp"
         android:layout_width="match_parent"
@@ -175,15 +176,19 @@
                 android:textSize="22sp"
                 android:textColor="#4e4e4e"
                 />
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
     <android.support.v7.widget.RecyclerView
         android:background="@drawable/rv_embassy"
         android:layout_margin="7dp"
         android:layout_width="match_parent"
         android:id="@+id/rv_consulate"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

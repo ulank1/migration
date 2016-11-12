@@ -36,10 +36,20 @@
 
         <ImageView
             android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:src="@drawable/smallogo"
+            
+            android:scaleType="center" />
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/registr_emblem"
-            android:layout_weight="1"
-            android:scaleType="fitStart" />
+            android:textColor="#ffff"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:textStyle="italic"
+            android:text="@string/reg_name"
+            />
         <EditText
             android:textColorHint="#ccc"
             android:textColor="#fff"

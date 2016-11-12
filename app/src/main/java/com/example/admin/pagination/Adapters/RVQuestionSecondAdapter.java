@@ -140,9 +140,7 @@ public class RVQuestionSecondAdapter extends RecyclerView.Adapter {
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),
-                            "OnClick :" + student.getTitle() + " \n "+student.getText(),
-                            Toast.LENGTH_SHORT).show();
+
                     Intent intent=new Intent(v.getContext(), QuestionsAndAnswersActivity.class);
                     intent.putExtra("id",student.getTitle());
                     v.getContext().startActivity(intent);

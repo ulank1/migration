@@ -97,7 +97,7 @@ public class RVNewsAdapter extends RecyclerView.Adapter {
 
             Istories singleStudent= (Istories) studentList.get(position);
 
-            ((StudentViewHolder) holder).tvName.setText(position+" : "+singleStudent.getNickName());
+            ((StudentViewHolder) holder).tvName.setText(singleStudent.getNickName());
 
 
             ((StudentViewHolder) holder).student= singleStudent;
@@ -140,9 +140,7 @@ public class RVNewsAdapter extends RecyclerView.Adapter {
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),
-                            "OnClick :" + student.getNickName() + " \n "+student.getText(),
-                            Toast.LENGTH_SHORT).show();
+
                     Intent intent = new Intent(context, NewsSecondActivity.class);
                     intent.putExtra("text",student.getText());
                     context.startActivity(intent);

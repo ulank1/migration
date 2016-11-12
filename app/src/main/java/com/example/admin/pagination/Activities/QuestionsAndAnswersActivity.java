@@ -199,7 +199,10 @@ public class QuestionsAndAnswersActivity extends AppCompatActivity {
         }
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(edit.getWindowToken(), 0);
+        edit.setText("");
         new SendJsonDataToServer().execute(String.valueOf(obj));
+
+
     }
 
     public class ParseTask extends AsyncTask<Void, Void, String> {
@@ -364,6 +367,7 @@ public class QuestionsAndAnswersActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            new ParseTask(total_count-1,0).execute();
 
         }
     }

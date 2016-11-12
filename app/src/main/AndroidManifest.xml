@@ -20,7 +20,6 @@
         </activity>
         <activity android:name=".Activities.MainActivity" />
         <activity android:name=".Activities.AboutProjectActivity" />
-
         <activity android:name=".Activities.QuestionsAndAnswersActivity" />
         <activity android:name=".Activities.IstoriesFromLifeActivity" />
         <activity android:name=".Activities.NewsActivity" />
@@ -40,7 +39,18 @@
         <activity android:name=".Activities.SecondActivities.StoryfromLifeSecondActivity" />
         <activity android:name=".Activities.SecondActivities.NewStoryActivity" />
         <activity android:name=".Activities.SecondActivities.NewQuestionActivity" />
-        <activity android:name=".Activities.SecondActivities.QuestionSecondActivity"></activity>
+        <activity android:name=".Activities.SecondActivities.QuestionSecondActivity" />
+        <activity android:name=".Activities.SettingsActivity" />
+        <activity android:name=".Activities.SecondActivities.RulesOfMigrationActivity" />
+        <activity android:name=".Activities.EAEUActivity" />
+        <activity android:name=".Activities.AbroadActivity" />
+        <activity android:name=".Activities.HumanTraffickingActivity" />
+        <activity android:name=".Activities.EmployementActivity" />
+        <activity android:name=".Activities.SecondActivities.EmploymentSecondActivity" />
+        <activity android:name=".Activities.ProhibitionRFActivity" />
+        <activity android:name=".Activities.DiasporyActivity" />
+        <activity android:name=".Activities.SecondActivities.DiasporySecondActivity" />
+        <activity android:name=".Activities.SecondActivities.HTSecondActivity"></activity>
     </application>
 
 </manifest>

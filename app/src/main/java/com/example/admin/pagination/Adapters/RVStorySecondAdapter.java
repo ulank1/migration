@@ -140,9 +140,7 @@ public class RVStorySecondAdapter extends RecyclerView.Adapter {
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),
-                            "OnClick :" + student.getTitle() + " \n "+student.getText(),
-                            Toast.LENGTH_SHORT).show();
+
                     Intent intent=new Intent(v.getContext(), StorySecondActivity.class);
                     intent.putExtra("text",student.getText());
                     intent.putExtra("id",student.getId());

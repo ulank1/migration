@@ -2,6 +2,7 @@ package com.example.admin.pagination.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -149,9 +150,8 @@ public class RVEmbassySecondAdapter extends RecyclerView.Adapter {
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),
-                            "OnClick :"  + " \n "+student.getPhoneNumber(),
-                            Toast.LENGTH_SHORT).show();
+
+                    context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel",student.getPhoneNumber() , null)));
 
 
 

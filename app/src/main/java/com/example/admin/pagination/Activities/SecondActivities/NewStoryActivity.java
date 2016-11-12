@@ -66,7 +66,7 @@ public class NewStoryActivity extends AppCompatActivity {
         spinner.setSelection(position+1);
         // выделяем элемент
         if (position>-1)
-        spinner.setSelection(position);
+        spinner.setSelection(position+1);
         // устанавливаем обработчик нажатия
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -83,7 +83,7 @@ public class NewStoryActivity extends AppCompatActivity {
 
     public void onClickNewStory(View view) {
         Cursor cursor=dataHelper.getDataUser();
-        if (cursor.getCount()<0){
+        if (cursor.getCount()<=0){
             startActivity(new Intent(NewStoryActivity.this, IstoriesFromLifeActivity.class));
         }
         else
@@ -94,12 +94,18 @@ public class NewStoryActivity extends AppCompatActivity {
         if (idUser.equals("d")){
             startActivity(new Intent(this, RegisterActivity.class));
         }
+        boolean bool;
+        bool=true;
         JSONObject obj = new JSONObject();
         try {
             int pos = spinner.getSelectedItemPosition();
 
             Log.e("TAG_IDDDDDDD",idUser+"");
             obj.put("user", "/api/v1/user/"+idUser+"/");
+            if (pos==0){
+                Toast.makeText(this,"Выберите Категорию",Toast.LENGTH_SHORT).show();
+                bool=false;
+            }
             obj.put("category", studentList.get(pos));
             obj.put("text",editText.getText().toString());
             obj.put("title",editTitle.getText().toString());
@@ -112,6 +118,7 @@ public class NewStoryActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
 
         imm.hideSoftInputFromWindow(editTitle.getWindowToken(), 0);
+        if (bool)
         new SendJsonDataToServer().execute(String.valueOf(obj));
     }
     @Override

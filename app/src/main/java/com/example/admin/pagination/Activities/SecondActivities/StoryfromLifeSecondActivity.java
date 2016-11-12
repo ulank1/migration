@@ -120,7 +120,7 @@ public class StoryfromLifeSecondActivity extends AppCompatActivity {
                 new SendJsonDataToServer().execute(String.valueOf(obj));
             }
         });*/
-        button.setOnClickListener(new View.OnClickListener() {
+      /*  button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (idUser.equals("d")){
@@ -131,7 +131,7 @@ public class StoryfromLifeSecondActivity extends AppCompatActivity {
 
                 startActivity(intent);
             }
-        });
+        });*/
         mRecyclerView.setHasFixedSize(true);
 
         mLayoutManager = new LinearLayoutManager(this);

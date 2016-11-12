@@ -173,9 +173,7 @@ Context context;
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),
-                            "OnClick :" + student.getText() + " \n "+student.getText(),
-                            Toast.LENGTH_SHORT).show();
+
 
                 }
             });

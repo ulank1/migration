@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.admin.pagination.Activities.SecondActivities.NewsSecondActivity;
 import com.example.admin.pagination.Activities.SecondActivities.RulesOfIncomingSecondActivity;
+import com.example.admin.pagination.Activities.SecondActivities.RulesOfMigrationActivity;
 import com.example.admin.pagination.Helpers.OnLoadMoreListener;
 import com.example.admin.pagination.R;
 import com.example.admin.pagination.Serializables.RulesOfIncoming;
@@ -37,10 +38,11 @@ public class RVRulesOfIncomingAdapter extends RecyclerView.Adapter {
     private boolean loading;
     private OnLoadMoreListener onLoadMoreListener;
     public Context context;
+    String na;
 
-
-    public RVRulesOfIncomingAdapter(List<RulesOfIncoming> students, RecyclerView recyclerView,Context context) {
+    public RVRulesOfIncomingAdapter(List<RulesOfIncoming> students, RecyclerView recyclerView,Context context,String na) {
         studentList = students;
+        this.na=na;
         this.context=context;
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
 
@@ -103,7 +105,6 @@ public class RVRulesOfIncomingAdapter extends RecyclerView.Adapter {
 
             ((StudentViewHolder) holder).tvName.setText(singleStudent.getTitle());
 
-            Picasso.with(context).load(singleStudent.getImage()).into(((StudentViewHolder) holder).image);
             ((StudentViewHolder) holder).student= singleStudent;
 
         } else {
@@ -129,25 +130,23 @@ public class RVRulesOfIncomingAdapter extends RecyclerView.Adapter {
     public class StudentViewHolder extends RecyclerView.ViewHolder {
         public TextView tvName;
 
-        ImageView image;
 
         public RulesOfIncoming student;
 
         public StudentViewHolder(View v) {
             super(v);
             tvName = (TextView) v.findViewById(R.id.tv_rules_of_incoming);
-            image = (ImageView) v.findViewById(R.id.image_rules_of_incoming);
+
 
 
             v.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),
-                            "OnClick :" + student.getTitle() ,
-                            Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, RulesOfIncomingSecondActivity.class);
+
+                    Intent intent = new Intent(context, RulesOfMigrationActivity.class);
                     intent.putExtra("text",student.getText());
+                    intent.putExtra("name",na);
                     context.startActivity(intent);
 
                 }

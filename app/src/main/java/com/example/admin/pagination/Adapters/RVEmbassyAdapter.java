@@ -98,6 +98,7 @@ public class RVEmbassyAdapter extends RecyclerView.Adapter {
         if (holder instanceof StudentViewHolder) {
 
             Embassy singleStudent= (Embassy) studentList.get(position);
+            ((StudentViewHolder) holder).tvName.setText("");
 
             ((StudentViewHolder) holder).tvName.setText(singleStudent.getCountry());
 
@@ -142,9 +143,7 @@ public class RVEmbassyAdapter extends RecyclerView.Adapter {
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),
-                            "OnClick :" + student.getCountry() + " \n "+student.getPhoneNumber(),
-                            Toast.LENGTH_SHORT).show();
+
                     Intent intent = new Intent(context, EmbassySecondActivity.class);
                     intent.putExtra("id",student.getId());
                     intent.putExtra("address",student.getRegion());

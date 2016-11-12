@@ -1,9 +1,11 @@
 package com.example.admin.pagination.Activities.SecondActivities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,21 +65,34 @@ public class EmbassySecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_embassy_second);
+        TextView tvTitle=(TextView) findViewById(R.id.tv_embassy_second);
         TextView tvPhone=(TextView) findViewById(R.id.tv_phone_number_second);
         TextView tvFax=(TextView) findViewById(R.id.tv_fax_second);
         TextView tvSite=(TextView) findViewById(R.id.tv_site_second);
         TextView tvAddress=(TextView) findViewById(R.id.tv_address_second);
+        final String phoneNumber;
         String s=getIntent().getStringExtra("phone_number");
         tvPhone.setText(s);
         Log.e("TAG_S",s);
+        phoneNumber=s;
 
         s=getIntent().getStringExtra("fax");
         tvFax.setText(s);
+        s=getIntent().getStringExtra("country");
+        tvTitle.setText(s);
         s=getIntent().getStringExtra("site");
         tvSite.setText(s);
         s=getIntent().getStringExtra("address");
         tvAddress.setText(s);
         id=getIntent().getStringExtra("id");
+
+
+        tvPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel",phoneNumber , null)));
+            }
+        });
         Log.e("TAG_S_ID",id);
         id1=Integer.parseInt(id);
         Toolbar toolbar;
@@ -91,6 +106,7 @@ public class EmbassySecondActivity extends AppCompatActivity {
 
         tvEmptyView = (TextView) findViewById(R.id.empty_view);
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_consulate);
+        mRecyclerView.setVisibility(View.VISIBLE);
         studentList = new ArrayList<Consulate>();
         handler = new Handler();
         progressBar=(ProgressBar) findViewById(R.id.progress);
@@ -273,9 +289,14 @@ public class EmbassySecondActivity extends AppCompatActivity {
 
 
                 }
-
+                if (b==1){
+                    mAdapter=new RVEmbassySecondAdapter(studentList,mRecyclerView,EmbassySecondActivity.this);
+                    mRecyclerView.setAdapter(mAdapter);
+                }
+                else
                 mAdapter.notifyDataSetChanged();
                 mAdapter.setLoaded();
+
                 progressBar.setVisibility(View.GONE);
                 Log.d(TAG, "NET NET dsfsadadsgf: ");
             } catch (JSONException e) {
@@ -283,8 +304,8 @@ public class EmbassySecondActivity extends AppCompatActivity {
                 Log.d(TAG, "JSON_PIZDEC_EMBASSY_second");
             }
             Log.e("TAG_1","NORM");
-
-
+            Log.e("GANDON",""+studentList.size());
+            if (studentList.size()==0) mRecyclerView.setVisibility(View.GONE);
 
 
 

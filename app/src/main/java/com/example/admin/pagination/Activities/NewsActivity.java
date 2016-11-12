@@ -114,7 +114,9 @@ public class NewsActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
 //                Snackbar.make(findViewById(R.id.container), "Query: " + query, Snackbar.LENGTH_LONG)
 //                        .show();
+
                 title = query;
+                Log.e("TAGGGGGGGJKL:",title);
                 ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                 if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                         connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {

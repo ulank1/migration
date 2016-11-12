@@ -9,7 +9,10 @@ import android.provider.BaseColumns;
 import android.util.Log;
 
 import com.example.admin.pagination.Serializables.Consulate;
+import com.example.admin.pagination.Serializables.Diaspora;
+import com.example.admin.pagination.Serializables.EAEU;
 import com.example.admin.pagination.Serializables.Embassy;
+import com.example.admin.pagination.Serializables.Employment;
 import com.example.admin.pagination.Serializables.Hotline;
 import com.example.admin.pagination.Serializables.Istories;
 import com.example.admin.pagination.Serializables.RulesOfIncoming;
@@ -26,6 +29,15 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String TABLE_USER="User";
     public static final String USER_ID_COLUMN="user_id";
 
+    public static final String TABLE_EMPLOYMENT="Employment";
+    public static final String EMPLOYMENT_NAME_COLUMN="employment_name";
+    public static final String EMPLOYMENT_ADDRESS_COLUMN="employment_address";
+    public static final String EMPLOYMENT_MANAGER_COLUMN="employment_manager";
+    public static final String EMPLOYMENT_NUMBER_COLUMN="employment_number";
+    public static final String EMPLOYMENT_NUMBER1_COLUMN="employment_number1";
+    public static final String EMPLOYMENT_NUMBER2_COLUMN="employment_number2";
+
+
 
 
     public static final String TABLE_NEWS="News";
@@ -37,6 +49,28 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String RULES_OF_INCOMING_ZAGOLOVOK_COLUMN="rules_of_zagolovok";
     public static final String RULES_OF_INCOMING_TEXT_COLUMN="rules_of_text";
     public static final String RULES_OF_INCOMING_IMAGE_COLUMN="rules_of_image";
+
+
+    public static final String TABLE_HT="HT";
+    public static final String HT_ZAGOLOVOK_COLUMN="ht_zagolovok";
+    public static final String HT_TEXT_COLUMN="ht_text";
+    public static final String HT_IMAGE_COLUMN="ht_image";
+
+
+    public static final String TABLE_DIASPORA="Diaspora";
+    public static final String DIASPORA_city_COLUMN="diaspora_city";
+    public static final String DIASPORA_ADDRESS_COLUMN="diaspora_address";
+    public static final String DIASPORA_EMAIL_COLUMN="diaspora_email";
+    public static final String DIASPORA_MANAGER_COLUMN="diaspora_manager";
+    public static final String DIASPORA_NUMBER_COLUMN="diaspora_number";
+    public static final String DIASPORA_PLACE_COLUMN="diaspora_place";
+
+
+
+    public static final String TABLE_PROHIB="Prohibition";
+    public static final String PROHIB_ZAGOLOVOK_COLUMN="Prohibition_zagolovok";
+    public static final String PROHIB_TEXT_COLUMN="Prohibition_text";
+    public static final String PROHIB_IMAGE_COLUMN="Prohibition_image";
 
 
     public static final String TABLE_RULES_OF_MIGRATION="Rules_of_migration";
@@ -89,6 +123,23 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String A_ANSWER_COLUMN="a_question";
     public static final String A_ID_COLUMN="a_id";
 
+    public static final String TABLE_EAEU="EAEU";
+    public static final String EAEU_TITLE_COLUMN="title_eaeu";
+    public static final String EAEU_PICTURE_COLUMN="eaeu_picture";
+
+    public static final String TABLE_DIAS="Dias";
+    public static final String DIAS_TITLE_COLUMN="title_dias";
+    public static final String DIAS_PICTURE_COLUMN="dias_picture";
+
+
+
+    public static final String TABLE_EMPLOY="Employ";
+    public static final String EMPLOY_TITLE_COLUMN="title_employ";
+    public static final String EMPLOY_PICTURE_COLUMN="employ_picture";
+
+    public static final String TABLE_ABROAD="Abroad";
+    public static final String ABROAD_TITLE_COLUMN="title_abroad";
+    public static final String ABROAD_PICTURE_COLUMN="employ_abroad";
     public DataHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -105,11 +156,69 @@ public class DataHelper extends SQLiteOpenHelper {
                 FAQ_ANSWER_COLUMN + " text," +
                 FAQ_QUESTION_COLUMN + " text);");
 
+        db.execSQL("create table " + TABLE_EAEU + "(" +
+                BaseColumns._ID + " integer primary key autoincrement," +
+                EAEU_PICTURE_COLUMN + " text," +
+                EAEU_TITLE_COLUMN + " text);");
+
+
+        db.execSQL("create table " + TABLE_DIAS + "(" +
+                BaseColumns._ID + " integer primary key autoincrement," +
+                DIAS_TITLE_COLUMN + " text," +
+                DIAS_PICTURE_COLUMN + " text);");
+
+        db.execSQL("create table " + TABLE_DIASPORA + "(" +
+                BaseColumns._ID + " integer primary key autoincrement," +
+                DIASPORA_ADDRESS_COLUMN + " text," +
+                DIASPORA_EMAIL_COLUMN + " text," +
+                DIASPORA_MANAGER_COLUMN + " text," +
+                DIASPORA_NUMBER_COLUMN + " text," +
+                DIASPORA_PLACE_COLUMN + " text," +
+                DIASPORA_city_COLUMN + " text);");
+
+
+        db.execSQL("create table " + TABLE_ABROAD + "(" +
+                BaseColumns._ID + " integer primary key autoincrement," +
+                ABROAD_PICTURE_COLUMN + " text," +
+                ABROAD_TITLE_COLUMN + " text);");
+
+        db.execSQL("create table " + TABLE_EMPLOY + "(" +
+                BaseColumns._ID + " integer primary key autoincrement," +
+               EMPLOY_PICTURE_COLUMN + " text," +
+                EMPLOY_TITLE_COLUMN + " text);");
+
         db.execSQL("create table " + TABLE_RULES_OF_INCOMING + "(" +
                 BaseColumns._ID + " integer primary key autoincrement," +
                 RULES_OF_INCOMING_IMAGE_COLUMN + " text," +
                 RULES_OF_INCOMING_ZAGOLOVOK_COLUMN + " text," +
                 RULES_OF_INCOMING_TEXT_COLUMN + " text);");
+
+
+        db.execSQL("create table " + TABLE_HT + "(" +
+                BaseColumns._ID + " integer primary key autoincrement," +
+                HT_IMAGE_COLUMN + " text," +
+                HT_TEXT_COLUMN + " text," +
+                HT_ZAGOLOVOK_COLUMN + " text);");
+
+
+        db.execSQL("create table " + TABLE_PROHIB + "(" +
+                BaseColumns._ID + " integer primary key autoincrement," +
+                PROHIB_IMAGE_COLUMN + " text," +
+                PROHIB_TEXT_COLUMN + " text," +
+                PROHIB_ZAGOLOVOK_COLUMN + " text);");
+
+
+
+        db.execSQL("create table " + TABLE_EMPLOYMENT + "(" +
+                BaseColumns._ID + " integer primary key autoincrement," +
+                EMPLOYMENT_ADDRESS_COLUMN + " text," +
+                EMPLOYMENT_NUMBER1_COLUMN + " text," +
+                EMPLOYMENT_NUMBER2_COLUMN + " text," +
+                EMPLOYMENT_NUMBER_COLUMN + " text," +
+                EMPLOYMENT_MANAGER_COLUMN + " text," +
+                EMPLOYMENT_NAME_COLUMN + " text);");
+
+
 
         db.execSQL("create table " + TABLE_HOT_LINE + "(" +
                 BaseColumns._ID + " integer primary key autoincrement," +
@@ -248,6 +357,80 @@ public class DataHelper extends SQLiteOpenHelper {
     }
     public void deleteROI() {
         getWritableDatabase().delete(TABLE_RULES_OF_INCOMING, null, null);
+    }
+
+//Diaspora>------------------------------------------------------------
+
+    public Cursor getDataDiaspora() {
+        return getReadableDatabase().query(TABLE_DIASPORA,
+                null, null, null,
+                null, null, null);
+    }
+    public void insertDiaspora(Diaspora istories) {
+        ContentValues values = new ContentValues();
+
+        values.put(DIASPORA_ADDRESS_COLUMN, istories.getAddress());
+        values.put(DIASPORA_city_COLUMN, istories.getCity());
+        values.put(DIASPORA_EMAIL_COLUMN, istories.getEmail());
+        values.put(DIASPORA_MANAGER_COLUMN, istories.getManager());
+        values.put(DIASPORA_NUMBER_COLUMN, istories.getNumber());
+        values.put(DIASPORA_PLACE_COLUMN, istories.getPlace());
+
+
+        getWritableDatabase().insert(TABLE_DIASPORA, null, values);
+
+    }
+    public void deleteDiaspora() {
+        getWritableDatabase().delete(TABLE_DIASPORA, null, null);
+    }
+
+
+
+    //HT--------------------------------------------------->
+
+    public Cursor getDataProhibition() {
+        return getReadableDatabase().query(TABLE_PROHIB,
+                null, null, null,
+                null, null, null);
+    }
+    public void insertProhibition(RulesOfIncoming istories) {
+        ContentValues values = new ContentValues();
+
+        values.put(PROHIB_ZAGOLOVOK_COLUMN, istories.getTitle());
+        values.put(PROHIB_TEXT_COLUMN,istories.getText());
+        values.put(PROHIB_IMAGE_COLUMN,istories.getImage());
+
+        getWritableDatabase().insert(TABLE_PROHIB, null, values);
+
+    }
+
+
+
+    public void deleteProhibition() {
+        getWritableDatabase().delete(TABLE_PROHIB, null, null);
+    }
+    //Prohibition>--------------------------------------------------------
+
+    public Cursor getDataHT() {
+        return getReadableDatabase().query(TABLE_HT,
+                null, null, null,
+                null, null, null);
+    }
+    public void insertHT(RulesOfIncoming istories) {
+        ContentValues values = new ContentValues();
+
+        values.put(HT_ZAGOLOVOK_COLUMN, istories.getTitle());
+        values.put(HT_TEXT_COLUMN,istories.getText());
+        values.put(HT_IMAGE_COLUMN,istories.getImage());
+
+        getWritableDatabase().insert(TABLE_HT, null, values);
+
+    }
+
+
+
+    public void deleteHT() {
+        getWritableDatabase().delete(TABLE_HT, null, null);
     }
 
 
@@ -439,8 +622,94 @@ public class DataHelper extends SQLiteOpenHelper {
         getWritableDatabase().insert(TABLE_CONSULATE, null, values);
 
     }
+    public void deleteDias() {
+        getWritableDatabase().delete(TABLE_DIAS, null, null);
+    }
     public void deleteConsulate() {
         getWritableDatabase().delete(TABLE_CONSULATE, null, null);
     }
+    public void deleteEAEU() {
+        getWritableDatabase().delete(TABLE_EAEU, null, null);
+    }
+    public void deleteAbroad() {
+        getWritableDatabase().delete(TABLE_ABROAD, null, null);
+    }
+    public void deleteEmploy() {
+        getWritableDatabase().delete(TABLE_EMPLOY, null, null);
+    }
+    public void deleteEmployment() {
+        getWritableDatabase().delete(TABLE_EMPLOYMENT, null, null);
+    }
+    public Cursor getEAEU(){
+        return getReadableDatabase().query(TABLE_EAEU,null,null,null,null,null,null);
+    }
+
+    public void insertDias(EAEU eaeu) {
+        ContentValues values = new ContentValues();
+
+        values.put(DIAS_PICTURE_COLUMN,eaeu.getPicture() );
+        values.put(DIAS_TITLE_COLUMN,eaeu.getName() );
+
+
+        getWritableDatabase().insert(TABLE_DIAS, null, values);
+    }
+    public Cursor getDias(){
+        return getReadableDatabase().query(TABLE_DIAS,null,null,null,null,null,null);
+    }
+
+    public void insertEAEU(EAEU eaeu) {
+        ContentValues values = new ContentValues();
+
+        values.put(EAEU_PICTURE_COLUMN,eaeu.getPicture() );
+        values.put(EAEU_TITLE_COLUMN,eaeu.getName() );
+
+
+        getWritableDatabase().insert(TABLE_EAEU, null, values);
+    }
+    public Cursor getEmploy(){
+        return getReadableDatabase().query(TABLE_EMPLOY,null,null,null,null,null,null);
+    }
+    public void insertEmploy(EAEU eaeu) {
+        ContentValues values = new ContentValues();
+
+        values.put(EMPLOY_PICTURE_COLUMN,eaeu.getPicture() );
+        values.put(EMPLOY_TITLE_COLUMN,eaeu.getName() );
+
+
+        getWritableDatabase().insert(TABLE_EMPLOY, null, values);
+    }
+    public void insertAbroad(EAEU eaeu) {
+        ContentValues values = new ContentValues();
+
+        values.put(ABROAD_PICTURE_COLUMN,eaeu.getPicture() );
+        values.put(ABROAD_TITLE_COLUMN,eaeu.getName() );
+
+
+        getWritableDatabase().insert(TABLE_ABROAD, null, values);
+    }
+    public Cursor getAbroad(){
+        return getReadableDatabase().query(TABLE_ABROAD,null,null,null,null,null,null);
+    }
+
+    public Cursor getDataEmployment() {
+        return getReadableDatabase().query(TABLE_EMPLOYMENT,null,null,null,null,null,null);
+    }
+    public void insertEmployment(Employment employment) {
+        ContentValues values = new ContentValues();
+
+        values.put(EMPLOYMENT_NUMBER_COLUMN,employment.getPhone_number() );
+        values.put(EMPLOYMENT_NUMBER2_COLUMN,employment.getPhone_number2() );
+        values.put(EMPLOYMENT_NUMBER1_COLUMN,employment.getPhone_number1() );
+        values.put(EMPLOYMENT_MANAGER_COLUMN,employment.getManager() );
+        values.put(EMPLOYMENT_NAME_COLUMN,employment.getName() );
+        values.put(EMPLOYMENT_ADDRESS_COLUMN,employment.getAdress() );
+
+
+
+
+
+        getWritableDatabase().insert(TABLE_EMPLOYMENT, null, values);
+    }
+
 
 }

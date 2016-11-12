@@ -65,7 +65,7 @@ public class RulesOfMigrationActivity extends AppCompatActivity {
     private LinearLayoutManager mLayoutManager;
     int total_count=100000;
     private List<RulesOfIncoming> studentList;
-
+    String  position;
     ProgressBar progressBar;
     protected Handler handler;
     @Override
@@ -76,7 +76,8 @@ public class RulesOfMigrationActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
-        actionBar.setTitle("ПРАВИЛА ВЫЕЗДА");
+        actionBar.setTitle("Правила пребывания за рубежом");
+        position=getIntent().getStringExtra("position");
 
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -104,7 +105,7 @@ public class RulesOfMigrationActivity extends AppCompatActivity {
             //we are connected to a network
             Toast.makeText(this,"RAbotaet",Toast.LENGTH_SHORT).show();
             studentList.add(null);
-            mAdapter = new RVRulesOfIncomingAdapter(studentList, mRecyclerView, this);
+            mAdapter = new RVRulesOfIncomingAdapter(studentList, mRecyclerView, this,"Правила пребывания за рубежом");
 
             // set the adapter object to the Recyclerview
             mRecyclerView.setAdapter(mAdapter);
@@ -116,7 +117,7 @@ public class RulesOfMigrationActivity extends AppCompatActivity {
 
 
             // create an Object for Adapter
-            mAdapter = new RVRulesOfIncomingAdapter(studentList, mRecyclerView, this);
+            mAdapter = new RVRulesOfIncomingAdapter(studentList, mRecyclerView, this,"Правила пребывания за рубежом");
 
             // set the adapter object to the Recyclerview
             mRecyclerView.setAdapter(mAdapter);
@@ -161,7 +162,7 @@ public class RulesOfMigrationActivity extends AppCompatActivity {
 
                     studentList.add(istories);
                 }
-                mAdapter=new RVRulesOfIncomingAdapter(studentList,mRecyclerView,this);
+                mAdapter=new RVRulesOfIncomingAdapter(studentList,mRecyclerView,this,"Правила пребывания за рубежом");
                 mRecyclerView.setAdapter(mAdapter);
 
 
@@ -210,7 +211,7 @@ public class RulesOfMigrationActivity extends AppCompatActivity {
 
             try {
 
-                URL url = new URL("http://176.126.167.231:8000/api/v1/rules_of_migration/?offset="+a+"&limit=15&format=json");
+                URL url = new URL("http://176.126.167.231:8000/api/v1/rules_of_incoming/?offset="+a+"&limit=15&country__id="+position+"&format=json");
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
@@ -256,9 +257,6 @@ public class RulesOfMigrationActivity extends AppCompatActivity {
                 JSONObject meta=dataJsonObject.getJSONObject("meta");
                 total_count=meta.getInt("total_count");
                 Log.e(TAG+"Total",total_count+""+a);
-                JSONObject secondObject = menus.getJSONObject(1);
-                secondName = secondObject.getString("id");
-                Log.d(TAG, "Второе имя: " + secondName);
 
                 for (int i = 0; i < menus.length(); i++) {
                     JSONObject menu = menus.getJSONObject(i);
@@ -266,7 +264,7 @@ public class RulesOfMigrationActivity extends AppCompatActivity {
                     RulesOfIncoming student = new RulesOfIncoming();
                     Log.d(TAG, "2: ");
 
-                    student.setImage("http://176.126.167.231:8000/"+menu.getString("image"));
+
                     student.setText(menu.getString("text_ru"));
                     student.setTitle(menu.getString("title_ru"));
                     if (i==0&&b==1){dataHelper.deleteROM();

@@ -3,21 +3,12 @@
     android:id="@+id/cv_forum_laws_r"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#ffffff"
     android:paddingLeft="15dp"
-    android:paddingBottom="20dp"
-    android:orientation="horizontal"
+    android:paddingBottom="40dp"
+    android:orientation="vertical"
    >
 
-    <LinearLayout
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tv_region_consulate"
@@ -29,7 +20,7 @@
                 android:text="(dsfsdgsdfjdkfgskfdff)"
                 android:textColor="#000"
                 android:textStyle="bold" />
-        </LinearLayout>
+
         <TextView
             android:textColor="#000"
             android:layout_width="match_parent"
@@ -44,5 +35,5 @@
             android:text="ASDFGHJKLTRDsud yfytFJUY uhiu\n gjdsgkfsdgcjhgkh fksfdkjghjvg jkhjjbkg hjvjsdbyu bsdjb hjvsjdkb hj" />
 
 
-    </LinearLayout>
+
 </LinearLayout>

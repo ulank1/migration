@@ -141,9 +141,7 @@ public class RVFAQAdapter extends RecyclerView.Adapter {
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),
-                            "OnClick :" + student.getNickName() + " \n "+student.getText(),
-                            Toast.LENGTH_SHORT).show();
+
                     Intent intent = new Intent(context, NewsSecondActivity.class);
                     intent.putExtra("text",student.getText());
                     context.startActivity(intent);

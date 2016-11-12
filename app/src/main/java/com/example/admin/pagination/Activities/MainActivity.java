@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.admin.pagination.*;
+import com.example.admin.pagination.Serializables.EAEU;
 import com.example.admin.pagination.Serializables.Embassy;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,11 +33,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.bt_faq:
                 startActivity(new Intent(MainActivity.this, FAQActivity.class));
                 break;
-            case R.id.bt_forum:
-                startActivity(new Intent(MainActivity.this, ForumWievPagerActivity.class));
+            case R.id.bt_diaspory:
+                startActivity(new Intent(MainActivity.this, DiasporyActivity.class));
                 break;
-            case R.id.bt_prava_zakony:
-                startActivity(new Intent(MainActivity.this,LawsAndRightsActivity.class));
+            case R.id.bt_zapret_v_RF:
+                startActivity(new Intent(MainActivity.this,ProhibitionRFActivity.class));
                 break;
             case  R.id.bt_news:
                 startActivity(new Intent(MainActivity.this,NewsActivity.class));
@@ -48,10 +49,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, EmbassyActivity.class));
                 break;
             case R.id.bt_instruction:
-                startActivity(new Intent(MainActivity.this,RulesOfIncomingActivity.class));
+                startActivity(new Intent(MainActivity.this,EAEUActivity.class));
                 break;
             case R.id.bt_rules_of_migration:
-                startActivity(new Intent(MainActivity.this,RulesOfMigrationActivity.class));
+                startActivity(new Intent(MainActivity.this,AbroadActivity.class));
+                break;
+            case R.id.bt_torgovlya:
+                startActivity(new Intent(MainActivity.this,HumanTraffickingActivity.class));
+            break;
+            case R.id.bt_trudoustiystvo:
+                startActivity(new Intent(MainActivity.this,EmployementActivity.class));
                 break;
 
         }
@@ -75,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.about_project:
                 startActivity(new Intent(MainActivity.this, AboutProjectActivity.class));
                 return true;
-
+            case  R.id.action_settings:
+                startActivity(new Intent(MainActivity.this,SettingsActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }

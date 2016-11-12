@@ -22,12 +22,19 @@ android:orientation="vertical"
 
 
     </android.support.design.widget.AppBarLayout>
+    <ScrollView
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <TextView
 
         android:background="@drawable/rv_embassy"
-        android:layout_margin="16dp"
         android:padding="10dp"
+        android:textColor="#000"
+        android:textSize="19dp"
+        android:text="dssd"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/tv_news_second"/>
+    </ScrollView>
 </LinearLayout>
