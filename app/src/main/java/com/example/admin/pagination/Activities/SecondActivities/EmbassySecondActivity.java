@@ -99,7 +99,7 @@ public class EmbassySecondActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
-        actionBar.setTitle("Посольства");
+        actionBar.setTitle(R.string.ac_consulate_actionbar);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         dataHelper=new DataHelper(this);
@@ -121,61 +121,9 @@ public class EmbassySecondActivity extends AppCompatActivity {
 
         // use a linear layout manager
         mRecyclerView.setLayoutManager(mLayoutManager);
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            //we are connected to a network
-            Toast.makeText(this,"RAbotaet",Toast.LENGTH_SHORT).show();
-            studentList.add(null);
-            mAdapter = new RVEmbassySecondAdapter(studentList, mRecyclerView, this);
 
-            // set the adapter object to the Recyclerview
-            mRecyclerView.setAdapter(mAdapter);
-            //  mAdapter.notifyDataSetChanged();
-            loadData();
-
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-
-
-            // create an Object for Adapter
-            mAdapter = new RVEmbassySecondAdapter(studentList, mRecyclerView, this);
-
-            // set the adapter object to the Recyclerview
-            mRecyclerView.setAdapter(mAdapter);
-            //  mAdapter.notifyDataSetChanged();
-
-
-            if (studentList.isEmpty()) {
-                mRecyclerView.setVisibility(View.GONE);
-                tvEmptyView.setVisibility(View.VISIBLE);
-
-            } else {
-                mRecyclerView.setVisibility(View.VISIBLE);
-                tvEmptyView.setVisibility(View.GONE);
-            }
-
-            mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-                @Override
-                public void onLoadMore() {
-                    //add null , so the adapter will check view_type and show progress bar at bottom
-
-                    Log.e("TAG_SUKA", "SUKA_RABOTAET");
-                    int start = studentList.size();
-                    if (start < total_count - 1)
-                        progressBar.setVisibility(View.VISIBLE);
-                    else progressBar.setVisibility(View.GONE);
-                    new ParseTask(start, 0).execute();
-
-
-                }
-            });
-
-        } else {
-            Toast.makeText(this,"NeRAbotaet",Toast.LENGTH_SHORT).show();
-            Cursor cursor = dataHelper.getDataConsulate();
-            Log.e("TAG_NEWS",cursor.getCount()+" kol");
-            if (cursor != null || cursor.getCount() > 0) {
+            Cursor cursor = dataHelper.getDataConsulate(id);
+            if ( cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
                     Consulate istories=new Consulate();
                     istories.setAddress(cursor.getString(cursor.getColumnIndex(DataHelper.CONSULATE_ADDRESS_COLUMN)));
@@ -187,130 +135,14 @@ public class EmbassySecondActivity extends AppCompatActivity {
                 mRecyclerView.setAdapter(mAdapter);
 
 
-            }
+            } else mRecyclerView.setVisibility(View.GONE);
 
 
-        }
+
     }
 
 
-    // load initial data
-    private void loadData() {
-        new ParseTask(0,1).execute();
 
-
-    }
-    public class ParseTask extends AsyncTask<Void, Void, String> {
-
-        HttpURLConnection urlConnection = null;
-        BufferedReader reader = null;
-        String jsonResult = "";
-        int a,b;
-        public ParseTask(int a,int b){
-            this.a=a;this.b=b;
-        }
-        @Override
-        protected String doInBackground(Void... params) {
-            Log.e("TAG_S",1+"");
-
-            try {
-
-                URL url = new URL("http://176.126.167.231:8000/api/v1/consulate/?embassy__id="+id1+"&offset="+a+"&limit=15&format=json");
-
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
-                Log.e("TAG_S",""+a);
-                InputStream inputStream = urlConnection.getInputStream();
-                StringBuilder builder = new StringBuilder();
-
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    builder.append(line);
-                }
-
-                jsonResult = builder.toString();
-                Log.e("TAG_S",3+"DELETE");
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.e("TAG_S",1+"PIZDEC");
-            }
-
-            Log.e("TAG_S",4+"");
-            return jsonResult;
-        }
-
-        @Override
-        protected void onPostExecute(String json) {
-            super.onPostExecute(json);
-            if (b==1) {
-                studentList.remove(studentList.size() - 1);
-                mAdapter.notifyItemRemoved(studentList.size());
-            }
-            Log.e("TAG", json);
-
-            JSONObject dataJsonObject;
-            String secondName;
-
-            try {
-                dataJsonObject = new JSONObject(json);
-                JSONArray menus = dataJsonObject.getJSONArray("objects");
-                JSONObject meta=dataJsonObject.getJSONObject("meta");
-                total_count=meta.getInt("total_count");
-                Log.e(TAG+"Total",total_count+""+a);
-                JSONObject secondObject = menus.getJSONObject(0);
-                secondName = secondObject.getString("id");
-                Log.d(TAG, "Второе имя: " + secondName);
-
-                for (int i = 0; i < menus.length(); i++) {
-                    JSONObject menu = menus.getJSONObject(i);
-                    Log.d(TAG, "1: " );
-                    Consulate student = new Consulate();
-                    Log.d(TAG, "2: ");
-                    student.setPhoneNumber(menu.getString("phone_number"));
-
-                    student.setRegion(menu.getString("region"));
-
-                    student.setAddress(menu.getString("address"));
-
-                    Log.e(TAG+"ADD",student.getAddress());
-
-                    if (i==0&&b==1){dataHelper.deleteConsulate();
-                        Log.e("TAG_NEWS","DELETE");
-                    }
-                    dataHelper.insertConsulate(student);
-                    studentList.add(student);
-
-
-
-
-
-                }
-                if (b==1){
-                    mAdapter=new RVEmbassySecondAdapter(studentList,mRecyclerView,EmbassySecondActivity.this);
-                    mRecyclerView.setAdapter(mAdapter);
-                }
-                else
-                mAdapter.notifyDataSetChanged();
-                mAdapter.setLoaded();
-
-                progressBar.setVisibility(View.GONE);
-                Log.d(TAG, "NET NET dsfsadadsgf: ");
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Log.d(TAG, "JSON_PIZDEC_EMBASSY_second");
-            }
-            Log.e("TAG_1","NORM");
-            Log.e("GANDON",""+studentList.size());
-            if (studentList.size()==0) mRecyclerView.setVisibility(View.GONE);
-
-
-
-        }
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

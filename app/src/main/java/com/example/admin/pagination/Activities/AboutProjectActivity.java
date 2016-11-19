@@ -19,7 +19,7 @@ public class AboutProjectActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("О проекте");
+        getSupportActionBar().setTitle(R.string.ac_about_project);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
     @Override

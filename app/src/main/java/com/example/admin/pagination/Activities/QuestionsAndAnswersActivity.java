@@ -103,7 +103,6 @@ public class QuestionsAndAnswersActivity extends AppCompatActivity {
         if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
             //we are connected to a network
-            Toast.makeText(this,"RAbotaet",Toast.LENGTH_SHORT).show();
             studentList.add(null);
             mAdapter = new RVForumQuestionsAndAnswersAdapter(studentList, mRecyclerView,this);
 
@@ -150,7 +149,6 @@ public class QuestionsAndAnswersActivity extends AppCompatActivity {
             });
 
         } else {
-            Toast.makeText(this,"NeRAbotaet",Toast.LENGTH_SHORT).show();
 
              cursor = dataHelper.getDataAById(id);
             Log.e("TAG_QA",cursor.getCount()+" kol   "+id);

@@ -8,16 +8,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <TextView
         android:textColor="#000"
-        android:paddingTop="5dp"
-        android:paddingLeft="2dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="19sp"
         android:textStyle="bold"
         android:text="dddd"
         android:id="@+id/tv_name_employment"/>
+
     <LinearLayout
         android:orientation="vertical"
         android:padding="7dp"
@@ -28,17 +30,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dp"
+        android:paddingLeft="1dp"
         android:paddingRight="10dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp">
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_margin="10dp"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:background="@drawable/website"
             />
 
         <TextView
+            android:layout_gravity="center_vertical"
             android:text="sd"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
@@ -63,18 +67,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dp"
+        android:paddingLeft="1dp"
         android:paddingRight="10dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp">
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_margin="10dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:scaleType="fitCenter"
             android:background="@drawable/location"
             />
 
         <TextView
+            android:layout_gravity="center_vertical"
             android:paddingLeft="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,17 +96,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dp"
+        android:paddingLeft="1dp"
         android:paddingRight="10dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp">
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_margin="10dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:background="@drawable/phone"
             />
         <LinearLayout
             android:orientation="vertical"
+            android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

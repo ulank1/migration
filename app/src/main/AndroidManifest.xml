@@ -50,7 +50,9 @@
         <activity android:name=".Activities.ProhibitionRFActivity" />
         <activity android:name=".Activities.DiasporyActivity" />
         <activity android:name=".Activities.SecondActivities.DiasporySecondActivity" />
-        <activity android:name=".Activities.SecondActivities.HTSecondActivity"></activity>
+        <activity android:name=".Activities.SecondActivities.HTSecondActivity" />
+        <activity android:name=".Activities.SecondActivities.FAQSecondActivity" />
+        <activity android:name=".Activities.HotLineCountryActivity"></activity>
     </application>
 
 </manifest>

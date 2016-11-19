@@ -22,9 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.admin.pagination.Adapters.RVEmbassyAdapter;
+import com.example.admin.pagination.Adapters.RVEmbassySecondAdapter;
 import com.example.admin.pagination.Helpers.DataHelper;
 import com.example.admin.pagination.Helpers.OnLoadMoreListener;
 import com.example.admin.pagination.R;
+import com.example.admin.pagination.Serializables.Consulate;
 import com.example.admin.pagination.Serializables.Embassy;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -38,12 +40,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-
+//date 5
 public class EmbassyActivity extends AppCompatActivity {
     EditText editSearch;
     String country="";
     DataHelper dataHelper;
+    String date,dateDB;
     boolean bool=false;
     String TAG="TAG_EMBASSY";
     private Toolbar toolbar;
@@ -68,7 +72,7 @@ public class EmbassyActivity extends AppCompatActivity {
 //        title.setText("Посольства");
 
         ActionBar actionBar=getSupportActionBar();
-        actionBar.setTitle("Консульства");
+        actionBar.setTitle(R.string.ac_embassy);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         dataHelper=new DataHelper(this);
@@ -91,7 +95,7 @@ public class EmbassyActivity extends AppCompatActivity {
         // use a linear layout manager
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        pizdec(1);
+      ifConnect();
 
 
 
@@ -107,12 +111,7 @@ public class EmbassyActivity extends AppCompatActivity {
                 country=query;
                 studentList.clear();
                 String countryDataHelper;
-                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                        connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-                    pizdec(3);
-                }
-                else {
+
                     Cursor cursor=dataHelper.getDataEmbassy();
                     if (cursor.getCount()>0){
                         while (cursor.moveToNext()){
@@ -129,8 +128,9 @@ public class EmbassyActivity extends AppCompatActivity {
                                 studentList.add(istories);
                             }
                         }
-                    }
-                    mAdapter.notifyDataSetChanged();
+                        mAdapter=new RVEmbassyAdapter(studentList,mRecyclerView,EmbassyActivity.this);
+                        mRecyclerView.setAdapter(mAdapter);
+
                 }
 
 
@@ -159,60 +159,47 @@ public class EmbassyActivity extends AppCompatActivity {
 
 
     }
+    public void ifConnect(){
+        Calendar calendar=Calendar.getInstance();
 
-    public void pizdec(int b){
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            //we are connected to a network
-            Toast.makeText(this,"RAbotaet",Toast.LENGTH_SHORT).show();
-            studentList.add(null);
-            mAdapter = new RVEmbassyAdapter(studentList, mRecyclerView, this);
-
-            // set the adapter object to the Recyclerview
-            mRecyclerView.setAdapter(mAdapter);
-            //  mAdapter.notifyDataSetChanged();
-            loadData(b);
-
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-
-
-            // create an Object for Adapter
-            mAdapter = new RVEmbassyAdapter(studentList, mRecyclerView, this);
-
-            // set the adapter object to the Recyclerview
-            mRecyclerView.setAdapter(mAdapter);
-            //  mAdapter.notifyDataSetChanged();
-
-
-            if (studentList.isEmpty()) {
-                mRecyclerView.setVisibility(View.GONE);
-                tvEmptyView.setVisibility(View.VISIBLE);
-
-            } else {
-                mRecyclerView.setVisibility(View.VISIBLE);
-                tvEmptyView.setVisibility(View.GONE);
+        int day=calendar.get(Calendar.DAY_OF_MONTH);
+        int month=calendar.get(Calendar.MONTH);
+        int year=calendar.get(Calendar.YEAR);
+        date=day+"."+month+"."+year;  mAdapter=new RVEmbassyAdapter(studentList,mRecyclerView,this);
+                mRecyclerView.setAdapter(mAdapter);
+        Cursor cursor=dataHelper.getDataDate("5");
+        if (cursor.getCount()==0){
+            ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED){
+                new ParseTask().execute();
+                progressBar.setVisibility(View.VISIBLE);
+            }
+            else {
+                Toast.makeText(this,R.string.toast_no_internet,Toast.LENGTH_SHORT).show();
             }
 
-            mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-                @Override
-                public void onLoadMore() {
-                    //add null , so the adapter will check view_type and show progress bar at bottom
+        }
+        else {
+            cursor.moveToPosition(0);
 
-                    Log.e("TAG_SUKA", "SUKA_RABOTAET");
-                    int start = studentList.size();
-                    if (start < total_count - 1)
-                        progressBar.setVisibility(View.VISIBLE);
-                    else progressBar.setVisibility(View.GONE);
-                    new ParseTask(start, 0).execute();
-
-
+            dateDB=cursor.getString(cursor.getColumnIndex(DataHelper.DATE_LAST_DATE_COLUMN));
+            Toast.makeText(this,dateDB,Toast.LENGTH_SHORT).show();
+            if (!dateDB.equals(date)){
+                ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+                if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                        connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED){
+                    new ParseTask().execute();
+                    progressBar.setVisibility(View.VISIBLE);
                 }
-            });
+                else {
+                    Toast.makeText(this,R.string.toast_no_internet,Toast.LENGTH_SHORT).show();
+                }
+            }else pizdec();
+        }
+    }
+    public void pizdec(){
 
-        } else {
-            Toast.makeText(this,"NeRAbotaet",Toast.LENGTH_SHORT).show();
             Cursor cursor = dataHelper.getDataEmbassy();
             Log.e("TAG_NEWS",cursor.getCount()+" kol");
             if (cursor != null && cursor.getCount() > 0) {
@@ -234,83 +221,115 @@ public class EmbassyActivity extends AppCompatActivity {
             }
 
 
-        }
-    }
-    // load initial data
-    private void loadData(int b) {
-        new ParseTask(0,b).execute();
-
-
     }
 
-//    public void onClickSearch(View view) {
-     /*   if (!bool){
-            title.setVisibility(View.GONE);
-            editSearch.setVisibility(View.VISIBLE);
-            bool=true;
-
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(editSearch, 0);
-        }
-        else {
-            title.setVisibility(View.VISIBLE);
-            editSearch.setVisibility(View.GONE);
-            bool=false;*/
-
-     /*   InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(editSearch.getWindowToken(), 0);*/
-    //country=editSearch.getText().toString();
-//        studentList.clear();
-//        String countryDataHelper;
-//        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-//        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-//                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-//            pizdec(3);
-//        }
-//        else {
-//            Cursor cursor=dataHelper.getDataEmbassy();
-//            if (cursor.getCount()>0){
-//                while (cursor.moveToNext()){
-//                    countryDataHelper=cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_COUNTRY_COLUMN)).toLowerCase();
-//                    if(countryDataHelper.contains(country.toLowerCase())){
-//                        Embassy istories=new Embassy();
-//                        istories.setEmail(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_EMAIL_COLUMN)));
-//                        istories.setSite(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_SITE_COLUMN)));
-//                        istories.setRegion(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_ADDRESS_COLUMN)));
-//                        istories.setId(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_JSON_ID_COLUMN)));
-//                        istories.setFax(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_FAX_COLUMN)));
-//                        istories.setCountry(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_COUNTRY_COLUMN)));
-//                        istories.setPhoneNumber(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_PHONE_COLUMN)));
-//                        studentList.add(istories);
-//                    }
-//                }
-//            }
-//            mAdapter.notifyDataSetChanged();
-//        }
-//        }
-//    }}
 
     public class ParseTask extends AsyncTask<Void, Void, String> {
 
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         String jsonResult = "";
-        int a,b;
-        public ParseTask(int a,int b){
-            this.a=a;this.b=b;
-        }
+
         @Override
         protected String doInBackground(Void... params) {
             Log.e("TAG_S",1+"");
 
             try {
 
-                URL url = new URL("http://176.126.167.231:8000/api/v1/embassy/?country__contains="+country+"&offset="+a+"&limit=15&format=json");
+                URL url = new URL("http://176.126.167.249/api/v1/embassy/?limit=0&format=json");
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
-                Log.e("TAG_S",""+a);
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuilder builder = new StringBuilder();
+
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line);
+                }
+
+                jsonResult = builder.toString();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return jsonResult;
+        }
+
+        @Override
+        protected void onPostExecute(String json) {
+            super.onPostExecute(json);
+
+            studentList.clear();
+            JSONObject dataJsonObject;
+
+            try {
+                dataJsonObject = new JSONObject(json);
+                JSONArray menus = dataJsonObject.getJSONArray("objects");
+                JSONObject meta=dataJsonObject.getJSONObject("meta");
+                total_count=meta.getInt("total_count");
+
+
+
+                for (int i = 0; i < menus.length(); i++) {
+                    JSONObject menu = menus.getJSONObject(i);
+                    Log.d(TAG, "1: " );
+                    Embassy student = new Embassy();
+                    Log.d(TAG, "2: ");
+                    student.setPhoneNumber(menu.getString("phone_number"));
+                    student.setCountry(menu.getString("country"));
+                    student.setEmail(menu.getString("email"));
+                    student.setFax(menu.getString("fax"));
+                    student.setId(menu.getString("id"));
+                    student.setRegion(menu.getString("address"));
+                    student.setSite(menu.getString("site"));
+
+                    if (i==0){dataHelper.deleteEmbassy();
+                        Log.e("TAG_NEWS","DELETE");
+                    }
+                    dataHelper.insertEmbassy(student);
+                    studentList.add(student);
+
+
+
+
+
+                }
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.d(TAG, "JSON_PIZDEC_EMBASSY");
+            }
+
+
+            new ParseTask1().execute();
+
+
+        }
+    }
+
+    public class ParseTask1 extends AsyncTask<Void, Void, String> {
+
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+        String jsonResult = "";
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+
+                URL url = new URL("http://176.126.167.249/api/v1/consulate/?limit=0&format=json");
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
                 InputStream inputStream = urlConnection.getInputStream();
                 StringBuilder builder = new StringBuilder();
 
@@ -336,11 +355,7 @@ public class EmbassyActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String json) {
             super.onPostExecute(json);
-            if (b==1||b==3) {
-                studentList.remove(studentList.size() - 1);
-                mAdapter.notifyItemRemoved(studentList.size());
-            }
-            Log.e("TAG", json);
+
 
             JSONObject dataJsonObject;
             String secondName;
@@ -350,28 +365,28 @@ public class EmbassyActivity extends AppCompatActivity {
                 JSONArray menus = dataJsonObject.getJSONArray("objects");
                 JSONObject meta=dataJsonObject.getJSONObject("meta");
                 total_count=meta.getInt("total_count");
-                Log.e(TAG+"Total",total_count+""+a);
-
-
+                dataHelper.deleteConsulate();
 
                 for (int i = 0; i < menus.length(); i++) {
                     JSONObject menu = menus.getJSONObject(i);
                     Log.d(TAG, "1: " );
-                    Embassy student = new Embassy();
+                    Consulate student = new Consulate();
                     Log.d(TAG, "2: ");
                     student.setPhoneNumber(menu.getString("phone_number"));
-                    student.setCountry(menu.getString("country"));
-                    student.setEmail(menu.getString("email"));
-                    student.setFax(menu.getString("fax"));
-                    student.setId(menu.getString("id"));
-                    student.setRegion(menu.getString("address"));
-                    student.setSite(menu.getString("site"));
 
-                    if (i==0&&b==1){dataHelper.deleteEmbassy();
+                    student.setRegion(menu.getString("region"));
+
+                    student.setAddress(menu.getString("address"));
+
+                    Log.e(TAG+"ADD",student.getAddress());
+
+                    if (i==0){
                         Log.e("TAG_NEWS","DELETE");
                     }
-                    dataHelper.insertEmbassy(student);
-                    studentList.add(student);
+                    JSONObject country=menu.getJSONObject("embassy");
+                    String id=country.getString("id");
+                    dataHelper.insertConsulate(student,id);
+
 
 
 
@@ -379,26 +394,39 @@ public class EmbassyActivity extends AppCompatActivity {
 
                 }
 
-                mAdapter.notifyDataSetChanged();
-                mAdapter.setLoaded();
-                progressBar.setVisibility(View.GONE);
-                Log.d(TAG, "NET NET dsfsadadsgf: ");
             } catch (JSONException e) {
                 e.printStackTrace();
-                Log.d(TAG, "JSON_PIZDEC_EMBASSY");
+                Log.d(TAG, "JSON_PIZDEC_EMBASSY_second");
             }
-            Log.e("TAG_1","NORM");
+            progressBar.setVisibility(View.GONE);
 
+            mAdapter=new RVEmbassyAdapter(studentList,mRecyclerView,EmbassyActivity.this);
+            mRecyclerView.setAdapter(mAdapter);
 
-
-
-
+            dataHelper.updateDate(date,"5");
         }
     }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return super.onOptionsItemSelected(item);
+        int id=item.getItemId();
+        switch (id){
+            case android.R.id.home:
+                finish();
+
+                return true;
+            case R.id.action_ubdate:
+                dataHelper.updateDate("ss","5");
+                ifConnect();
+
+                return true;
+            case R.id.action_search:
+                searchView.setMenuItem(item);
+                return true;
+            default:  return super.onOptionsItemSelected(item);
+        }
+
 
     }
 
@@ -406,8 +434,6 @@ public class EmbassyActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
 
-        MenuItem item = menu.findItem(R.id.action_search);
-        searchView.setMenuItem(item);
 
         return true;
     }

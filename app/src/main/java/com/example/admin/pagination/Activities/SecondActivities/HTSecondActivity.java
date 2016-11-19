@@ -33,7 +33,7 @@ public class HTSecondActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Торговля людьми");
+        actionBar.setTitle(R.string.ac_ht);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         list=new ArrayList<>();

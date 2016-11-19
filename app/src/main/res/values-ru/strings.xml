@@ -29,8 +29,8 @@
     <string name="ac_about_project">О проекте</string>
     <string name="ac_ht">Осторожно! Торговля людьми</string>
     <string name="menu_about">О проекте</string>
-    <string name="tv_faq_answer">Вопрос</string>
-    <string name="tv_question_faq">Ответ</string>
+    <string name="tv_question_faq">Ответ:</string>
+    <string name="tv_faq_answer">Вопрос:</string>
     <string name="tv_embassy_consulate">Консульские отделы</string>
     <string name="ac_consulate_actionbar">Консульства</string>
 

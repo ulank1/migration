@@ -22,12 +22,23 @@
 
 
     </android.support.design.widget.AppBarLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:paddingTop="8dp"
+        android:paddingLeft="22dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="2dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:text="Выберите страну из списка"
+        android:layout_height="wrap_content" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
+        android:padding="1dp"
         android:id="@+id/my_recycler_view"
         android:layout_margin="7dp"
         android:layout_width="match_parent"

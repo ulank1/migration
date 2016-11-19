@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
+    android:background="#fff"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -23,6 +24,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
+
         android:id="@+id/rv_rules_of_incoming"
         android:layout_width="match_parent"
         android:layout_height="0dp"

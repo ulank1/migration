@@ -53,14 +53,14 @@
                 android:text="News">
 
                 <TextView
-
+                    android:id="@+id/news"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="8dp"
+
                     android:gravity="center"
-                    android:text="Новости"
+                    android:text="@string/bt_news"
                     android:textColor="#ffff"
-                    android:textSize="16sp"
+                    android:textSize="15dp"
                     android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
@@ -72,15 +72,17 @@
                 android:background="@drawable/shape_line"
                 android:onClick="onClick"
                 android:orientation="vertical"
-                android:text="embassies">
+               >
 
                 <TextView
+
+                    android:id="@+id/eaeu"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Правила пребывания в ЕАЭС"
+                    android:text="@string/bt_eaeu"
                     android:textColor="#ffff"
-                    android:textSize="16dp"
+                    android:textSize="15dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -110,11 +112,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="8dp"
+
                     android:gravity="center"
-                    android:text="Горячие линии"
+                    android:id="@+id/hot_line"
+                    android:text="@string/bt_hot_line"
                     android:textColor="#ffff"
-                    android:textSize="18sp"
+                    android:textSize="15dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -131,12 +134,14 @@
                 android:text="laws">
 
                 <TextView
+
+                    android:id="@+id/embassy"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Посольства и консульства"
+                    android:text="@string/bt_embassy"
                     android:textColor="#ffff"
-                    android:textSize="16dp"
+                    android:textSize="15dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -161,11 +166,12 @@
                 android:text="rules of incoming">
 
                 <TextView
+
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
+android:id="@+id/diaspora"
                     android:gravity="center"
-                    android:text="Диаспоры и общественные представители"
+                    android:text="@string/bt_diaspora"
                     android:textColor="#ffff"
                     android:textSize="15dp"
                     android:textStyle="bold" />
@@ -183,13 +189,15 @@
                 android:text="forum">
 
                 <TextView
+
+                    android:id="@+id/abroad"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="1dp"
+
                     android:gravity="center"
-                    android:text="Правила пребывания за рубежом"
+                    android:text="@string/bt_abroad"
                     android:textColor="#ffff"
-                    android:textSize="16dp"
+                    android:textSize="15dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -215,13 +223,15 @@
 
 
                 <TextView
+
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                   android:layout_margin="1dp"
+
                     android:gravity="center"
-                    android:text="Осторожно Торговля людьми"
+                    android:text="@string/bt_ht"
                     android:textColor="#ffff"
-                    android:textSize="16sp"
+                    android:textSize="15dp"
+                    android:id="@+id/ht"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -240,11 +250,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="2dp"
+
                     android:gravity="center"
-                    android:text="Запрет въезда в РФ"
+                    android:text="@string/bt_prohibition"
                     android:textColor="#ffff"
-                    android:textSize="18sp"
+                    android:textSize="15dp"
+                    android:id="@+id/prohibition"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -272,11 +283,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="8dp"
+
                     android:gravity="center"
-                    android:text="Трудоустройтво"
+                    android:text="@string/bt_employment"
                     android:textColor="#ffff"
-                    android:textSize="18sp"
+                    android:textSize="15dp"
+                    android:id="@+id/employ"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -293,13 +305,14 @@
                 android:text="faq">
 
                 <TextView
+                    android:id="@+id/faq"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="8dp"
+
                     android:gravity="center"
-                    android:text="FAQ"
+                    android:text="@string/bt_faq"
                     android:textColor="#ffff"
-                    android:textSize="18sp"
+                    android:textSize="15dp"
                     android:textStyle="bold" />
 
             </LinearLayout>

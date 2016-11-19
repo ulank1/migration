@@ -4,14 +4,16 @@
     tools:context="com.mycompany.notepad">
 
     <item
-        android:id="@+id/action_settings"
-        app:showAsAction="never"
-        android:title="Настройки"/>
+        android:id="@+id/menu_item_language"
+        app:showAsAction="always"
+
+        android:title="kg"
+        />
 
     <item
         android:id="@+id/about_project"
         android:orderInCategory="100"
         app:showAsAction="never"
-        android:title="О проекте"/>
+        android:title="@string/menu_about"/>
 
 </menu>

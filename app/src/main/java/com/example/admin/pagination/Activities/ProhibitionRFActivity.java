@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import com.example.admin.pagination.Adapters.RVProhibitionAdapter;
 import com.example.admin.pagination.Adapters.RVRulesOfIncomingAdapter;
 import com.example.admin.pagination.Helpers.DataHelper;
+import com.example.admin.pagination.Helpers.DateDateDB;
 import com.example.admin.pagination.Helpers.OnLoadMoreListener;
 import com.example.admin.pagination.R;
 import com.example.admin.pagination.Serializables.Istories;
@@ -38,10 +40,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-
+//date 7
 public class ProhibitionRFActivity extends AppCompatActivity {
-
+    String  date,dateDB;
     Istories istories;
     int limit=15;
     int offset=0;
@@ -69,7 +72,7 @@ public class ProhibitionRFActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
-        actionBar.setTitle("Запрет въезда в РФ");
+        actionBar.setTitle(R.string.ac_prohib);
 
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -91,124 +94,116 @@ public class ProhibitionRFActivity extends AppCompatActivity {
 
         // use a linear layout manager
         mRecyclerView.setLayoutManager(mLayoutManager);
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            //we are connected to a network
-            Toast.makeText(this,"RAbotaet",Toast.LENGTH_SHORT).show();
-            studentList.add(null);
-            mAdapter = new RVProhibitionAdapter(studentList, mRecyclerView, this,2);
-
-            // set the adapter object to the Recyclerview
-            mRecyclerView.setAdapter(mAdapter);
-            //  mAdapter.notifyDataSetChanged();
-            loadData();
-
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
 
 
-            // create an Object for Adapter
-            mAdapter = new RVProhibitionAdapter(studentList, mRecyclerView, this,2);
-
-            // set the adapter object to the Recyclerview
-            mRecyclerView.setAdapter(mAdapter);
-            //  mAdapter.notifyDataSetChanged();
+        ifConnect();
 
 
-            if (studentList.isEmpty()) {
-                mRecyclerView.setVisibility(View.GONE);
-                tvEmptyView.setVisibility(View.VISIBLE);
-
-            } else {
-                mRecyclerView.setVisibility(View.VISIBLE);
-                tvEmptyView.setVisibility(View.GONE);
-            }
-
-            mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-                @Override
-                public void onLoadMore() {
-                    //add null , so the adapter will check view_type and show progress bar at bottom
-
-                    Log.e("TAG_SUKA", "SUKA_RABOTAET");
-                    int start = studentList.size();
-                    if (start < total_count - 1)
-                        progressBar.setVisibility(View.VISIBLE);
-                    else progressBar.setVisibility(View.GONE);
-                    new ParseTask(start, 0).execute();
-
-
-                }
-            });
-
-        } else {
-            Toast.makeText(this,"NeRAbotaet",Toast.LENGTH_SHORT).show();
-            Cursor cursor = dataHelper.getDataProhibition();
-            Log.e("TAG_NEWS",cursor.getCount()+" kol");
-            if (cursor != null && cursor.getCount() > 0) {
-                while (cursor.moveToNext()) {
-                    RulesOfIncoming istories=new RulesOfIncoming();
-                    istories.setTitle(cursor.getString(cursor.getColumnIndex(DataHelper.PROHIB_ZAGOLOVOK_COLUMN)));
-                    istories.setText(cursor.getString(cursor.getColumnIndex(DataHelper.PROHIB_TEXT_COLUMN)));
-                    istories.setImage(cursor.getString(cursor.getColumnIndex(DataHelper.PROHIB_IMAGE_COLUMN)));
-
-                    studentList.add(istories);
-                }
-                mAdapter=new RVProhibitionAdapter(studentList,mRecyclerView,this,2);
-                mRecyclerView.setAdapter(mAdapter);
-
-
-            }
-
-
-        }
 
     }
 
+    public void db(){
+        Cursor cursor = dataHelper.getDataProhibition();
+        Log.e("TAG_NEWS",cursor.getCount()+" kol");
+        if (cursor != null && cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                RulesOfIncoming istories=new RulesOfIncoming();
+                istories.setTitle(cursor.getString(cursor.getColumnIndex(DataHelper.PROHIB_ZAGOLOVOK_COLUMN)));
+                istories.setText(cursor.getString(cursor.getColumnIndex(DataHelper.PROHIB_TEXT_COLUMN)));
+                istories.setImage(cursor.getString(cursor.getColumnIndex(DataHelper.PROHIB_IMAGE_COLUMN)));
 
-    // load initial data
-    private void loadData() {
-        new ParseTask(0,1).execute();
+                studentList.add(istories);
+            }
+            mAdapter=new RVProhibitionAdapter(studentList,mRecyclerView,this,2);
+            mRecyclerView.setAdapter(mAdapter);
 
 
+        }
+    }
+    public void ifConnect(){
+        Calendar calendar=Calendar.getInstance();
+
+        int day=calendar.get(Calendar.DAY_OF_MONTH);
+        int month=calendar.get(Calendar.MONTH);
+        int year=calendar.get(Calendar.YEAR);
+        date=day+"."+month+"."+year;
+        Cursor cursor=dataHelper.getDataDate("7");
+        if (cursor.getCount()==0){
+            ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED){
+                new ParseTask().execute();
+                progressBar.setVisibility(View.VISIBLE);
+
+            }
+            else {
+                Toast.makeText(this,"Включите интернет и обновите",Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        else {
+            cursor.moveToFirst();
+
+            dateDB=cursor.getString(cursor.getColumnIndex(DataHelper.DATE_LAST_DATE_COLUMN));
+            DateDateDB dateDateDB=new DateDateDB();
+            if (dateDateDB.calendar1(dateDB)){
+                ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+                if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                        connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED){
+                    new ParseTask().execute();
+                    progressBar.setVisibility(View.VISIBLE);
+
+                }
+                else {
+                    Toast.makeText(this,"Включите интернет и обновите",Toast.LENGTH_SHORT).show();
+                }
+            }else db();
+        }
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return super.onOptionsItemSelected(item);
+        int id=item.getItemId();
+        switch (id){
+            case android.R.id.home:
+                finish();
+
+                return true;
+            case R.id.action_ubdate:
+                dataHelper.updateDate("ss","7");
+                ifConnect();
+
+                return true;
+
+            default:  return super.onOptionsItemSelected(item);
+        }
+
 
     }
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.bt_forum_istorii_jizni:
-                startActivity(new Intent(ProhibitionRFActivity.this,IstoriesFromLifeActivity.class));
-                break;
-            case R.id.bt_forum_voprosy_otvety:
-                startActivity(new Intent(ProhibitionRFActivity.this,QuestionsAndAnswersActivity.class));
-                break;
-        }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_refresh, menu);
+
+
+
+        return true;
     }
     public class ParseTask extends AsyncTask<Void, Void, String> {
 
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         String jsonResult = "";
-        int a,b;
-        public ParseTask(int a,int b){
-            this.a=a;this.b=b;
-        }
+
         @Override
         protected String doInBackground(Void... params) {
-            Log.e("TAG_S",1+"");
 
             try {
 
-                URL url = new URL("http://176.126.167.231:8000/api/v1/rf/?offset="+a+"&limit=15&format=json");
+                URL url = new URL("http://176.126.167.249/api/v1/rf/?limit=0&format=json");
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
-                Log.e("TAG_S",""+a);
                 InputStream inputStream = urlConnection.getInputStream();
                 StringBuilder builder = new StringBuilder();
 
@@ -220,25 +215,19 @@ public class ProhibitionRFActivity extends AppCompatActivity {
                 }
 
                 jsonResult = builder.toString();
-                Log.e("TAG_S",3+"DELETE");
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("TAG_S",1+"PIZDEC");
             }
 
-            Log.e("TAG_S",4+"");
             return jsonResult;
         }
 
         @Override
         protected void onPostExecute(String json) {
             super.onPostExecute(json);
-            if (b==1) {
-                studentList.remove(studentList.size() - 1);
-                mAdapter.notifyItemRemoved(studentList.size());
-            }
-            Log.e("TAG", json);
+            studentList.clear();
+
             JSONObject user;
             JSONObject dataJsonObject;
             String secondName;
@@ -248,43 +237,35 @@ public class ProhibitionRFActivity extends AppCompatActivity {
                 JSONArray menus = dataJsonObject.getJSONArray("objects");
                 JSONObject meta=dataJsonObject.getJSONObject("meta");
                 total_count=meta.getInt("total_count");
-                Log.e(TAG+"Total",total_count+""+a);
 
 
                 for (int i = 0; i < menus.length(); i++) {
                     JSONObject menu = menus.getJSONObject(i);
-                    Log.d(TAG, "1: " );
                     RulesOfIncoming student = new RulesOfIncoming();
-                    Log.d(TAG, "2: ");
 
                     student.setImage("http://176.126.167.231:8000"+menu.getString("image"));
                     student.setText(menu.getString("text_ru"));
                     student.setTitle(menu.getString("title_ru"));
-                    if (i==0&&b==1){dataHelper.deleteProhibition();
-                        Log.e("TAG_NEWS","DELETE");
+                    if (i==0){dataHelper.deleteProhibition();
                     }
                     dataHelper.insertProhibition(student);
                     studentList.add(student);
 
 
-                    Log.e("TAG_IS",student.getTitle()+"   "+student.getText());
-
+                    mAdapter=new RVProhibitionAdapter(studentList,mRecyclerView,ProhibitionRFActivity.this,2);
+                    mRecyclerView.setAdapter(mAdapter);
 
 
                 }
 
-                mAdapter.notifyDataSetChanged();
-                mAdapter.setLoaded();
-                progressBar.setVisibility(View.GONE);
-                Log.d(TAG, "NET NET dsfsadadsgf: ");
+
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.d(TAG, "JSON_PIZDEC");
             }
             progressBar.setVisibility(View.GONE);
-            Log.e("TAG_1","NORM");
 
-
+            dataHelper.updateDate(date,"7");
 
 
 

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.admin.pagination.Activities.SecondActivities.FAQSecondActivity;
 import com.example.admin.pagination.Activities.SecondActivities.NewsSecondActivity;
 import com.example.admin.pagination.Helpers.OnLoadMoreListener;
 import com.example.admin.pagination.R;
@@ -142,8 +143,9 @@ public class RVFAQAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(context, NewsSecondActivity.class);
+                    Intent intent = new Intent(context, FAQSecondActivity.class);
                     intent.putExtra("text",student.getText());
+                    intent.putExtra("title",student.getNickName());
                     context.startActivity(intent);
 
                 }

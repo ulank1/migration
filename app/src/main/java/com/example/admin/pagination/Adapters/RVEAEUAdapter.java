@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.admin.pagination.Activities.HotLineActivity;
 import com.example.admin.pagination.Activities.RulesOfIncomingActivity;
 import com.example.admin.pagination.Activities.SecondActivities.DiasporySecondActivity;
 import com.example.admin.pagination.Activities.SecondActivities.EmploymentSecondActivity;
@@ -104,7 +105,7 @@ public class RVEAEUAdapter extends RecyclerView.Adapter {
             EAEU singleStudent= (EAEU) studentList.get(position);
 
             ((StudentViewHolder) holder).tvName.setText(singleStudent.getName());
-            Picasso.with(context).load("http://176.126.167.231:8000"+singleStudent.getPicture()).into(((StudentViewHolder) holder).imageView);
+            Picasso.with(context).load("http://176.126.167.249"+singleStudent.getPicture()).into(((StudentViewHolder) holder).imageView);
 
             ((StudentViewHolder) holder).student= singleStudent;
             ((StudentViewHolder) holder).isAbroad2=isAbroad;
@@ -152,9 +153,12 @@ public class RVEAEUAdapter extends RecyclerView.Adapter {
 
                     else if (isAbroad2==1)intent=new Intent(v.getContext(), RulesOfIncomingActivity.class);
                     else if (isAbroad2==3)intent=new Intent(v.getContext(), EmploymentSecondActivity.class);
-                    else intent=new Intent(v.getContext(), DiasporySecondActivity.class);
+                    else  if (isAbroad2==4)intent=new Intent(v.getContext(), DiasporySecondActivity.class);
+                    else  intent=new Intent(v.getContext(), HotLineActivity.class);
                     intent.putExtra("position",student.getId());
                     intent.putExtra("text",student.getName());
+
+                    intent.putExtra("id",student.getId());
                     v.getContext().startActivity(intent);
 
 

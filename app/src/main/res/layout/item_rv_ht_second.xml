@@ -6,10 +6,16 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:text="asdasdasdasdasda sdas dasd asd asd"
         android:id="@+id/tv_mig_second"/>
+
     <ImageView
+        android:scaleType="fitXY"
         android:src="@drawable/emblem_for_about"
         android:layout_width="match_parent"
-        android:layout_height="850px"
+        android:layout_height="wrap_content"
         android:id="@+id/image_mig_second"/>
     </LinearLayout>

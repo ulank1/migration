@@ -109,7 +109,7 @@ public class RVMigSecondAdapter extends RecyclerView.Adapter {
             {
                 ((StudentViewHolder) holder).tvName.setVisibility(View.GONE);
                 ((StudentViewHolder) holder).imageView.setVisibility(View.VISIBLE);
-                Picasso.with(context).load("http://176.126.167.231:8000/"+singleStudent.getText()).placeholder(R.drawable.fax).into(((StudentViewHolder) holder).imageView);
+                Picasso.with(context).load("http://176.126.167.249"+singleStudent.getText()).placeholder(R.drawable.fax).into(((StudentViewHolder) holder).imageView);
             }
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);

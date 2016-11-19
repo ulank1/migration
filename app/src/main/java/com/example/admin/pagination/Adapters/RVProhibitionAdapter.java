@@ -146,7 +146,7 @@ public class RVProhibitionAdapter extends RecyclerView.Adapter {
                    intent = new Intent(context, HTSecondActivity.class);
                     else   intent = new Intent(context, RulesOfMigrationActivity.class);
                     intent.putExtra("text",student.getText());
-                    intent.putExtra("name","Осторожно! Торговля людьми");
+                    intent.putExtra("name",R.string.ac_prohib);
                     context.startActivity(intent);
 
                 }

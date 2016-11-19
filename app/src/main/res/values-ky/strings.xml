@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Мигрантын справочниги</string>
+    <string name="reg_name">Вам нужно зарегистрироваться чтобы писать на форуме1</string>
+    <string name="my_text">This is an <u>underline</u>.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment1</string>
+    <string name="menu_item_language">kg1</string>
+    <string name="call_button_text">Чалуу</string>
+    <string name="bt_news">Жанылыктар</string>
+    <string name="bt_eaeu">ЕАЕСте болуу эрежелери</string>
+    <string name="bt_hot_line">Байланыштар</string>
+    <string name="bt_embassy">Элчилик жана консулдук кызмат</string>
+    <string name="bt_diaspora">Диаспоралар жана коомдук өкүлдөрү</string>
+    <string name="bt_abroad">Чет өлкөдө жүрүчү эрежелер</string>
+    <string name="bt_ht">Адам аткезчилиги менен күрөшүү</string>
+    <string name="bt_prohibition">
+Россияга киргенге тыюу салуу</string>
+    <string name="bt_employment">Жайгаштыруу</string>
+    <string name="bt_faq">Көп берилүүчү суроолор</string>
+    <string name="ac_embassy">Элчилик</string>
+    <string name="ac_abroad">Чет өлкөдө жүрүчү эрежелер</string>
+    <string name="toast_no_internet">Интернет жок</string>
+    <string name="ac_diaspora">Диаспора жана жарандык коомдун өкүлдөрү</string>
+    <string name="ac_eaeu">ЕАЕСте болуу эрежелери</string>
+    <string name="ac_employment">Жайгаштыруу</string>
+    <string name="ac_faq">Суроолор жана жооптор</string>
+    <string name="ac_hotline">Байланыштар</string>
+    <string name="ac_news">Жанылыктар</string>
+    <string name="ac_prohib">Россияга киргенге тыюу салуу</string>
+    <string name="ac_about_project">Долбоор жөнүндө</string>
+    <string name="ac_ht">Адам аткезчилиги менен күрөшүү</string>
+    <string name="menu_about">Долбоор жөнүндө</string>
+    <string name="tv_question_faq">Жооп:</string>
+    <string name="tv_faq_answer">Суроо:</string>
+    <string name="tv_embassy_consulate">
+Аймактардагы коомчулуктун мүчөлөрү</string>
+    <string name="ac_consulate_actionbar">
+Консулдук кызмат</string>
+
+</resources>
