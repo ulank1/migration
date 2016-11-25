@@ -63,7 +63,7 @@ public class HumanTraffickingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rules_of_incoming);
+        setContentView(R.layout.activity_rules_of_incoming_ht);
         Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -111,7 +111,7 @@ public class HumanTraffickingActivity extends AppCompatActivity {
 
                 studentList.add(istories);
             }
-            mAdapter=new RVProhibitionAdapter(studentList,mRecyclerView,this,1);
+            mAdapter=new RVProhibitionAdapter(studentList,mRecyclerView,this,1,getString(R.string.ac_prohib));
             mRecyclerView.setAdapter(mAdapter);
 
 
@@ -186,6 +186,10 @@ public class HumanTraffickingActivity extends AppCompatActivity {
 
 
         return true;
+    }
+
+    public void onClick(View view) {
+        startActivity(new Intent(HumanTraffickingActivity.this,NKOActivity.class));
     }
 
 
@@ -267,7 +271,7 @@ public class HumanTraffickingActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
 
 
-            mAdapter=new RVProhibitionAdapter(studentList,mRecyclerView,HumanTraffickingActivity.this,1);
+            mAdapter=new RVProhibitionAdapter(studentList,mRecyclerView,HumanTraffickingActivity.this,1,getString(R.string.ac_prohib));
             mRecyclerView.setAdapter(mAdapter);
             dataHelper.updateDate(date,"6");
 

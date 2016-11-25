@@ -124,6 +124,8 @@ public class EmbassyActivity extends AppCompatActivity {
                                 istories.setId(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_JSON_ID_COLUMN)));
                                 istories.setFax(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_FAX_COLUMN)));
                                 istories.setCountry(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_COUNTRY_COLUMN)));
+                                istories.setImage(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_IMAGE_COLUMN)));
+
                                 istories.setPhoneNumber(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_PHONE_COLUMN)));
                                 studentList.add(istories);
                             }
@@ -184,7 +186,6 @@ public class EmbassyActivity extends AppCompatActivity {
             cursor.moveToPosition(0);
 
             dateDB=cursor.getString(cursor.getColumnIndex(DataHelper.DATE_LAST_DATE_COLUMN));
-            Toast.makeText(this,dateDB,Toast.LENGTH_SHORT).show();
             if (!dateDB.equals(date)){
                 ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
                 if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
@@ -212,6 +213,8 @@ public class EmbassyActivity extends AppCompatActivity {
                     istories.setFax(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_FAX_COLUMN)));
                     istories.setCountry(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_COUNTRY_COLUMN)));
                     istories.setPhoneNumber(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_PHONE_COLUMN)));
+                    istories.setImage(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_IMAGE_COLUMN)));
+
                     studentList.add(istories);
                 }
                 mAdapter=new RVEmbassyAdapter(studentList,mRecyclerView,this);
@@ -287,6 +290,7 @@ public class EmbassyActivity extends AppCompatActivity {
                     student.setId(menu.getString("id"));
                     student.setRegion(menu.getString("address"));
                     student.setSite(menu.getString("site"));
+                    student.setImage(menu.getString("image"));
 
                     if (i==0){dataHelper.deleteEmbassy();
                         Log.e("TAG_NEWS","DELETE");

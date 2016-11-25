@@ -67,12 +67,12 @@ public class ProhibitionRFActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rules_of_incoming);
+        setContentView(R.layout.activity_prohibition_rf);
         Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
-        actionBar.setTitle(R.string.ac_prohib);
+        actionBar.setTitle(getString(R.string.ac_prohib));
 
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -114,7 +114,7 @@ public class ProhibitionRFActivity extends AppCompatActivity {
 
                 studentList.add(istories);
             }
-            mAdapter=new RVProhibitionAdapter(studentList,mRecyclerView,this,2);
+            mAdapter=new RVProhibitionAdapter(studentList,mRecyclerView,this,2,getString(R.string.ac_prohib));
             mRecyclerView.setAdapter(mAdapter);
 
 
@@ -188,6 +188,12 @@ public class ProhibitionRFActivity extends AppCompatActivity {
 
         return true;
     }
+
+    public void onClick(View view) {
+        startActivity(new Intent(ProhibitionRFActivity.this,InspectionActivity.class));
+    }
+
+
     public class ParseTask extends AsyncTask<Void, Void, String> {
 
         HttpURLConnection urlConnection = null;
@@ -243,7 +249,7 @@ public class ProhibitionRFActivity extends AppCompatActivity {
                     JSONObject menu = menus.getJSONObject(i);
                     RulesOfIncoming student = new RulesOfIncoming();
 
-                    student.setImage("http://176.126.167.231:8000"+menu.getString("image"));
+                    student.setImage("http://176.126.167.249/"+menu.getString("image"));
                     student.setText(menu.getString("text_ru"));
                     student.setTitle(menu.getString("title_ru"));
                     if (i==0){dataHelper.deleteProhibition();
@@ -252,7 +258,7 @@ public class ProhibitionRFActivity extends AppCompatActivity {
                     studentList.add(student);
 
 
-                    mAdapter=new RVProhibitionAdapter(studentList,mRecyclerView,ProhibitionRFActivity.this,2);
+                    mAdapter=new RVProhibitionAdapter(studentList,mRecyclerView,ProhibitionRFActivity.this,2,getString(R.string.ac_prohib));
                     mRecyclerView.setAdapter(mAdapter);
 
 

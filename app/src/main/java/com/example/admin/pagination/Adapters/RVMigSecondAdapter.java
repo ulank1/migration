@@ -2,6 +2,8 @@ package com.example.admin.pagination.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.admin.pagination.Activities.SecondActivities.EmbassySecondActivity;
+import com.example.admin.pagination.Helpers.DataHelper;
 import com.example.admin.pagination.Helpers.OnLoadMoreListener;
 import com.example.admin.pagination.R;
 import com.example.admin.pagination.Serializables.Mig2;
@@ -35,7 +38,7 @@ public class RVMigSecondAdapter extends RecyclerView.Adapter {
     private boolean loading;
     private OnLoadMoreListener onLoadMoreListener;
     public Context context;
-
+    public Bitmap bitmap;
 
     public RVMigSecondAdapter(List<Mig2> students, RecyclerView recyclerView, Context context) {
         studentList = students;
@@ -96,6 +99,18 @@ public class RVMigSecondAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof StudentViewHolder) {
+            int height = 0;
+            int width = 0;
+
+            DataHelper dataHelper=new DataHelper(context);
+            Cursor cursor=dataHelper.getDataSize();
+            if (cursor.getCount()>0){
+                cursor.moveToFirst();
+                width=cursor.getInt(cursor.getColumnIndex(DataHelper.SIZE_WIDTH_COLUMN));
+                height=cursor.getInt(cursor.getColumnIndex(DataHelper.SIZE_HEIGHT_COLUMN));
+
+            }
+
 
             Mig2 singleStudent= (Mig2) studentList.get(position);
             if (singleStudent.getType()==0) {
@@ -109,7 +124,8 @@ public class RVMigSecondAdapter extends RecyclerView.Adapter {
             {
                 ((StudentViewHolder) holder).tvName.setVisibility(View.GONE);
                 ((StudentViewHolder) holder).imageView.setVisibility(View.VISIBLE);
-                Picasso.with(context).load("http://176.126.167.249"+singleStudent.getText()).placeholder(R.drawable.fax).into(((StudentViewHolder) holder).imageView);
+
+                Picasso.with(context).load("http://176.126.167.249/"+singleStudent.getText()).placeholder(R.drawable.fax).into(((StudentViewHolder) holder).imageView);
             }
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);

@@ -15,6 +15,7 @@ import com.example.admin.pagination.Serializables.Embassy;
 import com.example.admin.pagination.Serializables.Employment;
 import com.example.admin.pagination.Serializables.Hotline;
 import com.example.admin.pagination.Serializables.Istories;
+import com.example.admin.pagination.Serializables.NKO;
 import com.example.admin.pagination.Serializables.RulesOfIncoming;
 import com.example.admin.pagination.Serializables.User;
 import com.example.admin.pagination.Serializables.VseAndUzery;
@@ -47,6 +48,7 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String TABLE_NEWS="News";
     public static final String NEWS_ZAGOLOVOK_COLUMN="news_zagolovok";
     public static final String NEWS_TEXT_COLUMN="news_text";
+    public static final String NEWS_IMAGE_COLUMN="news_image";
 
 
     public static final String TABLE_RULES_OF_INCOMING="Rules_of_incoming";
@@ -103,6 +105,7 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String EMBASSY_JSON_ID_COLUMN="em_id";
     public static final String EMBASSY_EMAIL_COLUMN="em_email";
     public static final String EMBASSY_FAX_COLUMN="em_fax";
+    public static final String EMBASSY_IMAGE_COLUMN="em_image";
 
     public static final String TABLE_HOT_LINE="Hot_line";
     public static final String HOT_TITLE_COLUMN="hot_zagolovok";
@@ -148,6 +151,23 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String EAEU_ID_COLUMN="eaeu_id";
 
 
+    public static final String TABLE_NKOC="NKOC";
+    public static final String NKOC_TITLE_COLUMN="nkoc_eaeu";
+    public static final String NKOC_PICTURE_COLUMN="nkoc_picture";
+    public static final String NKOC_ID_COLUMN="nkoc_id";
+
+
+    public static final String TABLE_NKO="NKO";
+    public static final String NKO_ADDRESS_COLUMN="nko_address";
+    public static final String NKO_MAIL_COLUMN="nko_mail";
+    public static final String NKO_MANAGER_COLUMN="nko_manager";
+    public static final String NKO_PHONE_COLUMN="nko_phone";
+    public static final String NKO_PHONE1_COLUMN="nko_phone1";
+    public static final String NKO_PARENT_ID_COLUMN="nko_parent_id";
+    public static final String NKO_TEXT_COLUMN="nko_text";
+    public static final String NKO_TITLE_COLUMN="nko_title";
+
+
     public static final String TABLE_DIAS="Dias";
     public static final String DIAS_TITLE_COLUMN="title_dias";
     public static final String DIAS_PICTURE_COLUMN="dias_picture";
@@ -157,7 +177,9 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String TABLE_DATE="Date";
     public static final String DATE_LAST_DATE_COLUMN="last_date";
 
-
+    public static final String TABLE_SIZE="Size";
+    public static final String SIZE_WIDTH_COLUMN="size_width";
+    public static final String SIZE_HEIGHT_COLUMN="size_height";
 
     public static final String TABLE_EMPLOY="Employ";
     public static final String EMPLOY_TITLE_COLUMN="title_employ";
@@ -179,6 +201,7 @@ public class DataHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_NEWS + "(" +
                 BaseColumns._ID + " integer primary key autoincrement," +
                 NEWS_ZAGOLOVOK_COLUMN + " text," +
+                NEWS_IMAGE_COLUMN + " text," +
                 NEWS_TEXT_COLUMN + " text);");
 
         db.execSQL("create table " + TABLE_FAQ + "(" +
@@ -186,11 +209,35 @@ public class DataHelper extends SQLiteOpenHelper {
                 FAQ_ANSWER_COLUMN + " text," +
                 FAQ_QUESTION_COLUMN + " text);");
 
+        db.execSQL("create table " + TABLE_SIZE + "(" +
+
+                SIZE_HEIGHT_COLUMN + " integer," +
+                SIZE_WIDTH_COLUMN + " integer);");
+
         db.execSQL("create table " + TABLE_EAEU + "(" +
                 BaseColumns._ID + " integer primary key autoincrement," +
                 EAEU_PICTURE_COLUMN + " text," +
                 EAEU_ID_COLUMN + " text," +
                 EAEU_TITLE_COLUMN + " text);");
+
+
+        db.execSQL("create table " + TABLE_NKOC + "(" +
+                BaseColumns._ID + " integer primary key autoincrement," +
+                NKOC_ID_COLUMN + " text," +
+                NKOC_PICTURE_COLUMN + " text," +
+                NKOC_TITLE_COLUMN + " text);");
+
+
+        db.execSQL("create table " + TABLE_NKO + "(" +
+                BaseColumns._ID + " integer primary key autoincrement," +
+                NKO_ADDRESS_COLUMN + " text," +
+                NKO_MAIL_COLUMN + " text," +
+                NKO_PARENT_ID_COLUMN + " text," +
+                NKO_TEXT_COLUMN + " text," +
+                NKO_PHONE_COLUMN + " text," +
+                NKO_PHONE1_COLUMN + " text," +
+                NKO_TITLE_COLUMN + " text," +
+                NKO_MANAGER_COLUMN + " text);");
 
 
         db.execSQL("create table " + TABLE_HOT_COUNTRY + "(" +
@@ -303,6 +350,7 @@ public class DataHelper extends SQLiteOpenHelper {
                 EMBASSY_ADDRESS_COLUMN + " text," +
                 EMBASSY_COUNTRY_COLUMN + " text," +
                 EMBASSY_EMAIL_COLUMN + " text," +
+                EMBASSY_IMAGE_COLUMN + " text," +
                 EMBASSY_FAX_COLUMN + " text," +
                 EMBASSY_JSON_ID_COLUMN + " text," +
                 EMBASSY_PHONE_COLUMN + " text," +
@@ -434,6 +482,8 @@ public class DataHelper extends SQLiteOpenHelper {
 
         values.put(NEWS_ZAGOLOVOK_COLUMN, istories.getNickName());
         values.put(NEWS_TEXT_COLUMN,istories.getText());
+        values.put(NEWS_IMAGE_COLUMN,istories.getImage());
+
 
         getWritableDatabase().insert(TABLE_NEWS, null, values);
 
@@ -596,6 +646,8 @@ public class DataHelper extends SQLiteOpenHelper {
         values.put(EMBASSY_EMAIL_COLUMN,embassy.getEmail());
         values.put(EMBASSY_JSON_ID_COLUMN,embassy.getId());
         values.put(EMBASSY_PHONE_COLUMN, embassy.getPhoneNumber());
+        values.put(EMBASSY_IMAGE_COLUMN, embassy.getImage());
+
 
         getWritableDatabase().insert(TABLE_EMBASSY, null, values);
 
@@ -749,6 +801,25 @@ public class DataHelper extends SQLiteOpenHelper {
         getWritableDatabase().delete(TABLE_CONSULATE, null, null);
     }
 
+//SIZE?>---------------------------------------------------------
+public Cursor getDataSize() {
+    return getReadableDatabase().query(TABLE_SIZE,
+            null, null,null,
+            null, null, null);
+}
+    public void insertSize(int x,int y) {
+        ContentValues values = new ContentValues();
+
+        values.put(SIZE_HEIGHT_COLUMN, x);
+        values.put(SIZE_WIDTH_COLUMN,y);
+
+
+        getWritableDatabase().insert(TABLE_SIZE, null, values);
+
+    }
+    public void deleteSize() {
+        getWritableDatabase().delete(TABLE_SIZE, null, null);
+    }
 
 
 
@@ -864,5 +935,51 @@ public void insertHotCountry(EAEU eaeu) {
     public void deleteHotCountry() {
         getWritableDatabase().delete(TABLE_HOT_COUNTRY, null, null);
     }
+
+    //NKOCOUNTRY>----------------------------------------------------------------
+
+    public void insertNKOCountry(EAEU eaeu) {
+        ContentValues values = new ContentValues();
+
+        values.put(NKOC_PICTURE_COLUMN,eaeu.getPicture() );
+        values.put(NKOC_ID_COLUMN,eaeu.getId() );
+        values.put(NKOC_TITLE_COLUMN,eaeu.getName() );
+
+
+        getWritableDatabase().insert(TABLE_NKOC, null, values);
+    }
+    public Cursor getNKOCountry(){
+        return getReadableDatabase().query(TABLE_NKOC,null,null,null,null,null,null);
+    }
+
+    public void deleteNKOCountry() {
+        getWritableDatabase().delete(TABLE_NKOC, null, null);
+    }
+
+    //NKO>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    public Cursor getDataNKO(String id) {
+        return getReadableDatabase().query(TABLE_NKO,
+                null, NKO_PARENT_ID_COLUMN+ " = ? ", new String[]{String.valueOf(id)},
+                null, null, null);
+    }
+    public void insertNKO(NKO consulate, String id) {
+        ContentValues values = new ContentValues();
+
+        values.put(NKO_ADDRESS_COLUMN, consulate.getAddress());
+        values.put(NKO_MAIL_COLUMN,consulate.getMail());
+        values.put(NKO_MANAGER_COLUMN,consulate.getManager());
+        values.put(NKO_PHONE1_COLUMN,consulate.getPhone1());
+        values.put(NKO_PHONE_COLUMN,consulate.getPhone());
+        values.put(NKO_TITLE_COLUMN,consulate.getTitle());
+        values.put(NKO_TEXT_COLUMN,consulate.getText());
+        values.put(NKO_PARENT_ID_COLUMN,id);
+
+        getWritableDatabase().insert(TABLE_NKO, null, values);
+
+    }
+    public void deleteNKO() {
+        getWritableDatabase().delete(TABLE_NKO, null, null);
+    }
+
 
 }

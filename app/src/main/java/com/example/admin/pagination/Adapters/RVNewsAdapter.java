@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import com.example.admin.pagination.Activities.SecondActivities.NewsSecondActivi
 import com.example.admin.pagination.Helpers.OnLoadMoreListener;
 import com.example.admin.pagination.R;
 import com.example.admin.pagination.Serializables.Istories;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -101,6 +103,7 @@ public class RVNewsAdapter extends RecyclerView.Adapter {
 
 
             ((StudentViewHolder) holder).student= singleStudent;
+            Picasso.with(context).load("http://176.126.167.249/"+singleStudent.getImage()).into(((StudentViewHolder) holder).imageView);
 
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
@@ -127,13 +130,13 @@ public class RVNewsAdapter extends RecyclerView.Adapter {
         Context mContext;
 
         public TextView tvEmailId;
-
+        public ImageView imageView;
         public Istories student;
 
         public StudentViewHolder(View v) {
             super(v);
             tvName = (TextView) v.findViewById(R.id.tv_zagolovok_news);
-
+            imageView=(ImageView) v.findViewById(R.id.image_suka);
 
 
             v.setOnClickListener(new OnClickListener() {

@@ -1,6 +1,7 @@
 package com.example.admin.pagination.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -16,8 +17,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.admin.pagination.Activities.SecondActivities.MOMGandoActivity;
 import com.example.admin.pagination.Adapters.RVEAEUAdapter;
 import com.example.admin.pagination.Helpers.DataHelper;
 import com.example.admin.pagination.Helpers.DateDateDB;
@@ -47,7 +50,7 @@ public class EmployementActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hot_line);
+        setContentView(R.layout.activity_employment_kr);
         Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -56,8 +59,11 @@ public class EmployementActivity extends AppCompatActivity {
         progressBar =(ProgressBar) findViewById(R.id.progress);
         progressBar.setVisibility(View.GONE);
         actionBar.setTitle(R.string.ac_employment);
+        TextView textView=(TextView) findViewById(R.id.tv_employment_ddd);
+        textView.setText("Лицензированные организации по трудоустройству");
         mRecyclerView=(RecyclerView) findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
+
         dataHelper=new DataHelper(this);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         studentList=new ArrayList<>();
@@ -80,9 +86,9 @@ public class EmployementActivity extends AppCompatActivity {
                 eaeu.setName(cursor.getString(cursor.getColumnIndex(DataHelper.EMPLOY_TITLE_COLUMN)));
                 eaeu.setId(cursor.getString(cursor.getColumnIndex(DataHelper.EMPLOY_ID_COLUMN)));
                 studentList.add(eaeu);
-                mAdapter=new RVEAEUAdapter(studentList,mRecyclerView,this,3);
-                mRecyclerView.setAdapter(mAdapter);
             }
+            mAdapter=new RVEAEUAdapter(studentList,mRecyclerView,this,3);
+            mRecyclerView.setAdapter(mAdapter);
         }
     }
     public void ifConnect(){
@@ -151,6 +157,11 @@ public class EmployementActivity extends AppCompatActivity {
 
         return true;
     }
+
+    public void onClickMOM(View view) {
+        startActivity(new Intent(EmployementActivity.this, MOMGandoActivity.class));
+    }
+
     public class ParseTask extends AsyncTask<Void, Void, String> {
 
         HttpURLConnection urlConnection = null;

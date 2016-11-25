@@ -9,8 +9,16 @@ public class Istories implements Serializable {
     public Istories(){
 
     }
-    String text,nickName;
+    String text,nickName,image;
     int id_json;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getNickName() {
         return nickName;

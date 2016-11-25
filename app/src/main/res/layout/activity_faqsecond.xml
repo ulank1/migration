@@ -42,7 +42,7 @@
                 android:layout_margin="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18dp"
+                android:textSize="16sp"
                 android:textColor="#000"
                 android:id="@+id/tv_answer"/>
 
@@ -56,12 +56,23 @@
             android:background="@drawable/rv_embassy"
             android:padding="10dp"
             android:textColor="#000"
-            android:textSize="18dp"
+            android:textSize="16sp"
             android:text="dssd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/tv_news_second"/>
+            <Button
+                android:onClick="onclick"
+                android:visibility="gone"
+                android:id="@+id/bt_faq_second"
+                android:textColor="#fff"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button_main"
+                android:text="перейти"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
+
     </ScrollView>
 </LinearLayout>
 

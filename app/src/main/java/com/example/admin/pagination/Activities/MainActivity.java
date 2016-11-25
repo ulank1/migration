@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.admin.pagination.*;
@@ -21,6 +24,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     DataHelper dataHelper;
+
     private Locale mNewLocale;
     MenuItem item;
     ActionBar actionBar;
@@ -31,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar;
+        Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+        int width = display.getWidth();
+        int height = display.getHeight();
+        Log.e("WERTYUIKOLKJHGFDFJK",width+"  "+height);
         news = (TextView) findViewById(R.id.news);
         eaeu = (TextView) findViewById(R.id.eaeu);
         hotLine = (TextView) findViewById(R.id.hot_line);
@@ -47,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         actionBar=getSupportActionBar();
         actionBar.setTitle(R.string.app_name);
         dataHelper=new DataHelper(this);
+        dataHelper.deleteSize();
+        dataHelper.insertSize(width,height);
 
 
         if (dataHelper.getDataDate1().getCount()==0) {
@@ -137,9 +147,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        if (lang==0) item.setTitle("kg");
+        if (lang==0){
+            item.setTitle("kg");
+            setLocale("ru");
+        }
 
-        else   item.setTitle("ru");
+        else{
+            setLocale("ky");
+            item.setTitle("ru");
+        }
 
 
         return true;

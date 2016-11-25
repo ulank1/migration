@@ -37,12 +37,13 @@
         android:layout_marginLeft="6dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_second_hot_line_description"
+        android:id="@+id/tv_second_hot_line_title"
         android:padding="17dp"
         
         android:textStyle="bold"
         android:textSize="20sp"
         android:text="jggdsjfuvbudch  d        "/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"

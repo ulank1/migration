@@ -6,7 +6,15 @@ import java.io.Serializable;
  * Created by Admin on 21.07.2016.
  */
 public class Embassy implements Serializable {
-    String country, region,email,fax,phoneNumber,site,id;
+    String country, region,email,fax,phoneNumber,site,id,image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;

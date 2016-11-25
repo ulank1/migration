@@ -146,6 +146,7 @@ public class RVFAQAdapter extends RecyclerView.Adapter {
                     Intent intent = new Intent(context, FAQSecondActivity.class);
                     intent.putExtra("text",student.getText());
                     intent.putExtra("title",student.getNickName());
+                    intent.putExtra("position",getAdapterPosition());
                     context.startActivity(intent);
 
                 }

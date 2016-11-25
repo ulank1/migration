@@ -109,7 +109,7 @@ public class RulesOfMigrationActivity extends AppCompatActivity {
 
                     studentList.add(istories);
                 }
-                mAdapter=new RVRulesOfIncomingAdapter(studentList,mRecyclerView,this,String.valueOf(R.string.ac_abroad));
+                mAdapter=new RVRulesOfIncomingAdapter(studentList,mRecyclerView,this,getString(R.string.ac_abroad));
                 mRecyclerView.setAdapter(mAdapter);
 
 

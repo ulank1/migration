@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.example.admin.pagination.Helpers.OnLoadMoreListener;
 import com.example.admin.pagination.R;
 import com.example.admin.pagination.Serializables.Embassy;
 import com.example.admin.pagination.Serializables.Istories;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -101,7 +103,7 @@ public class RVEmbassyAdapter extends RecyclerView.Adapter {
             ((StudentViewHolder) holder).tvName.setText("");
 
             ((StudentViewHolder) holder).tvName.setText(singleStudent.getCountry());
-
+            Picasso.with(context).load("http://176.126.167.249/"+singleStudent.getImage()).into( ((StudentViewHolder) holder).imageView);
 
             ((StudentViewHolder) holder).student= singleStudent;
 
@@ -128,7 +130,7 @@ public class RVEmbassyAdapter extends RecyclerView.Adapter {
     public class StudentViewHolder extends RecyclerView.ViewHolder {
         public TextView tvName;
         Context mContext;
-
+        public ImageView imageView;
         public TextView tvEmailId;
 
         public Embassy student;
@@ -136,6 +138,7 @@ public class RVEmbassyAdapter extends RecyclerView.Adapter {
         public StudentViewHolder(View v) {
             super(v);
             tvName = (TextView) v.findViewById(R.id.tv_embassy_adapter);
+            imageView = (ImageView) v.findViewById(R.id.image_eaeu);
 
 
 

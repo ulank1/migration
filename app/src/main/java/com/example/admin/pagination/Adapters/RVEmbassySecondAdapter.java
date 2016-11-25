@@ -1,5 +1,7 @@
 package com.example.admin.pagination.Adapters;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -146,22 +148,23 @@ public class RVEmbassySecondAdapter extends RecyclerView.Adapter {
             tvAddress = (TextView) v.findViewById(R.id.tv_address_consulate);
             tvPhoneNumber = (TextView) v.findViewById(R.id.tv_phone_number_consulate);
 
-            v.setOnClickListener(new OnClickListener() {
-
+            tvAddress.setOnClickListener(new OnClickListener() {
                 @Override
-                public void onClick(View v) {
-
-                    context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel",student.getPhoneNumber() , null)));
-
-
-
-
-
-
-
-
+                public void onClick(View view) {
+                    ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("", student.getAddress());
+                    clipboard.setPrimaryClip(clip);
+                    Toast.makeText(context, R.string.toast_copy_to_buffer,Toast.LENGTH_SHORT).show();
                 }
             });
+            tvPhoneNumber.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel",student.getPhoneNumber() , null)));
+                }
+            });
+
+
         }
     }
 

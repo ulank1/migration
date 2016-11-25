@@ -52,7 +52,11 @@
         <activity android:name=".Activities.SecondActivities.DiasporySecondActivity" />
         <activity android:name=".Activities.SecondActivities.HTSecondActivity" />
         <activity android:name=".Activities.SecondActivities.FAQSecondActivity" />
-        <activity android:name=".Activities.HotLineCountryActivity"></activity>
+        <activity android:name=".Activities.HotLineCountryActivity" />
+        <activity android:name=".Activities.NKOActivity" />
+        <activity android:name=".Activities.SecondActivities.NKOSecondActivity" />
+        <activity android:name=".Activities.InspectionActivity" />
+        <activity android:name=".Activities.SecondActivities.MOMGandoActivity"></activity>
     </application>
 
 </manifest>

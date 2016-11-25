@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#e3e3e3"
+    android:background="#ffff"
     android:layout_height="match_parent"
 
     android:orientation="vertical"
@@ -56,7 +56,7 @@
                     android:id="@+id/news"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
+                    android:padding="12dp"
                     android:gravity="center"
                     android:text="@string/bt_news"
                     android:textColor="#ffff"
@@ -75,7 +75,7 @@
                >
 
                 <TextView
-
+                    android:padding="12dp"
                     android:id="@+id/eaeu"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -112,7 +112,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
+                    android:padding="12dp"
                     android:gravity="center"
                     android:id="@+id/hot_line"
                     android:text="@string/bt_hot_line"
@@ -134,7 +134,7 @@
                 android:text="laws">
 
                 <TextView
-
+                    android:padding="12dp"
                     android:id="@+id/embassy"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -166,7 +166,7 @@
                 android:text="rules of incoming">
 
                 <TextView
-
+                    android:padding="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
 android:id="@+id/diaspora"
@@ -189,7 +189,7 @@ android:id="@+id/diaspora"
                 android:text="forum">
 
                 <TextView
-
+                    android:padding="12dp"
                     android:id="@+id/abroad"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -223,7 +223,7 @@ android:id="@+id/diaspora"
 
 
                 <TextView
-
+                    android:padding="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
 
@@ -250,7 +250,7 @@ android:id="@+id/diaspora"
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
+                    android:padding="12dp"
                     android:gravity="center"
                     android:text="@string/bt_prohibition"
                     android:textColor="#ffff"
@@ -283,7 +283,7 @@ android:id="@+id/diaspora"
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
+                    android:padding="12dp"
                     android:gravity="center"
                     android:text="@string/bt_employment"
                     android:textColor="#ffff"
@@ -308,7 +308,7 @@ android:id="@+id/diaspora"
                     android:id="@+id/faq"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
+                    android:padding="12dp"
                     android:gravity="center"
                     android:text="@string/bt_faq"
                     android:textColor="#ffff"

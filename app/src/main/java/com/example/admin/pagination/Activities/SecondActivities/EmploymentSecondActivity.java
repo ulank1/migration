@@ -153,7 +153,7 @@ public class EmploymentSecondActivity extends AppCompatActivity {
                     studentList.add(istories);
                 }
 
-                mAdapter=new RVEmploymentSecondAdapter(studentList,mRecyclerView);
+                mAdapter=new RVEmploymentSecondAdapter(studentList,mRecyclerView,this);
                 mRecyclerView.setAdapter(mAdapter);
 
             }

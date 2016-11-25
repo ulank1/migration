@@ -13,9 +13,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.admin.pagination.Activities.HotLineActivity;
+import com.example.admin.pagination.Activities.SecondActivities.NKOSecondActivity;
 import com.example.admin.pagination.Activities.RulesOfIncomingActivity;
 import com.example.admin.pagination.Activities.SecondActivities.DiasporySecondActivity;
 import com.example.admin.pagination.Activities.SecondActivities.EmploymentSecondActivity;
+import com.example.admin.pagination.Activities.SecondActivities.HotLineSecondActivity;
 import com.example.admin.pagination.Activities.SecondActivities.QuestionSecondActivity;
 import com.example.admin.pagination.Activities.RulesOfMigrationActivity;
 import com.example.admin.pagination.Helpers.OnLoadMoreListener;
@@ -106,7 +108,7 @@ public class RVEAEUAdapter extends RecyclerView.Adapter {
 
             ((StudentViewHolder) holder).tvName.setText(singleStudent.getName());
             Picasso.with(context).load("http://176.126.167.249"+singleStudent.getPicture()).into(((StudentViewHolder) holder).imageView);
-
+            if(isAbroad==6) ((StudentViewHolder) holder).imageView.setVisibility(View.GONE);
             ((StudentViewHolder) holder).student= singleStudent;
             ((StudentViewHolder) holder).isAbroad2=isAbroad;
         } else {
@@ -154,7 +156,8 @@ public class RVEAEUAdapter extends RecyclerView.Adapter {
                     else if (isAbroad2==1)intent=new Intent(v.getContext(), RulesOfIncomingActivity.class);
                     else if (isAbroad2==3)intent=new Intent(v.getContext(), EmploymentSecondActivity.class);
                     else  if (isAbroad2==4)intent=new Intent(v.getContext(), DiasporySecondActivity.class);
-                    else  intent=new Intent(v.getContext(), HotLineActivity.class);
+                    else  if (isAbroad2==6)intent=new Intent(v.getContext(), NKOSecondActivity.class);
+                    else  intent=new Intent(v.getContext(), HotLineSecondActivity.class);
                     intent.putExtra("position",student.getId());
                     intent.putExtra("text",student.getName());
 

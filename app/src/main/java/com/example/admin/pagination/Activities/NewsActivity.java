@@ -203,6 +203,7 @@ ifConnect();
                     Istories istories=new Istories();
                     istories.setNickName(cursor.getString(cursor.getColumnIndex(DataHelper.NEWS_ZAGOLOVOK_COLUMN)));
                     istories.setText(cursor.getString(cursor.getColumnIndex(DataHelper.NEWS_TEXT_COLUMN)));
+                    istories.setImage(cursor.getString(cursor.getColumnIndex(DataHelper.NEWS_IMAGE_COLUMN)));
                     studentList.add(istories);
                 }
                 mAdapter=new RVNewsAdapter(studentList,mRecyclerView,this);
@@ -299,6 +300,7 @@ ifConnect();
                 for (int i = 0; i < menus.length(); i++) {
                     JSONObject menu = menus.getJSONObject(i);
                     Istories student = new Istories();
+                    student.setImage(menu.getString("image"));
                     student.setText(menu.getString("text_ru"));
                     student.setNickName(menu.getString("title_ru"));
 

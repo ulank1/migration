@@ -1,5 +1,7 @@
 package com.example.admin.pagination.Adapters;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.admin.pagination.R;
 import com.example.admin.pagination.Serializables.Diaspora;
@@ -76,6 +79,30 @@ public class RVHHHHAdapter extends RecyclerView.Adapter<RVHHHHAdapter.ViewHolder
                 @Override
                 public void onClick(View view) {
                     context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel",records.get(getAdapterPosition()).getNumber() , null)));
+                }
+            });
+            tvAddress.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("", records.get(getAdapterPosition()).getAddress());
+                    clipboard.setPrimaryClip(clip);
+                    Toast.makeText(context, R.string.toast_copy_to_buffer,Toast.LENGTH_SHORT).show();
+                }
+            });
+            tvNumber1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+
+                    emailIntent.setType("plain/text");
+                    // Кому
+                    emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
+                            new String[] { tvNumber1.getText().toString() });
+
+                    // Поехали!
+                    context.startActivity(Intent.createChooser(emailIntent,
+                            "Отправка письма..."));
                 }
             });
         }

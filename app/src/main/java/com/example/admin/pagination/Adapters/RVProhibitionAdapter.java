@@ -36,10 +36,11 @@ public class RVProhibitionAdapter extends RecyclerView.Adapter {
     private OnLoadMoreListener onLoadMoreListener;
     public Context context;
     int a;
+String name;
 
-
-    public RVProhibitionAdapter(List<RulesOfIncoming> students, RecyclerView recyclerView, Context context,int a) {
+    public RVProhibitionAdapter(List<RulesOfIncoming> students, RecyclerView recyclerView, Context context,int a,String name) {
         studentList = students;
+        this.name=name;
         this.a=a;
         this.context=context;
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
@@ -146,7 +147,7 @@ public class RVProhibitionAdapter extends RecyclerView.Adapter {
                    intent = new Intent(context, HTSecondActivity.class);
                     else   intent = new Intent(context, RulesOfMigrationActivity.class);
                     intent.putExtra("text",student.getText());
-                    intent.putExtra("name",R.string.ac_prohib);
+                    intent.putExtra("name",name);
                     context.startActivity(intent);
 
                 }

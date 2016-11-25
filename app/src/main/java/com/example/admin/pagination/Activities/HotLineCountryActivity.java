@@ -1,9 +1,11 @@
 package com.example.admin.pagination.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -46,10 +50,11 @@ public class HotLineCountryActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     ProgressBar progressBar;
     String date,dateDB;
+    LinearLayout call;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hot_line);
+        setContentView(R.layout.activity_hot_line1);
         Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,7 +74,16 @@ public class HotLineCountryActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         EAEU eaeu=new EAEU();
         eaeu.setName("РФ");
+        final String phoneNumber;
+        phoneNumber  = "189";
+        call = (LinearLayout) findViewById(R.id.call189);
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel",phoneNumber , null)));
 
+            }
+        });
         ifConnect();
 
 
@@ -106,7 +120,6 @@ public class HotLineCountryActivity extends AppCompatActivity {
                 ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
                 if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                         connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED){
-                    Toast.makeText(this,"RAbotaet\n"+dateDB,Toast.LENGTH_SHORT).show();
                     new ParseTask().execute();
                     progressBar.setVisibility(View.VISIBLE);
                 }
@@ -117,7 +130,6 @@ public class HotLineCountryActivity extends AppCompatActivity {
         }
     }
     public void db(){
-        Toast.makeText(HotLineCountryActivity.this,"ne rabotaet",Toast.LENGTH_SHORT).show();
         Cursor cursor = dataHelper.getHotCountry();
         studentList.clear();
         if (cursor.getCount()>0){
@@ -234,8 +246,7 @@ public class HotLineCountryActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            progressBar.setVisibility(View.GONE);
-            Log.e("TAG_1","NORM");
+
 
             new ParseTask1().execute();
 

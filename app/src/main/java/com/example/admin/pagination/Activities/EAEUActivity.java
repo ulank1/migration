@@ -86,7 +86,6 @@ public class EAEUActivity extends AppCompatActivity {
             if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                     connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED){
                 new ParseTask().execute();
-                Toast.makeText(this,"RAbotaetSuks",Toast.LENGTH_SHORT).show();
 
                 progressBar.setVisibility(View.VISIBLE);
             }
@@ -104,7 +103,6 @@ public class EAEUActivity extends AppCompatActivity {
                 ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
                 if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                         connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED){
-                   Toast.makeText(this,"RAbotaet\n"+dateDB,Toast.LENGTH_SHORT).show();
                     new ParseTask().execute();
                     progressBar.setVisibility(View.VISIBLE);
                 }
@@ -115,7 +113,6 @@ public class EAEUActivity extends AppCompatActivity {
         }
     }
     public void db(){
-        Toast.makeText(EAEUActivity.this,"ne rabotaet",Toast.LENGTH_SHORT).show();
        Cursor cursor = dataHelper.getEAEU();
         studentList.clear();
         if (cursor.getCount()>0){

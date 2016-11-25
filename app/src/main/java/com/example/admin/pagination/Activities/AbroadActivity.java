@@ -97,7 +97,6 @@ public class AbroadActivity extends AppCompatActivity {
             cursor.moveToFirst();
 
             dateDB=cursor.getString(cursor.getColumnIndex(DataHelper.DATE_LAST_DATE_COLUMN));
-            Toast.makeText(this,dateDB,Toast.LENGTH_SHORT).show();
             DateDateDB dateDateDB=new DateDateDB();
             if (dateDateDB.calendar1(dateDB)){
                 ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);

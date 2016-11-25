@@ -1,5 +1,7 @@
 package com.example.admin.pagination.Activities.SecondActivities;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -37,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -70,22 +73,40 @@ public class EmbassySecondActivity extends AppCompatActivity {
         TextView tvFax=(TextView) findViewById(R.id.tv_fax_second);
         TextView tvSite=(TextView) findViewById(R.id.tv_site_second);
         TextView tvAddress=(TextView) findViewById(R.id.tv_address_second);
+        TextView consulate=(TextView) findViewById(R.id.tv_consulate_second);
         final String phoneNumber;
         String s=getIntent().getStringExtra("phone_number");
         tvPhone.setText(s);
         Log.e("TAG_S",s);
         phoneNumber=s;
 
-        s=getIntent().getStringExtra("fax");
-        tvFax.setText(s);
+        final String fax=getIntent().getStringExtra("fax");
+        tvFax.setText(fax);
         s=getIntent().getStringExtra("country");
         tvTitle.setText(s);
-        s=getIntent().getStringExtra("site");
-        tvSite.setText(s);
-        s=getIntent().getStringExtra("address");
-        tvAddress.setText(s);
+        final String site=getIntent().getStringExtra("site");
+        tvSite.setText(site);
+        final String address=getIntent().getStringExtra("address");
+        tvAddress.setText(address);
         id=getIntent().getStringExtra("id");
-
+        tvAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("",address );
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(EmbassySecondActivity.this, R.string.toast_copy_to_buffer,Toast.LENGTH_SHORT).show();
+            }
+        });
+        tvFax.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("",fax );
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(EmbassySecondActivity.this, R.string.toast_copy_to_buffer,Toast.LENGTH_SHORT).show();
+            }
+        });
 
         tvPhone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,13 +114,26 @@ public class EmbassySecondActivity extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel",phoneNumber , null)));
             }
         });
+        try {
+
+
+            tvSite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://"+site));
+                    startActivity(browserIntent);
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(this,"Такого сайта не существует",Toast.LENGTH_SHORT).show();
+        }
         Log.e("TAG_S_ID",id);
         id1=Integer.parseInt(id);
         Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
-        actionBar.setTitle(R.string.ac_consulate_actionbar);
+        actionBar.setTitle(R.string.ac_embassy);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         dataHelper=new DataHelper(this);
@@ -135,7 +169,9 @@ public class EmbassySecondActivity extends AppCompatActivity {
                 mRecyclerView.setAdapter(mAdapter);
 
 
-            } else mRecyclerView.setVisibility(View.GONE);
+            } else {mRecyclerView.setVisibility(View.GONE);
+                    consulate.setVisibility(View.GONE);
+            }
 
 
 
