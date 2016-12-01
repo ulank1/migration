@@ -114,6 +114,8 @@ public class DiasporySecondActivity extends AppCompatActivity {
                     istories.setCity(cursor.getString(cursor.getColumnIndex(DataHelper.DIASPORA_city_COLUMN)));
                     istories.setNumber(cursor.getString(cursor.getColumnIndex(DataHelper.DIASPORA_NUMBER_COLUMN)));
                     istories.setAddress(cursor.getString(cursor.getColumnIndex(DataHelper.DIASPORA_ADDRESS_COLUMN)));
+                    istories.setKarta(cursor.getString(cursor.getColumnIndex(DataHelper.DIASPORA_KARTA_COLUMN)));
+
                     studentList.add(istories);
                 }
 

@@ -3,8 +3,10 @@ package com.example.admin.pagination.Adapters;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -151,10 +153,30 @@ public class RVEmbassySecondAdapter extends RecyclerView.Adapter {
             tvAddress.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                    ClipData clip = ClipData.newPlainText("", student.getAddress());
-                    clipboard.setPrimaryClip(clip);
-                    Toast.makeText(context, R.string.toast_copy_to_buffer,Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder ad;
+                    ad = new AlertDialog.Builder(context);
+
+                    ad.setPositiveButton(context.getString(R.string.toast_karta), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int arg1) {
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(student.getKarta()));
+                            context.startActivity(browserIntent);
+                        }
+                    });
+                    ad.setNegativeButton(context.getString(R.string.toast_copy), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int arg1) {
+                            ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                            ClipData clip = ClipData.newPlainText("",tvAddress.getText() );
+                            clipboard.setPrimaryClip(clip);
+                            Toast.makeText(context, R.string.toast_copy_to_buffer,Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    ad.setCancelable(true);
+                    ad.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        public void onCancel(DialogInterface dialog) {
+
+                        }
+                    });
+
                 }
             });
             tvPhoneNumber.setOnClickListener(new OnClickListener() {

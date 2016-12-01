@@ -6,6 +6,33 @@ package com.example.admin.pagination.Serializables;
 public class Mig2 {
     String text;
     int type;
+    int strong;
+    int em;
+    int del;
+
+    public int getDel() {
+        return del;
+    }
+
+    public int getEm() {
+        return em;
+    }
+
+    public int getStrong() {
+        return strong;
+    }
+
+    public void setDel(int del) {
+        this.del = del;
+    }
+
+    public void setEm(int em) {
+        this.em = em;
+    }
+
+    public void setStrong(int strong) {
+        this.strong = strong;
+    }
 
     public int getType() {
         return type;

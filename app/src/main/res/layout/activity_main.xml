@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -22,8 +23,7 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
 
-            />
-
+            android:layout_weight="1" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -42,6 +42,8 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:id="@+id/bt_news"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -49,18 +51,26 @@
                 android:layout_weight="1"
                 android:background="@drawable/shape_line"
                 android:onClick="onClick"
+                android:padding="10dp"
                 android:orientation="vertical"
                 android:text="News">
 
+                <ImageView
+                    android:paddingTop="5dp"
+                    android:layout_weight="1.5"
+                    android:layout_width="match_parent"
+                    android:src="@drawable/news"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView2" />
+
                 <TextView
+                    android:layout_weight="1"
                     android:id="@+id/news"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="12dp"
                     android:gravity="center"
                     android:text="@string/bt_news"
                     android:textColor="#ffff"
-                    android:textSize="15dp"
                     android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
@@ -69,20 +79,30 @@
                 android:layout_height="match_parent"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
+                android:layout_gravity="center"
+                android:padding="5dp"
                 android:background="@drawable/shape_line"
                 android:onClick="onClick"
                 android:orientation="vertical"
-               >
+                >
+
+
+                <ImageView
+                    android:paddingTop="5dp"
+                    android:layout_weight="1.5"
+                    android:layout_width="match_parent"
+                    android:src="@drawable/rules"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content" />
 
                 <TextView
-                    android:padding="12dp"
+                    android:layout_weight="1"
                     android:id="@+id/eaeu"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/bt_eaeu"
                     android:textColor="#ffff"
-                    android:textSize="15dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -106,18 +126,24 @@
                 android:onClick="onClick"
                 android:orientation="vertical"
 
+                android:padding="5dp"
                 android:text="hot lines">
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/calls"
+                    android:paddingTop="5dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content" />
 
                 <TextView
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="12dp"
                     android:gravity="center"
                     android:id="@+id/hot_line"
                     android:text="@string/bt_hot_line"
                     android:textColor="#ffff"
-                    android:textSize="15dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -127,21 +153,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="3dp"
+                android:padding="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_line"
                 android:onClick="onClick"
                 android:orientation="vertical"
                 android:text="laws">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/ambasy"
+                    android:paddingTop="5dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content" />
 
                 <TextView
-                    android:padding="12dp"
+                    android:layout_weight="1"
                     android:id="@+id/embassy"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/bt_embassy"
                     android:textColor="#ffff"
-                    android:textSize="15dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -163,17 +195,26 @@
                 android:background="@drawable/shape_line"
                 android:onClick="onClick"
                 android:orientation="vertical"
+
+                android:padding="5dp"
                 android:text="rules of incoming">
 
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/groups"
+                    android:paddingTop="5dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content" />
+
                 <TextView
-                    android:padding="12dp"
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-android:id="@+id/diaspora"
+                    android:id="@+id/diaspora"
                     android:gravity="center"
                     android:text="@string/bt_diaspora"
                     android:textColor="#ffff"
-                    android:textSize="15dp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -186,10 +227,20 @@ android:id="@+id/diaspora"
                 android:background="@drawable/shape_line"
                 android:onClick="onClick"
                 android:orientation="vertical"
+
+                android:padding="2dp"
                 android:text="forum">
 
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/rules2"
+                    android:paddingTop="5dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content" />
+
                 <TextView
-                    android:padding="12dp"
+                    android:layout_weight="1"
                     android:id="@+id/abroad"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -197,7 +248,6 @@ android:id="@+id/diaspora"
                     android:gravity="center"
                     android:text="@string/bt_abroad"
                     android:textColor="#ffff"
-                    android:textSize="15dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -219,18 +269,25 @@ android:id="@+id/diaspora"
                 android:background="@drawable/shape_line"
                 android:onClick="onClick"
                 android:orientation="vertical"
+
+                android:padding="5dp"
                 android:text="rules of migration">
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/slavery"
+                    android:paddingTop="5dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView" />
 
                 <TextView
-                    android:padding="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/bt_ht"
                     android:textColor="#ffff"
-                    android:textSize="15dp"
                     android:id="@+id/ht"
                     android:textStyle="bold" />
 
@@ -245,16 +302,24 @@ android:id="@+id/diaspora"
                 android:background="@drawable/shape_line"
                 android:onClick="onClick"
                 android:orientation="vertical"
+
+                android:padding="5dp"
                 android:text="faq">
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/deny"
+                    android:paddingTop="5dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content" />
+
                 <TextView
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="12dp"
                     android:gravity="center"
                     android:text="@string/bt_prohibition"
                     android:textColor="#ffff"
-                    android:textSize="15dp"
                     android:id="@+id/prohibition"
                     android:textStyle="bold" />
 
@@ -277,17 +342,27 @@ android:id="@+id/diaspora"
                 android:background="@drawable/shape_line"
                 android:onClick="onClick"
                 android:orientation="vertical"
+                android:padding="5dp"
                 android:text="rules of migration">
 
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/work"
+                    android:paddingTop="5dp"
+                    android:layout_weight="1.5"
+                    android:layout_gravity="center"
+
+                    android:layout_height="wrap_content" />
+
+
                 <TextView
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="12dp"
                     android:gravity="center"
                     android:text="@string/bt_employment"
                     android:textColor="#ffff"
-                    android:textSize="15dp"
                     android:id="@+id/employ"
                     android:textStyle="bold" />
 
@@ -302,22 +377,30 @@ android:id="@+id/diaspora"
                 android:background="@drawable/shape_line"
                 android:onClick="onClick"
                 android:orientation="vertical"
+                android:padding="5dp"
                 android:text="faq">
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/faq"
+                    android:paddingTop="5dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content" />
+
                 <TextView
+                    android:layout_weight="1"
                     android:id="@+id/faq"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="12dp"
                     android:gravity="center"
                     android:text="@string/bt_faq"
                     android:textColor="#ffff"
-                    android:textSize="15dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
+
 
 </LinearLayout>

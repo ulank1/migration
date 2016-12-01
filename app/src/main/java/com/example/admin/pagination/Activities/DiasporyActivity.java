@@ -302,6 +302,8 @@ public class DiasporyActivity extends AppCompatActivity {
                     student.setAddress(menu.getString("address"));
                     student.setEmail(menu.getString("email"));
                     student.setPlace(menu.getString("place"));
+                    student.setKarta(menu.getString("map_link"));
+
                     country=menu.getJSONObject("country");
                     String id=country.getString("id");
                     Log.e("TAG___ID",id);

@@ -22,7 +22,12 @@
 
 
     </android.support.design.widget.AppBarLayout>
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/web_view">
 
+    </WebView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"

@@ -141,9 +141,9 @@ public class MainActivity extends AppCompatActivity {
             lang=cursor.getInt(cursor.getColumnIndex(DataHelper.LANGUAGE_COLUMN));
 
         }
-        else {lang=0;
+        else lang=0;
 
-        }
+
 
 
 

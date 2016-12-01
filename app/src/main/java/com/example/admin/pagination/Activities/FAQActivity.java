@@ -39,6 +39,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,7 +52,8 @@ public class FAQActivity extends AppCompatActivity {
 
     String TAG="TAG";
     private Toolbar toolbar;
-
+    int lang;
+    URL urlM;
     private TextView tvEmptyView;
     private RecyclerView mRecyclerView;
     private RVFAQAdapter mAdapter;
@@ -74,7 +76,28 @@ public class FAQActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         dataHelper=new DataHelper(this);
+        Cursor cursor=dataHelper.getDataLanguage();
+        if (cursor.getCount()>0)
+        {
 
+            cursor.moveToFirst();
+            lang=cursor.getInt(cursor.getColumnIndex(DataHelper.LANGUAGE_COLUMN));
+
+        }
+        else lang=0;
+        if (lang==0) {
+            try {
+                urlM=new URL("http://176.126.167.249/api/v1/faq/?format=json&limit=0");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }else {
+            try {
+                urlM=new URL("http://176.126.167.249/api/v1/faq_kg/?format=json&limit=0");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
         tvEmptyView = (TextView) findViewById(R.id.empty_view);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         studentList = new ArrayList<>();
@@ -104,8 +127,7 @@ public class FAQActivity extends AppCompatActivity {
         Istories istories=new Istories();
         istories.setText("Если вы стали жертвой торговли людьми, не стыдитесь этого. Ваши права гарантированы законом. Обратитесь за помощью как можно скорее. \n" +
                 "Мигранты также имеют право на защиту государства, юридическую помощь и доступ к социальным услугам. Если вы жертва торговли людьми, вы также можете получить помощь.\n" +
-                "Свяжитесь с уполномоченными людьми, если:\n" +
-                "Вас либо кого-то из ваших знакомых заставляют работать бесплатно!\n" +
+                "Свяжитесь с уполномоченными людьми, если:\n      Вас либо кого-то из ваших знакомых заставляют работать бесплатно!\n" +
                 "Вы лишены свободы передвижения и не можете связаться с родственниками!\n" +
                 "Ваш работодатель причиняет вам моральный либо физический вред!\n" +
                 "Существуют горячие линии, с помощью которых можно сообщить властям и НПО о случаях работорговли и эксплуатации.");
@@ -253,7 +275,7 @@ public class FAQActivity extends AppCompatActivity {
 
             try {
 
-                URL url = new URL("http://176.126.167.249/api/v1/faq/?limit=0&format=json");
+                URL url = urlM;
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");

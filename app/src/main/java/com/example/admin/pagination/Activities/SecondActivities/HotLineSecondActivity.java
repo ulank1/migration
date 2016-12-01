@@ -47,10 +47,10 @@ public class HotLineSecondActivity extends AppCompatActivity {
              String title=(cursor.getString(cursor.getColumnIndex(DataHelper.HOT_TITLE_COLUMN)));
                phoneNumber=(cursor.getString(cursor.getColumnIndex(DataHelper.HOT_PHONE_COLUMN)));
 
-            if (title.equals(".")){
+            if (title.equals(".")||title.equals("")){
                 tvTitle.setVisibility(View.GONE);
-            }else tvTitle.setText(title);
-
+            }
+            tvTitle.setText(title);
             tvNumber.setText(phoneNumber);
 
 

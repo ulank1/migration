@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.webkit.WebView;
 
 import com.example.admin.pagination.Adapters.RVHTAdapter;
 import com.example.admin.pagination.Adapters.RVMigSecondAdapter;
@@ -25,6 +26,7 @@ public class HTSecondActivity extends AppCompatActivity {
     private LinearLayoutManager mLayoutManager;
     List<Mig2> list;
     RVHTAdapter adapter;
+    WebView webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,35 +38,32 @@ public class HTSecondActivity extends AppCompatActivity {
         actionBar.setTitle(R.string.ac_ht);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        webView=(WebView) findViewById(R.id.web_view);
         list=new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         mRecyclerView.setHasFixedSize(true);
 
         mLayoutManager = new LinearLayoutManager(this);
-
+        webView.getSettings().setDisplayZoomControls(true);
+        webView.getSettings().setSupportZoom(true);
+        webView.getSettings().setBuiltInZoomControls(true);
         // use a linear layout manager
         mRecyclerView.setLayoutManager(mLayoutManager);
-        String s;
-        s = '"' + getIntent().getStringExtra("text") + '"';
-        Mig2 mig2;
+        webView.getSettings().setBuiltInZoomControls(true);
 
-        for (Element element : Jsoup.parse(s).select("*")) {
-            if (element.tagName().equals("p")) {
-                mig2=new Mig2();
-                mig2.setType(0);
-                mig2.setText(element.text());
-                list.add(mig2);
-            }else if(element.tagName().equals("img")) {
-                mig2=new Mig2();
-                mig2.setType(1);
-                mig2.setText(element.attr("src"));
-                list.add(mig2);
-            }
-        }
-        Log.e("SUKA0001",list.size()+"");
-        adapter= new RVHTAdapter(list,mRecyclerView,this);
-        mRecyclerView.setAdapter(adapter);
+        String ss="<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"+"<style>img{display: block;max-height: 100%;max-width: 100%;}</style>";
+        String s ;
+        s= '"' + getIntent().getStringExtra("text") + '"';
+        StringBuilder st=new StringBuilder(s);
+        st.deleteCharAt(st.length()-1);
+        st.deleteCharAt(0);
+        s=ss+st.toString();
+        String s1=s.replaceAll("src=\"","src=\"http://176.126.167.249/");
+        Log.e("TAG_KKxxKK",s1);
+
+        Mig2 mig2;
+        webView.loadDataWithBaseURL(null,s1, "text/html", "ru-RU",null);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

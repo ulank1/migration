@@ -6,9 +6,15 @@ import java.io.Serializable;
  * Created by Admin on 22.07.2016.
  */
 public class Consulate implements Serializable {
-    String region,address,phoneNumber;
+    String region,address,phoneNumber,karta;
 
+    public void setKarta(String karta) {
+        this.karta = karta;
+    }
 
+    public String getKarta() {
+        return karta;
+    }
 
     public void setRegion(String region) {
         this.region = region;

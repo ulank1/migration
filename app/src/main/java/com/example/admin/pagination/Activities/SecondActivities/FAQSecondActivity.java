@@ -1,10 +1,12 @@
 package com.example.admin.pagination.Activities.SecondActivities;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +29,8 @@ public class FAQSecondActivity extends AppCompatActivity {
         Button button=(Button) findViewById(R.id.bt_faq_second);
 
         String text=getIntent().getStringExtra("text");
+
+
         String title=getIntent().getStringExtra("title");
          position=getIntent().getIntExtra("position",-1);
         if (position==0||position==1||position==2||position==3){

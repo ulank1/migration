@@ -70,6 +70,7 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String DIASPORA_city_COLUMN="diaspora_city";
     public static final String DIASPORA_ADDRESS_COLUMN="diaspora_address";
     public static final String DIASPORA_EMAIL_COLUMN="diaspora_email";
+    public static final String DIASPORA_KARTA_COLUMN="diaspora_karta";
     public static final String DIASPORA_MANAGER_COLUMN="diaspora_manager";
     public static final String DIASPORA_NUMBER_COLUMN="diaspora_number";
     public static final String DIASPORA_PLACE_COLUMN="diaspora_place";
@@ -102,6 +103,7 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String EMBASSY_ADDRESS_COLUMN="em_address";
     public static final String EMBASSY_PHONE_COLUMN="em_phone";
     public static final String EMBASSY_SITE_COLUMN="em_site";
+    public static final String EMBASSY_KARTA_COLUMN="em_karta";
     public static final String EMBASSY_JSON_ID_COLUMN="em_id";
     public static final String EMBASSY_EMAIL_COLUMN="em_email";
     public static final String EMBASSY_FAX_COLUMN="em_fax";
@@ -118,6 +120,8 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String CONSULATE_REGION_COLUMN="consulate_region";
     public static final String CONSULATE_PHONE_COLUMN="consulate_phone";
     public static final String CONSULATE_ADDRESS_COLUMN="consulate_address";
+    public static final String CONSULATE_KARTA_COLUMN="consulate_karta";
+
     public static final String CONSULATE_PARENT_ID_COLUMN="consulate_parent_id";
 
     public static final String TABLE_FAQ="Faq";
@@ -269,6 +273,7 @@ public class DataHelper extends SQLiteOpenHelper {
                 BaseColumns._ID + " integer primary key autoincrement," +
                 DIASPORA_ADDRESS_COLUMN + " text," +
                 DIASPORA_EMAIL_COLUMN + " text," +
+                DIASPORA_KARTA_COLUMN + " text," +
                 DIASPORA_PARENT_ID_COLUMN + " text," +
                 DIASPORA_MANAGER_COLUMN + " text," +
                 DIASPORA_NUMBER_COLUMN + " text," +
@@ -341,6 +346,7 @@ public class DataHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_CONSULATE + "(" +
                 BaseColumns._ID + " integer primary key autoincrement," +
                 CONSULATE_ADDRESS_COLUMN + " text," +
+                CONSULATE_KARTA_COLUMN + " text," +
                 CONSULATE_PHONE_COLUMN + " text," +
                 CONSULATE_PARENT_ID_COLUMN + " text," +
                 CONSULATE_REGION_COLUMN + " text);");
@@ -348,6 +354,7 @@ public class DataHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_EMBASSY + "(" +
                 BaseColumns._ID + " integer primary key autoincrement," +
                 EMBASSY_ADDRESS_COLUMN + " text," +
+                EMBASSY_KARTA_COLUMN + " text," +
                 EMBASSY_COUNTRY_COLUMN + " text," +
                 EMBASSY_EMAIL_COLUMN + " text," +
                 EMBASSY_IMAGE_COLUMN + " text," +
@@ -539,6 +546,7 @@ public class DataHelper extends SQLiteOpenHelper {
 
         values.put(DIASPORA_ADDRESS_COLUMN, istories.getAddress());
         values.put(DIASPORA_city_COLUMN, istories.getCity());
+        values.put(DIASPORA_KARTA_COLUMN, istories.getKarta());
         values.put(DIASPORA_EMAIL_COLUMN, istories.getEmail());
         values.put(DIASPORA_MANAGER_COLUMN, istories.getManager());
         values.put(DIASPORA_NUMBER_COLUMN, istories.getNumber());
@@ -642,6 +650,7 @@ public class DataHelper extends SQLiteOpenHelper {
         values.put(EMBASSY_FAX_COLUMN, embassy.getFax());
         values.put(EMBASSY_ADDRESS_COLUMN,embassy.getRegion());
         values.put(EMBASSY_COUNTRY_COLUMN,embassy.getCountry());
+        values.put(EMBASSY_KARTA_COLUMN,embassy.getKarta());
         values.put(EMBASSY_SITE_COLUMN, embassy.getSite());
         values.put(EMBASSY_EMAIL_COLUMN,embassy.getEmail());
         values.put(EMBASSY_JSON_ID_COLUMN,embassy.getId());
@@ -667,7 +676,7 @@ public class DataHelper extends SQLiteOpenHelper {
 
         values.put(HOT_TITLE_COLUMN, hotline.getTitle());
         values.put(HOT_PARENT_ID_COLUMN, id);
-        values.put(HOT_DESCRIPTION_COLUMN,hotline.getDescription());
+
         values.put(HOT_PHONE_COLUMN,hotline.getPhoneNumber());
 
         getWritableDatabase().insert(TABLE_HOT_LINE, null, values);
@@ -791,6 +800,7 @@ public class DataHelper extends SQLiteOpenHelper {
 
         values.put(CONSULATE_ADDRESS_COLUMN, consulate.getAddress());
         values.put(CONSULATE_PHONE_COLUMN,consulate.getPhoneNumber());
+        values.put(CONSULATE_KARTA_COLUMN,consulate.getKarta());
         values.put(CONSULATE_PARENT_ID_COLUMN,id);
         values.put(CONSULATE_REGION_COLUMN,consulate.getRegion());
 

@@ -155,6 +155,7 @@ public class RVEmbassyAdapter extends RecyclerView.Adapter {
                     intent.putExtra("email",student.getEmail());
                     intent.putExtra("fax",student.getFax());
                     intent.putExtra("site",student.getSite());
+                    intent.putExtra("karta",student.getKarta());
 
 
 

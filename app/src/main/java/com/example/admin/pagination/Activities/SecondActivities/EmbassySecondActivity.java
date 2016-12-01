@@ -1,8 +1,10 @@
 package com.example.admin.pagination.Activities.SecondActivities;
 
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
@@ -12,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,20 +58,21 @@ public class EmbassySecondActivity extends AppCompatActivity {
     int id1;
     String TAG="TAG_EMBASSY";
     private Toolbar toolbar;
-
+    Context context;
     private TextView tvEmptyView;
     private RecyclerView mRecyclerView;
     private RVEmbassySecondAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     int total_count=100000;
     private List<Consulate> studentList;
-
+    LinearLayout linearLayout;
     ProgressBar progressBar;
     protected Handler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_embassy_second);
+        linearLayout=(LinearLayout) findViewById(R.id.linear_www) ;
         TextView tvTitle=(TextView) findViewById(R.id.tv_embassy_second);
         TextView tvPhone=(TextView) findViewById(R.id.tv_phone_number_second);
         TextView tvFax=(TextView) findViewById(R.id.tv_fax_second);
@@ -79,23 +84,50 @@ public class EmbassySecondActivity extends AppCompatActivity {
         tvPhone.setText(s);
         Log.e("TAG_S",s);
         phoneNumber=s;
-
+        context=EmbassySecondActivity.this;
         final String fax=getIntent().getStringExtra("fax");
         tvFax.setText(fax);
         s=getIntent().getStringExtra("country");
         tvTitle.setText(s);
         final String site=getIntent().getStringExtra("site");
+        if (site.equals("")) linearLayout.setVisibility(View.GONE);
         tvSite.setText(site);
         final String address=getIntent().getStringExtra("address");
         tvAddress.setText(address);
         id=getIntent().getStringExtra("id");
+        final String karta=getIntent().getStringExtra("karta");
+        Log.e("SUUUUUKA",karta);
         tvAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("",address );
-                clipboard.setPrimaryClip(clip);
-                Toast.makeText(EmbassySecondActivity.this, R.string.toast_copy_to_buffer,Toast.LENGTH_SHORT).show();
+                Toast.makeText(EmbassySecondActivity.this,"MOM GAN",Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder ad;
+                ad = new AlertDialog.Builder(context);
+                ad.setTitle("вывыа");  // заголовок
+                ad.setMessage("выавы"); // сообщение
+                ad.setPositiveButton(getString(R.string.toast_karta), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(karta));
+                        startActivity(browserIntent);
+                    }
+                });
+                ad.setNegativeButton(getString(R.string.toast_copy), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("",address );
+                        clipboard.setPrimaryClip(clip);
+                        Toast.makeText(EmbassySecondActivity.this, R.string.toast_copy_to_buffer,Toast.LENGTH_SHORT).show();
+                    }
+                });
+                ad.setCancelable(true);
+                ad.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    public void onCancel(DialogInterface dialog) {
+
+                    }
+                });
+                ad.show();
+
             }
         });
         tvFax.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +195,8 @@ public class EmbassySecondActivity extends AppCompatActivity {
                     istories.setAddress(cursor.getString(cursor.getColumnIndex(DataHelper.CONSULATE_ADDRESS_COLUMN)));
                     istories.setRegion(cursor.getString(cursor.getColumnIndex(DataHelper.CONSULATE_REGION_COLUMN)));
                     istories.setPhoneNumber(cursor.getString(cursor.getColumnIndex(DataHelper.CONSULATE_PHONE_COLUMN)));
+                    istories.setKarta(cursor.getString(cursor.getColumnIndex(DataHelper.CONSULATE_KARTA_COLUMN)));
+
                     studentList.add(istories);
                 }
                 mAdapter=new RVEmbassySecondAdapter(studentList,mRecyclerView,this);

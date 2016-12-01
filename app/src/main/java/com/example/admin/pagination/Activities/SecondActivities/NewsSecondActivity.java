@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
 import com.example.admin.pagination.Adapters.RVMigSecondAdapter;
 import com.example.admin.pagination.R;
@@ -24,6 +26,7 @@ public class NewsSecondActivity extends AppCompatActivity {
     private LinearLayoutManager mLayoutManager;
     List<Mig2> list;
     RVMigSecondAdapter adapter;
+    WebView webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,33 +41,30 @@ public class NewsSecondActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         list=new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-
+        webView=(WebView) findViewById(R.id.web_view);
         mRecyclerView.setHasFixedSize(true);
 
         mLayoutManager = new LinearLayoutManager(this);
 
         // use a linear layout manager
         mRecyclerView.setLayoutManager(mLayoutManager);
-        String s;
-        s = '"' + getIntent().getStringExtra("text") + '"';
+
+        webView.getSettings().setBuiltInZoomControls(true);
+
+        String ss="<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"+"<style>img{display: block;max-height: 100%;max-width: 100%;}</style>";
+        String s ;
+        s= '"' + getIntent().getStringExtra("text") + '"';
+        StringBuilder st=new StringBuilder(s);
+        st.deleteCharAt(st.length()-1);
+        st.deleteCharAt(0);
+        s=ss+st.toString();
+        String s1=s.replaceAll("src=\"","src=\"http://176.126.167.249/");
+        Log.e("TAG_KKxxKK",s1);
+
         Mig2 mig2;
+        webView.loadDataWithBaseURL(null, s1, "text/html", "ru-RU",null);
 
-        for (Element element : Jsoup.parse(s).select("*")) {
-            if (element.tagName().equals("p")) {
-                mig2=new Mig2();
-                mig2.setType(0);
-                mig2.setText(element.text());
-                list.add(mig2);
-            }else if(element.tagName().equals("img")) {
-                mig2=new Mig2();
-                mig2.setType(1);
-                mig2.setText(element.attr("src"));
-                list.add(mig2);
-            }
-        }
 
-        adapter= new RVMigSecondAdapter(list,mRecyclerView,this);
-        mRecyclerView.setAdapter(adapter);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

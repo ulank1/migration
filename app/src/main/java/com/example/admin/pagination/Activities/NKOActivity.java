@@ -39,6 +39,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,6 +52,8 @@ public class NKOActivity extends AppCompatActivity {
     ProgressBar progressBar;
     String date,dateDB;
     Button call;
+    int lang;
+    URL urlM;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +71,30 @@ public class NKOActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
         mRecyclerView.setHasFixedSize(true);
         dataHelper=new DataHelper(this);
+
+        Cursor cursor=dataHelper.getDataLanguage();
+        if (cursor.getCount()>0)
+        {
+
+            cursor.moveToFirst();
+            lang=cursor.getInt(cursor.getColumnIndex(DataHelper.LANGUAGE_COLUMN));
+
+        }
+        else lang=0;
+        if (lang==0) {
+            try {
+                urlM=new URL("http://176.126.167.249/api/v1/nko/?format=json&limit=0");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }else {
+            try {
+                urlM=new URL("http://176.126.167.249/api/v1/nko_kg/?format=json&limit=0");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         studentList=new ArrayList<>();
         // use a linear layout manager
@@ -254,7 +281,7 @@ public class NKOActivity extends AppCompatActivity {
 
             try {
 
-                URL url = new URL("http://176.126.167.249/api/v1/nko/?limit=0&format=json");
+                URL url = urlM;
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");

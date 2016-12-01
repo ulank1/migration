@@ -73,7 +73,7 @@ public class RVHTAdapter extends RecyclerView.Adapter {
             Mig2 singleStudent= (Mig2) studentList.get(position);
             if (singleStudent.getType()==0) {
                 ((StudentViewHolder) holder).tvName.setVisibility(View.VISIBLE);
-                ((StudentViewHolder) holder).tvName.setText(singleStudent.getText());
+                ((StudentViewHolder) holder).tvName.setText("    "+singleStudent.getText());
                 ((StudentViewHolder) holder).imageView.setVisibility(View.GONE);
 
 

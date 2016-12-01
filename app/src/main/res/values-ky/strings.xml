@@ -47,5 +47,10 @@
     <string name="tv_date_in_blacklist">Туулган кунунузду киргизиниз</string>
     <string name="toast_copy_to_buffer">Скопировано в буфер обмена</string>
     <string name="tv_about_project_name">Адам сатууга каршы күрөштө Кыргыз Республикасынын өкмөтүнүн ченемдик-укуктук жана техникалык базасын бекемдөөгө көмөктөөшүү</string>
+    <string name="toast_karta">Перейти на Карту</string>
+    <string name="toast_copy">Скопировать</string>
+    <string name="tv_2_about_ac">Кыргыз Республикасынын Өкмөтүнө караштуу Мамлекеттик Көчүрүү кызматы</string>
+    <string name="tv_3_about_ac">АКШнын Мамлекеттик департаменти</string>
+    <string name="tv_4_about_ac">Миграция боюнча эл аралык уюму</string>
 
 </resources>

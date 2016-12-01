@@ -125,6 +125,7 @@ public class EmbassyActivity extends AppCompatActivity {
                                 istories.setFax(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_FAX_COLUMN)));
                                 istories.setCountry(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_COUNTRY_COLUMN)));
                                 istories.setImage(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_IMAGE_COLUMN)));
+                                istories.setKarta(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_KARTA_COLUMN)));
 
                                 istories.setPhoneNumber(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_PHONE_COLUMN)));
                                 studentList.add(istories);
@@ -176,6 +177,7 @@ public class EmbassyActivity extends AppCompatActivity {
                     connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED){
                 new ParseTask().execute();
                 progressBar.setVisibility(View.VISIBLE);
+                Toast.makeText(this,R.string.toast_no_internet,Toast.LENGTH_SHORT).show();
             }
             else {
                 Toast.makeText(this,R.string.toast_no_internet,Toast.LENGTH_SHORT).show();
@@ -214,6 +216,7 @@ public class EmbassyActivity extends AppCompatActivity {
                     istories.setCountry(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_COUNTRY_COLUMN)));
                     istories.setPhoneNumber(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_PHONE_COLUMN)));
                     istories.setImage(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_IMAGE_COLUMN)));
+                    istories.setKarta(cursor.getString(cursor.getColumnIndex(DataHelper.EMBASSY_KARTA_COLUMN)));
 
                     studentList.add(istories);
                 }
@@ -291,7 +294,8 @@ public class EmbassyActivity extends AppCompatActivity {
                     student.setRegion(menu.getString("address"));
                     student.setSite(menu.getString("site"));
                     student.setImage(menu.getString("image"));
-
+                    student.setKarta(menu.getString("map_link"));
+                    Log.e("TAG_NEWSssss",student.getKarta());
                     if (i==0){dataHelper.deleteEmbassy();
                         Log.e("TAG_NEWS","DELETE");
                     }
@@ -381,6 +385,7 @@ public class EmbassyActivity extends AppCompatActivity {
                     student.setRegion(menu.getString("region"));
 
                     student.setAddress(menu.getString("address"));
+                    student.setKarta(menu.getString("map_link"));
 
                     Log.e(TAG+"ADD",student.getAddress());
 

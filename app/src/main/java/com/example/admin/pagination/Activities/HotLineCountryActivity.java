@@ -306,7 +306,7 @@ public class HotLineCountryActivity extends AppCompatActivity {
                 for (int i = 0; i < menus.length(); i++) {
                     JSONObject menu = menus.getJSONObject(i);
                     Hotline student = new Hotline();
-                    student.setDescription(menu.getString("text_ru"));
+
                     student.setTitle(menu.getString("title_ru"));
                     student.setPhoneNumber(menu.getString("phone_number"));
                     JSONObject country=menu.getJSONObject("country");

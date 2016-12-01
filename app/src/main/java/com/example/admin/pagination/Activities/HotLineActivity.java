@@ -108,7 +108,6 @@ db();
                 Hotline istories=new Hotline();
                 istories.setTitle(cursor.getString(cursor.getColumnIndex(DataHelper.HOT_TITLE_COLUMN)));
                 istories.setPhoneNumber(cursor.getString(cursor.getColumnIndex(DataHelper.HOT_PHONE_COLUMN)));
-                istories.setDescription(cursor.getString(cursor.getColumnIndex(DataHelper.HOT_DESCRIPTION_COLUMN)));
                 studentList.add(istories);
             }
             mAdapter=new RVHotLineAdapter(studentList,mRecyclerView,this);

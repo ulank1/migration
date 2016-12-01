@@ -23,44 +23,54 @@
 
     </android.support.design.widget.AppBarLayout>
     <ScrollView
-        android:padding="6dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:paddingTop="10dp"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#0a92cb"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/title_quastion"
+                    android:paddingTop="10dp"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:text="@string/tv_faq_answer"/>
+                <TextView
+                    android:paddingBottom="10dp"
+                    android:text="asdaa sdad sd fsd fsdf asd fasd fasdf asd fasd fasd fasd fasd fsd"
+                    android:textStyle="bold"
+                    android:layout_margin="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#fff"
+                    android:id="@+id/tv_answer"/>
+            </LinearLayout>
+            <ImageView
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/title_answer"
+                android:paddingTop="10dp"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
                 android:text="@string/tv_faq_answer"/>
             <TextView
 
-                android:text="asdasd"
-                android:textStyle="bold"
-                android:layout_margin="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:background="@drawable/rv_embassy"
+                android:padding="10dp"
+                android:lineSpacingMultiplier="1.5"
                 android:textSize="16sp"
-                android:textColor="#000"
-                android:id="@+id/tv_answer"/>
-
-            <TextView
+                android:text="dssdas dg sdgasd gasd gasdg adsg ads gad gasdg asd gasd gasd gasdg asdg asdg asdg a sdgasd gasd asg asdg asdg asdgag asgasdgasd g"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:text="@string/tv_question_faq"/>
-        <TextView
-
-            android:background="@drawable/rv_embassy"
-            android:padding="10dp"
-            android:textColor="#000"
-            android:textSize="16sp"
-            android:text="dssd"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/tv_news_second"/>
+                android:layout_height="match_parent"
+                android:id="@+id/tv_news_second"/>
             <Button
                 android:onClick="onclick"
                 android:visibility="gone"
@@ -75,4 +85,3 @@
 
     </ScrollView>
 </LinearLayout>
-

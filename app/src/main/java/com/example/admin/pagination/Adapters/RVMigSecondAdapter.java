@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -114,8 +115,9 @@ public class RVMigSecondAdapter extends RecyclerView.Adapter {
 
             Mig2 singleStudent= (Mig2) studentList.get(position);
             if (singleStudent.getType()==0) {
+                if (singleStudent.getStrong()==1)  ((StudentViewHolder) holder).tvName.setTextColor(Color.BLUE);
                 ((StudentViewHolder) holder).tvName.setVisibility(View.VISIBLE);
-                ((StudentViewHolder) holder).tvName.setText(singleStudent.getText());
+                ((StudentViewHolder) holder).tvName.setText("    "+singleStudent.getText());
                 ((StudentViewHolder) holder).imageView.setVisibility(View.GONE);
 
 

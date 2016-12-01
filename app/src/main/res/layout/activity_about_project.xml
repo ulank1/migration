@@ -73,10 +73,11 @@
                 android:textColor="#000"
                 android:layout_margin="10dp"
                 android:textSize="16sp"
-                android:text="Государственная миграционная служба при Правительстве Кыргызской Республики"
+                android:text="@string/tv_2_about_ac"
                 android:layout_height="wrap_content" />
 
             <View
+
                 android:background="@color/cardview_dark_background"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"></View>
@@ -85,8 +86,7 @@
                 android:paddingTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+
                 android:orientation="vertical">
                 <ImageView
                     android:layout_weight="1"
@@ -102,8 +102,15 @@
                     android:layout_marginTop="7dp"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="Международная Организация по Миграции"
+                    android:text="@string/tv_4_about_ac"
                     android:layout_height="wrap_content" />
+
+
+                <View
+                    android:layout_marginTop="7dp"
+                    android:background="@color/cardview_dark_background"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"></View>
 
                 <ImageView
                     android:layout_gravity="center_horizontal"
@@ -112,6 +119,19 @@
                     android:layout_width="200dp"
                     android:layout_height="110dp"
                     android:background="@drawable/flag_usa"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:layout_marginTop="7dp"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:text="@string/tv_3_about_ac"
+                    android:layout_height="wrap_content" />
+
             </LinearLayout>
 
 

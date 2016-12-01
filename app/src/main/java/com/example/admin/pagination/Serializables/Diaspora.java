@@ -4,7 +4,15 @@ package com.example.admin.pagination.Serializables;
  * Created by ulan on 11/9/16.
  */
 public class Diaspora {
-    String address,city,email,manager,number,place;
+    String address,city,email,manager,number,place,karta;
+
+    public void setKarta(String karta) {
+        this.karta = karta;
+    }
+
+    public String getKarta() {
+        return karta;
+    }
 
     public String getManager() {
         return manager;
@@ -53,5 +61,6 @@ public class Diaspora {
     public void setPlace(String place) {
         this.place = place;
     }
+
 
 }
