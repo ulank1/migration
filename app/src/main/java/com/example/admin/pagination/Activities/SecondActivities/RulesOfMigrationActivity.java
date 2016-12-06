@@ -50,7 +50,7 @@ public class RulesOfMigrationActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         webView.getSettings().setBuiltInZoomControls(true);
 
-        String ss="<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"+"<style>img{display: block;max-height: 100%;max-width: 100%;}</style>";
+        String ss="<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"+"<style>img{display: block;max-height: 100%;max-width: 100%;min-height: 100%;min-width: 100%}</style>";
 
         String s ;
         s= '"' + getIntent().getStringExtra("text") + '"';

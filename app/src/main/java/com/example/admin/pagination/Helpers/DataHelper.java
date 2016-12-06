@@ -9,6 +9,7 @@ import android.provider.BaseColumns;
 import android.util.Log;
 
 import com.example.admin.pagination.Serializables.Consulate;
+import com.example.admin.pagination.Serializables.CountryRX;
 import com.example.admin.pagination.Serializables.Diaspora;
 import com.example.admin.pagination.Serializables.EAEU;
 import com.example.admin.pagination.Serializables.Embassy;
@@ -17,6 +18,7 @@ import com.example.admin.pagination.Serializables.Hotline;
 import com.example.admin.pagination.Serializables.Istories;
 import com.example.admin.pagination.Serializables.NKO;
 import com.example.admin.pagination.Serializables.RulesOfIncoming;
+import com.example.admin.pagination.Serializables.RulesOfIncomingRX;
 import com.example.admin.pagination.Serializables.User;
 import com.example.admin.pagination.Serializables.VseAndUzery;
 
@@ -620,6 +622,17 @@ public class DataHelper extends SQLiteOpenHelper {
                 null, RULES_OF_MIGRATION_PARENT_ID_COLUMN+ " = ? ", new String[]{String.valueOf(id)},
                 null, null, null);
     }
+    public void insertROM(RulesOfIncomingRX ofIncoming, String id) {
+        ContentValues values = new ContentValues();
+
+        values.put(RULES_OF_MIGRATION_ZAGOLOVOK_COLUMN, ofIncoming.getTitle_ru());
+        values.put(RULES_OF_MIGRATION_PARENT_ID_COLUMN, id);
+        values.put(RULES_OF_MIGRATION_TEXT_COLUMN,ofIncoming.getText_ru());
+
+
+        getWritableDatabase().insert(TABLE_RULES_OF_MIGRATION, null, values);
+
+    }
     public void insertROM(RulesOfIncoming ofIncoming,String id) {
         ContentValues values = new ContentValues();
 
@@ -897,6 +910,16 @@ public Cursor getDataSize() {
         values.put(ABROAD_PICTURE_COLUMN,eaeu.getPicture() );
         values.put(ABROAD_ID_COLUMN,eaeu.getId() );
         values.put(ABROAD_TITLE_COLUMN,eaeu.getName() );
+
+
+        getWritableDatabase().insert(TABLE_ABROAD, null, values);
+    }
+    public void insertAbroad(CountryRX eaeu) {
+        ContentValues values = new ContentValues();
+
+        values.put(ABROAD_PICTURE_COLUMN,eaeu.getImage() );
+        values.put(ABROAD_ID_COLUMN,eaeu.getId() );
+        values.put(ABROAD_TITLE_COLUMN,eaeu.getCountry() );
 
 
         getWritableDatabase().insert(TABLE_ABROAD, null, values);

@@ -100,7 +100,7 @@ public class EmbassySecondActivity extends AppCompatActivity {
         tvAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(EmbassySecondActivity.this,"MOM GAN",Toast.LENGTH_SHORT).show();
+
 
                 AlertDialog.Builder ad;
                 ad = new AlertDialog.Builder(context);

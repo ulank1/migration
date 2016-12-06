@@ -102,6 +102,10 @@ if (editmonth.getText().toString().length()==0)
     protected Dialog onCreateDialog(int id) {
         if (id == DIALOG_DATE) {
             DatePickerDialog tpd = new DatePickerDialog(InspectionActivity.this, myCallBack, myYear, myMonth, myDay);
+            calendar=Calendar.getInstance();
+            DatePicker dp = tpd.getDatePicker();
+            dp.setMaxDate(calendar.getTimeInMillis());
+
             return tpd;
         }
         return super.onCreateDialog(id);

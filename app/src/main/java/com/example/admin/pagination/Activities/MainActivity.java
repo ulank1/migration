@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this,EAEUActivity.class));
                 break;
             case R.id.bt_rules_of_migration:
-                startActivity(new Intent(MainActivity.this,AbroadActivity.class));
+                startActivity(new Intent(MainActivity.this,AbroadRXActivity.class));
                 break;
             case R.id.bt_torgovlya:
                 startActivity(new Intent(MainActivity.this,HumanTraffickingActivity.class));

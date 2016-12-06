@@ -56,7 +56,8 @@
         <activity android:name=".Activities.NKOActivity" />
         <activity android:name=".Activities.SecondActivities.NKOSecondActivity" />
         <activity android:name=".Activities.InspectionActivity" />
-        <activity android:name=".Activities.SecondActivities.MOMGandoActivity"></activity>
+        <activity android:name=".Activities.SecondActivities.MOMGandoActivity" />
+        <activity android:name=".Activities.AbroadRXActivity"></activity>
     </application>
 
 </manifest>
